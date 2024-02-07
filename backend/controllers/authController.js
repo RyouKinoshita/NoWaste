@@ -6,8 +6,10 @@ const sendEmail = require("../utils/sendEmail");
 const bcrypt = require("bcryptjs");
 
 exports.registerUser = async (req, res, next) => {
+  console.log(req.file);
+  console.log(req.body);
   const result = await cloudinary.v2.uploader.upload(
-    req.body.avatar,
+    req.file.path,
     {
       folder: "avatars",
       width: 200,
