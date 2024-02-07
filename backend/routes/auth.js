@@ -6,8 +6,8 @@ const {
   registerUser,
   loginUser,
   logout,
-  // forgotPassword,
-  // resetPassword,
+  forgotPassword,
+  resetPassword,
   // getUserProfile,
   // updatePassword,
   // updateProfile,
@@ -24,8 +24,8 @@ router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
 router.get("/logout", logout);
 
-// router.post("/password/forgot", forgotPassword);
-// router.put("/password/reset/:token", resetPassword);
+router.post("/password/forgot", forgotPassword);
+router.put("/password/reset/:token", resetPassword);
 
 // router.get("/me", isAuthenticatedUser, getUserProfile);
 
