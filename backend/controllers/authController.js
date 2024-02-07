@@ -135,15 +135,14 @@ exports.resetPassword = async (req, res, next) => {
   sendToken(user, 200, res);
 };
 
-// exports.getUserProfile = async (req, res, next) => {
+exports.getUserProfile = async (req, res, next) => {
+  const user = await User.findById(req.user.id);
 
-//   const user = await User.findById(req.user.id);
-
-//   res.status(200).json({
-//     success: true,
-//     user,
-//   });
-// };
+  res.status(200).json({
+    success: true,
+    user,
+  });
+};
 
 // exports.updatePassword = async (req, res, next) => {
 //   const user = await User.findById(req.user.id).select("password");
