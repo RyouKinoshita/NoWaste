@@ -50,7 +50,7 @@ function App() {
                 rippleTag='div'
                 rippleColor='primary'
               >
-                <img src='https://mdbootstrap.com/img/new/fluid/city/113.webp' className='w-100' />
+                <img src='../assets/images/grp4.jpg' className='w-100' />
                 <a href='#!'>
                   <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.2)' }}></div>
                 </a>
@@ -58,11 +58,11 @@ function App() {
 
             </div>
             <div className="col-md-7">
-              <h3>My Ending Shit</h3>
-              <p class="text-muted" >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+              <h3>Bridging waste from Taguig Palengke to Pig farm</h3>
+              <p class="text-muted" > <span>                </span>The researchers conclude that this study is a way to create an alternative for both the local market and the local pig farms to synergize their resources and create a mutual relationship with each other. This research focuses on how to make pig farming more efficient, less expensive, and at the same time make the dry market vendor’s food waste to be the alternative food source of pig farms as a way to combat the wastes that these markets produce.</p>
               <hr />
 
-              <p class="text-muted"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1580.</p>
+              <p class="text-muted"> In this context, the suggested mobile application "NoWaste" seeks to connect the demands of pig farming with dry market excess, strengthening and sustaining the Philippines' agricultural ecology and creating opportunities that help align with the government’s efforts in combating the problems with waste management.</p>
 
               <MDBBtn outline rounded >
                 Learn More <MDBIcon fas icon="book-open" />
@@ -73,15 +73,15 @@ function App() {
           <div className="row my-5" >
             <div className="col-md-4 " > <MDBCard>
               <MDBRipple rippleColor='light' rippleTag='div' className='bg-image hover-overlay'>
-                <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/111.webp' fluid alt='...' />
+                <MDBCardImage src='../assets/images/1.jpg' fluid alt='...' />
                 <a>
                   <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }}></div>
                 </a>
               </MDBRipple>
               <MDBCardBody>
-                <MDBCardTitle>Card title</MDBCardTitle>
+                <MDBCardTitle>Food Waste </MDBCardTitle>
                 <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                How much food does your family throw away in a week?
                 </MDBCardText>
                 {/* this is modal  */}
 
@@ -91,13 +91,17 @@ function App() {
                   <MDBModalDialog centered size=''>
                     <MDBModalContent>
                       <MDBModalHeader>
-                        <MDBModalTitle>Description</MDBModalTitle>
+                        <MDBModalTitle>Did you know?</MDBModalTitle>
                         <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
                       </MDBModalHeader>
                       <MDBModalBody>
                         <p>
-                          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-                          egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                        <div class="clearfix" >
+                            <img src="../assets/images/1.jpg" class="col-md-6 float-md-end mb-3 ms-md-3" alt="..." style={{ maxWidth: '100%', height: 'auto' }}/>
+
+                            On average, American households are throwing away 6.2 cups of food per week, with leftover waste/spoilage and overreliance on date labels identified as two of the primary contributors to this waste. According to the U.S. Food & Drug Administration, 30% to 40% of food in the United States is wasted.
+                          </div>
+
                         </p>
                       </MDBModalBody>
                       <MDBModalFooter>
@@ -113,15 +117,15 @@ function App() {
             </MDBCard></div>
             <div className="col-md-4"> <MDBCard>
               <MDBRipple rippleColor='light' rippleTag='div' className='bg-image hover-overlay'>
-                <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/111.webp' fluid alt='...' />
+                <MDBCardImage src='../assets/images/piggy.jpg' fluid alt='...'style={{ maxWidth: '100%', height: 'auto' }} />
                 <a>
                   <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }}></div>
                 </a>
               </MDBRipple>
               <MDBCardBody>
-                <MDBCardTitle>Card title</MDBCardTitle>
+                <MDBCardTitle>Pig Feeds</MDBCardTitle>
                 <MDBCardText>
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
+                  Can pigs eat vegetable scraps?
                 </MDBCardText>
                 <MDBBtn onClick={toggleOpen1}>Description</MDBBtn>
                 {/* THIS IS MODAL 1 */}
@@ -129,13 +133,19 @@ function App() {
                   <MDBModalDialog centered>
                     <MDBModalContent>
                       <MDBModalHeader>
-                        <MDBModalTitle>Title</MDBModalTitle>
+                        <MDBModalTitle>Did you know?</MDBModalTitle>
                         <MDBBtn className='btn-close' color='none' onClick={toggleOpen1}></MDBBtn>
                       </MDBModalHeader>
                       <MDBModalBody>
                         <p>
-                          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-                          egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+
+                          <div class="clearfix">
+                            <img src="../assets/images/piggy.jpg" class="col-md-6 float-md-end mb-3 ms-md-3" alt="..." />
+
+                            There are several types of feed that can be used to fatten pigs faster and enhance their growth. These include: Corn: Corn is a highly digestible and energy-dense feed that is commonly used in pig diets. It provides pigs with the necessary carbohydrates to support their growth and helps to increase weight gain.
+                          </div>
+
+
                         </p>
                       </MDBModalBody>
                       <MDBModalFooter>
