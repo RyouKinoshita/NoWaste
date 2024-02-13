@@ -64,7 +64,8 @@ const Header = () => {
       </MDBCarouselItem>
       <MDBCarouselItem itemId={3}>
         <img src='../assets/images/ff.png' className='d-block w-100' alt='...' />
-      </MDBCarouselItem>
+      </MDBCarouselItem>  
+      
     </MDBCarousel>
     </header>
 
