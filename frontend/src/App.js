@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MDBBtn, MDBContainer } from "mdb-react-ui-kit";
-import Header from "./component/Header";
+import Header from "./components/Header";
 import { MDBRipple, MDBIcon } from "mdb-react-ui-kit";
 
 import {
