@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import '../index.css'
 
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from 'mdb-react-ui-kit';
 const Header = () => {
+  const [fullscreenXlModal, setFullscreenXlModal] = useState(false);
+
+  const toggleFullScreen = () => setFullscreenXlModal(!fullscreenXlModal);
+
   return (
-<header classname="page-header min-vh-100" >
+
+    <header classname="page-header min-vh-100" >
 
 
       <nav className="navbar navbar-expand-lg navbar-dark  bg-dark navbar-absolute ">
@@ -22,9 +37,30 @@ const Header = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-white" href="javascript:;">
+                <a className="nav-link text-white" onClick={toggleFullScreen}>
                   About Us
                 </a>
+                <MDBModal tabIndex='-1' open={fullscreenXlModal} setOpen={setFullscreenXlModal}>
+                  <MDBModalDialog size='fullscreen'>
+                    <MDBModalContent>
+                      <MDBModalHeader>
+                        <MDBModalTitle>TUP-TAGUIG</MDBModalTitle>
+                        <MDBBtn
+                          type='button'
+                          className='btn-close'
+                          color='none'
+                          onClick={toggleFullScreen}
+                        ></MDBBtn>
+                      </MDBModalHeader>
+                      <MDBModalBody>...</MDBModalBody>
+                      <MDBModalFooter>
+                        <MDBBtn type='button' color='secondary' onClick={toggleFullScreen}>
+                          Close
+                        </MDBBtn>
+                      </MDBModalFooter>
+                    </MDBModalContent>
+                  </MDBModalDialog>
+                </MDBModal>
               </li>
               <li className="nav-item">
                 <a className="nav-link text-white" href="javascript:;">
@@ -56,17 +92,17 @@ const Header = () => {
 
 
       <MDBCarousel showControls showIndicators>
-      <MDBCarouselItem itemId={1}>
-        <img src='../assets/images/rr.jpg' className='d-block w-100' alt='...' />
-      </MDBCarouselItem>
-      <MDBCarouselItem itemId={2}>
-        <img src='../assets/images/eee.png' className='d-block w-100' alt='...' />
-      </MDBCarouselItem>
-      <MDBCarouselItem itemId={3}>
-        <img src='../assets/images/ff.png' className='d-block w-100' alt='...' />
-      </MDBCarouselItem>  
-      
-    </MDBCarousel>
+        <MDBCarouselItem itemId={1}>
+          <img src='../assets/images/rr.jpg' className='d-block w-100' alt='...' />
+        </MDBCarouselItem>
+        <MDBCarouselItem itemId={2}>
+          <img src='../assets/images/eee.png' className='d-block w-100' alt='...' />
+        </MDBCarouselItem>
+        <MDBCarouselItem itemId={3}>
+          <img src='../assets/images/ff.png' className='d-block w-100' alt='...' />
+        </MDBCarouselItem>
+
+      </MDBCarousel>
     </header>
 
 

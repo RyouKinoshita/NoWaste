@@ -11,10 +11,10 @@ const {
   getUserProfile,
   updatePassword,
   updateProfile,
-  // allUsers,
-  // getUserDetails,
-  // deleteUser,
-  // updateUser,
+  allUsers,
+  getUserDetails,
+  deleteUser,
+  updateUser,
 } = require("../controllers/authController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 
@@ -36,11 +36,16 @@ router.put(
   updateProfile
 );
 
-// router.get("/admin/users", allUsers);
+router.get(
+  "/admin/users",
+  isAuthenticatedUser,
+  authorizeRoles("admin"),
+  allUsers
+);
 
-// router
-//   .route("/admin/user/:id")
-//   .get(isAuthenticatedUser, getUserDetails)
-//   .delete(isAuthenticatedUser, deleteUser)
-//   .put(isAuthenticatedUser, updateUser);
+router
+  .route("/admin/user/:id")
+  .get(isAuthenticatedUser, getUserDetails)
+  .delete(isAuthenticatedUser, deleteUser)
+  .put(isAuthenticatedUser, upload.none(), updateUser);
 module.exports = router;
