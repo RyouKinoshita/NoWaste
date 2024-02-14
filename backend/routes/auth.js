@@ -11,8 +11,8 @@ const {
   getUserProfile,
   updatePassword,
   updateProfile,
-  // allUsers,
-  // getUserDetails,
+  allUsers,
+  getUserDetails,
   // deleteUser,
   // updateUser,
 } = require("../controllers/authController");
@@ -36,11 +36,14 @@ router.put(
   updateProfile
 );
 
-// router.get("/admin/users", allUsers);
+router.get(
+  "/admin/users",
+  isAuthenticatedUser,
+  authorizeRoles("admin", "seller"),
+  allUsers
+);
 
-// router
-//   .route("/admin/user/:id")
-//   .get(isAuthenticatedUser, getUserDetails)
-//   .delete(isAuthenticatedUser, deleteUser)
-//   .put(isAuthenticatedUser, updateUser);
+router.route("/admin/user/:id").get(isAuthenticatedUser, getUserDetails);
+// .delete(isAuthenticatedUser, deleteUser)
+// .put(isAuthenticatedUser, updateUser);
 module.exports = router;

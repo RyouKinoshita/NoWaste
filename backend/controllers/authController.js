@@ -156,7 +156,6 @@ exports.updatePassword = async (req, res, next) => {
   sendToken(user, 200, res);
 };
 
-// Update Avatar not working yet
 exports.updateProfile = async (req, res, next) => {
   try {
     const newUserData = {
@@ -220,29 +219,28 @@ exports.updateProfile = async (req, res, next) => {
   }
 };
 
-// exports.allUsers = async (req, res, next) => {
-//   const users = await User.find();
-//   res.status(200).json({
-//     success: true,
-//     users,
-//   });
-// };
+exports.allUsers = async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({
+    success: true,
+    users,
+  });
+};
 
-// exports.getUserDetails = async (req, res, next) => {
-//   const user = await User.findById(req.params.id);
+exports.getUserDetails = async (req, res, next) => {
+  const user = await User.findById(req.params.id);
 
-//   if (!user) {
-//     return res
-//       .status(400)
-//       .json({ message: `User does not found with id: ${req.params.id}` });
+  if (!user) {
+    return res
+      .status(400)
+      .json({ message: `User does not found with id: ${req.params.id}` });
+  }
 
-//   }
-
-//   res.status(200).json({
-//     success: true,
-//     user,
-//   });
-// };
+  res.status(200).json({
+    success: true,
+    user,
+  });
+};
 
 // exports.deleteUser = async (req, res, next) => {
 //   const user = await User.findById(req.params.id);
