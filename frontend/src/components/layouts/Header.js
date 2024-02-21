@@ -18,17 +18,23 @@ import {
   MDBIcon
 } from "mdb-react-ui-kit";
 import "../../index.css";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
-  const [fullscreenXlModal, setFullscreenXlModal] = useState(false);
 
+
+  const [fullscreenXlModal, setFullscreenXlModal] = useState(false);
   const toggleFullScreen = () => setFullscreenXlModal(!fullscreenXlModal);
   const [centredModal, setCentredModal] = useState(false);
-
   const toggleOpen = () => setCentredModal(!centredModal);
-
+  const navigate = useNavigate()
+  const logoutHandler = () => {
+    localStorage.clear()
+    alert('You are now Logout!')
+    navigate('/')
+  }
+  console.log(logoutHandler)
   return (
 
 
@@ -43,6 +49,23 @@ const Header = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbar-header-2">
             <ul className="navbar-nav mx-auto">
+              {/* <li className="nav-item">
+                <a className="nav-link text-white" >
+                  Home
+                </a>
+              </li>
+              <li className="nav-item nav-link text-white">
+                <Link to='/aboutus' style={{ color: "white" }}>
+                  About Us
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link text-white" >
+                  Contact Us
+                </a>
+              </li> */}
+            </ul>
+            <ul className="nav navbar-nav">
               <li className="nav-item">
                 <a className="nav-link text-white" >
                   Home
@@ -58,14 +81,15 @@ const Header = () => {
                   Contact Us
                 </a>
               </li>
-            </ul>
-            <ul className="nav navbar-nav">
-              <li className="nav-item">
-                <a className="nav-link text-white" href="https://twitter.com/CreativeTim">
-                <MDBIcon fas icon="user-plus" />
-                </a>
+              {/* <li className="nav-item nav-link text-white"  >
+                <Link to='/login' style={{ color: "white" }}>
+                  <MDBIcon fas icon="user-plus" />
+                </Link>
+              </li> */}
+
+              <li className="nav-item nav-link text-white" >
+                <a onClick={logoutHandler} ><i class="fa-solid fa-user-xmark" style={{cursor:'pointer'}}></i></a>
               </li>
-             
             </ul>
           </div>
         </div>
