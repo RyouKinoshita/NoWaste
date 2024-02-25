@@ -20,41 +20,41 @@ const UsersList = () => {
   const [isDeleted, setIsDeleted] = useState(false);
 
   let navigate = useNavigate();
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+  };
 
+  const listUsers = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}/api/v1/admin/users`,
+        config
+      );
+      setUsers(data.users);
+      setLoading(false);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
+
+  const deleteUser = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${process.env.REACT_APP_API}/api/v1/admin/user/${id}`,
+        config
+      );
+      setIsDeleted(data.success);
+      const timeoutId = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
   useEffect(() => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
-      },
-    };
-
-    const listUsers = async () => {
-      try {
-        const { data } = await axios.get(
-          `${process.env.REACT_APP_API}/api/v1/admin/users`,
-          config
-        );
-        setUsers(data.users);
-        setLoading(false);
-      } catch (error) {
-        setError(error.response.data.message);
-      }
-    };
-
-    const deleteUser = async (id) => {
-      try {
-        const { data } = await axios.delete(
-          `${process.env.REACT_APP_API}/api/v1/admin/user/${id}`,
-          config
-        );
-        setIsDeleted(data.success);
-        setLoading(false);
-      } catch (error) {
-        setError(error.response.data.message);
-      }
-    };
-
     listUsers();
 
     if (error) {
@@ -64,7 +64,7 @@ const UsersList = () => {
 
     if (isDeleted) {
       successMsg("User deleted successfully");
-      navigate("/admin/users");
+      navigate("/admin/userslist");
       setIsDeleted(false);
     }
   }, [error, isDeleted, navigate]);
