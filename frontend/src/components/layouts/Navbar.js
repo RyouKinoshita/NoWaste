@@ -1,22 +1,5 @@
 import React, { useState } from "react";
-import {
-  MDBCarousel,
-  MDBCarouselItem,
-  MDBBtn,
-  MDBModal,
-  MDBModalDialog,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBDropdownMenu,
-  MDBNavbar,
-  MDBRipple,
-  MDBIcon,
-} from "mdb-react-ui-kit";
+import { MDBIcon } from "mdb-react-ui-kit";
 import "../../index.css";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -28,10 +11,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.clear();
-    alert("You are now Logout!");
+    alert("You are now logged out!");
     navigate("/");
   };
-  console.log(logoutHandler);
+
   return (
     <header>
       <nav
@@ -40,7 +23,7 @@ const Navbar = () => {
       >
         <div className="container">
           <a className="navbar-brand text-white" href="javascript:;">
-            No waste System
+            No Waste
           </a>
           <button
             className="navbar-toggler"
@@ -54,54 +37,37 @@ const Navbar = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbar-header-2">
-            <ul className="navbar-nav mx-auto">
-              {/* <li className="nav-item">
-                <a className="nav-link text-white" >
-                  Home
-                </a>
-              </li>
-              <li className="nav-item nav-link text-white">
-                <Link to='/aboutus' style={{ color: "white" }}>
-                  About Us
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link text-white" >
-                  Contact Us
-                </a>
-              </li> */}
-            </ul>
+            <ul className="navbar-nav mx-auto">{/* ... */}</ul>
             <ul className="nav navbar-nav">
               <li className="nav-item nav-link text-white">
                 <Link to="/homepage" style={{ color: "white" }}>
+                  <MDBIcon fas icon="home" className="me-1" />
                   Home
                 </Link>
               </li>
               <li className="nav-item nav-link text-white">
                 <Link to="/aboutus" style={{ color: "white" }}>
+                  <MDBIcon fas icon="info-circle" className="me-1" />
                   About Us
                 </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-white">Contact Us</a>
+                <a className="nav-link text-white">
+                  <MDBIcon fas icon="address-book" className="me-1" />
+                  Contact Us
+                </a>
               </li>
-              {/* <li className="nav-item nav-link text-white"  >
-                <Link to='/login' style={{ color: "white" }}>
-                  <MDBIcon fas icon="user-plus" />
-                </Link>
-              </li> */}
               <li className="nav-item nav-link text-white">
                 <Link to="/dashboard" style={{ color: "white" }}>
+                  <MDBIcon fas icon="tachometer-alt" className="me-1" />
                   Dashboard
                 </Link>
               </li>
 
               <li className="nav-item nav-link text-white">
-                <a onClick={logoutHandler}>
-                  <i
-                    class="fa-solid fa-user-xmark"
-                    style={{ cursor: "pointer" }}
-                  ></i>
+                <a onClick={logoutHandler} style={{ cursor: "pointer" }}>
+                  <MDBIcon fas icon="sign-out-alt" className="me-1" />
+                  Logout
                 </a>
               </li>
             </ul>
