@@ -15,7 +15,7 @@ const Sidebar = () => {
         <div className="sidebar-wrapper">
           <MDBListGroup className="list-group-flush">
             <MDBListGroupItem>
-              <Link to="/products" className="nav-link">
+              <Link to="/admin/productslist" className="nav-link">
                 <MDBIcon icon="box" className="me-2" /> Products
               </Link>
             </MDBListGroupItem>
