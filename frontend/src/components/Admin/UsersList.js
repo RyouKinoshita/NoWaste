@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import MetaData from "../Layout/Metadata";
 import Loader from "../Layout/Loader";
 import Sidebar from "./Sidebar";
+import Navbar from "../Layout/Navbar";
 import Toast from "../Layout/Toast";
 import axios from "axios";
 import { getToken, successMsg, errMsg } from "../utils/helpers";
@@ -132,6 +133,9 @@ const UsersList = () => {
 
   return (
     <Fragment>
+      <Fragment>
+        <Navbar />
+      </Fragment>
       <MetaData title={"All Users"} />
       <div className="row">
         <div className="col-12 col-md-2">

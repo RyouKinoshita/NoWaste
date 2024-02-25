@@ -5,7 +5,7 @@ import Register from "./components/User/Register";
 import Dashboard from "./components/Admin/Dashboard";
 import UsersList from "./components/Admin/UsersList";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Aboutus from "./components/layouts/Aboutus";
+import Aboutus from "./components/Layout/Aboutus";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../layouts/Navbar";
-import Footer from "../layouts/Footer";
+import Navbar from "../Layout/Navbar";
+import Footer from "../Layout/Footer";
 import Sidebar from "../Admin/Sidebar";
 import {
   MDBContainer,

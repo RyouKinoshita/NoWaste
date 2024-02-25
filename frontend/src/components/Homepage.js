@@ -1,8 +1,8 @@
 import React from "react";
-import Header from "./layouts/Header";
-import Body from "./layouts/Body";
-import Footer from "./layouts/Footer";
-import Navbar from "./layouts/Navbar";
+import Header from "./Layout/Header";
+import Body from "./Layout/Body";
+import Footer from "./Layout/Footer";
+import Navbar from "./Layout/Navbar";
 
 const Homepage = () => {
   return (

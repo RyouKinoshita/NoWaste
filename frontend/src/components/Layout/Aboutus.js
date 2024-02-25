@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../layouts/Navbar";
+import Navbar from "../Layout/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import {
   MDBCarousel,
