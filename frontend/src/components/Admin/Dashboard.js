@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Layout/Navbar";
-import Footer from "../Layout/Footer";
+import AdminFooter from "../Layout/Admin/AdminFooter";
 import Sidebar from "../Admin/Sidebar";
 import {
   MDBContainer,
@@ -18,7 +18,7 @@ const Dashboard = () => {
         <Sidebar />
       </div>
 
-      <Footer />
+      <AdminFooter />
     </div>
   );
 };

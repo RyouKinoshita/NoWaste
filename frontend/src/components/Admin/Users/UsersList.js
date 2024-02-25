@@ -4,13 +4,14 @@ import { MDBDataTable } from "mdbreact";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import MetaData from "../Layout/Metadata";
-import Loader from "../Layout/Loader";
-import Sidebar from "./Sidebar";
-import Navbar from "../Layout/Navbar";
-import Toast from "../Layout/Toast";
+import MetaData from "../../Layout/Metadata";
+import Loader from "../../Layout/Loader";
+import Sidebar from "../Sidebar";
+import Navbar from "../../Layout/Navbar";
+import AdminFooter from "../../Layout/Admin/AdminFooter";
+import Toast from "../../Layout/Toast";
 import axios from "axios";
-import { getToken, successMsg, errMsg } from "../utils/helpers";
+import { getToken, successMsg, errMsg } from "../../utils/helpers";
 
 const UsersList = () => {
   const [loading, setLoading] = useState(true);
@@ -141,9 +142,14 @@ const UsersList = () => {
         <div className="col-12 col-md-2">
           <Sidebar />
         </div>
-        <div className="col-12 col-md-10">
+        <div className="col-12 col-md-10 mb-8">
           <Fragment>
             <h1 className="my-5">All Users</h1>
+            <div className="d-flex justify-content-end mb-3">
+              <Link to="/admin/add-user" className="btn btn-primary mr-5">
+                Add New User
+              </Link>
+            </div>
             {loading ? (
               <Loader />
             ) : (
@@ -157,6 +163,7 @@ const UsersList = () => {
             )}
           </Fragment>
         </div>
+        <AdminFooter />
       </div>
     </Fragment>
   );

@@ -10,8 +10,8 @@ import {
 
 const Sidebar = () => {
   return (
-    <MDBCard className="rounded">
-      <MDBCardBody>
+    <MDBCard className="rounded" style={{ height: "100%" }}>
+      <MDBCardBody className="d-flex flex-column">
         <div className="sidebar-wrapper">
           <MDBListGroup className="list-group-flush">
             <MDBListGroupItem>

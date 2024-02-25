@@ -1,3 +1,6 @@
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const authenticate = (data, next) => {
   if (window !== "undefined") {
     sessionStorage.setItem("token", JSON.stringify(data.token));

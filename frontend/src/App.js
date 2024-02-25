@@ -3,7 +3,8 @@ import Homepage from "./components/Homepage";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import Dashboard from "./components/Admin/Dashboard";
-import UsersList from "./components/Admin/UsersList";
+import UsersList from "./components/Admin/Users/UsersList";
+import UpdateUser from "./components/Admin/Users/UpdateUser";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Aboutus from "./components/Layout/Aboutus";
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin/userslist" element={<UsersList />} />
+        <Route path="/admin/user/:id" element={<UpdateUser />} />
       </Routes>
     </>
   );
