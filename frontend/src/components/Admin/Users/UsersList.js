@@ -145,11 +145,6 @@ const UsersList = () => {
         <div className="col-12 col-md-10 mb-8">
           <Fragment>
             <h1 className="my-5">All Users</h1>
-            <div className="d-flex justify-content-end mb-3">
-              <Link to="/admin/add-user" className="btn btn-primary mr-5">
-                Add New User
-              </Link>
-            </div>
             {loading ? (
               <Loader />
             ) : (
