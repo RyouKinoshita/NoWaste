@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   MDBBtn,
   MDBModal,
@@ -8,9 +8,9 @@ import {
   MDBModalTitle,
   MDBModalBody,
   MDBModalFooter,
-} from 'mdb-react-ui-kit';
+} from "mdb-react-ui-kit";
 
-export default function App() {
+const Register = () => {
   const [centredModal, setCentredModal] = useState(false);
 
   const toggleOpen = () => setCentredModal(!centredModal);
@@ -19,21 +19,26 @@ export default function App() {
     <>
       <MDBBtn onClick={toggleOpen}>Register</MDBBtn>
 
-      <MDBModal tabIndex='-1' open={centredModal} setOpen={setCentredModal}>
+      <MDBModal tabIndex="-1" open={centredModal} setOpen={setCentredModal}>
         <MDBModalDialog centered>
           <MDBModalContent>
             <MDBModalHeader>
               <MDBModalTitle>Modal title</MDBModalTitle>
-              <MDBBtn className='btn-close' color='none' onClick={toggleOpen}></MDBBtn>
+              <MDBBtn
+                className="btn-close"
+                color="none"
+                onClick={toggleOpen}
+              ></MDBBtn>
             </MDBModalHeader>
             <MDBModalBody>
               <p>
-                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
-                egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                Cras mattis consectetur purus sit amet fermentum. Cras justo
+                odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
+                risus, porta ac consectetur ac, vestibulum at eros.
               </p>
             </MDBModalBody>
             <MDBModalFooter>
-              <MDBBtn color='secondary' onClick={toggleOpen}>
+              <MDBBtn color="secondary" onClick={toggleOpen}>
                 Close
               </MDBBtn>
               <MDBBtn>Save changes</MDBBtn>
@@ -43,4 +48,6 @@ export default function App() {
       </MDBModal>
     </>
   );
-}
+};
+
+export default Register;

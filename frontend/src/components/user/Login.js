@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authenticate } from "../utils/helpers";
 import axios from "axios";
 
@@ -88,17 +88,13 @@ export default function Login() {
                   <div className="card-body p-4 p-lg-5 text-black">
                     <form onSubmit={handleSubmit}>
                       <div className="d-flex align-items-center mb-3 pb-1">
-                        <i
-                          className="fas fa-cubes fa-2x me-3"
-                          style={{ color: "#ff6219" }}
-                        />
-                        <span className="h2 fw-bold mb-0">No Waste System</span>
+                        <span className="h2 fw-bold mb-0">No Waste</span>
                       </div>
                       <h5
                         className="fw-normal mb-3 pb-3"
                         style={{ letterSpacing: 1 }}
                       >
-                        Sign into your account
+                        Sign in to your account
                       </h5>
                       <div className="form-outline mb-4">
                         <MDBInput
@@ -131,16 +127,10 @@ export default function Login() {
                       </a>
                       <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                         Don't have an account?{" "}
-                        <a href="#!" style={{ color: "#393f81" }}>
+                        <Link to="/register" style={{ color: "#393f81" }}>
                           Register here
-                        </a>
+                        </Link>
                       </p>
-                      <a href="#!" className="small text-muted">
-                        Terms of use.
-                      </a>
-                      <a href="#!" className="small text-muted">
-                        Privacy policy
-                      </a>
                     </form>
                   </div>
                 </div>

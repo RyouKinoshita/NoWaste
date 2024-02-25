@@ -20,7 +20,7 @@ const Sidebar = () => {
               </Link>
             </MDBListGroupItem>
             <MDBListGroupItem>
-              <Link to="/users" className="nav-link">
+              <Link to="/admin/userslist" className="nav-link">
                 <MDBIcon icon="users" className="me-2" /> Users
               </Link>
             </MDBListGroupItem>
