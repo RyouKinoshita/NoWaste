@@ -19,7 +19,7 @@ const Footer = () => {
                             color="light"
                             floating
                             className="m-1"
-                            href="https://www.facebook.com/CreativeTim"
+                            href="https://www.facebook.com/profile.php?id=61556833288048"
                             role="button"
                         >
                             <MDBIcon fab icon="facebook-f" />
@@ -30,7 +30,7 @@ const Footer = () => {
                             color="light"
                             floating
                             className="m-1"
-                            href="#!"
+                            href="https://www.facebook.com/profile.php?id=61556833288048"
                             role="button"
                         >
                             <MDBIcon fab icon="twitter" />
@@ -41,7 +41,7 @@ const Footer = () => {
                             color="light"
                             floating
                             className="m-1"
-                            href="#!"
+                            href="https://www.facebook.com/profile.php?id=61556833288048"
                             role="button"
                         >
                             <MDBIcon fab icon="google" />

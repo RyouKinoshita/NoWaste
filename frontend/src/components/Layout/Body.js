@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     MDBRipple, MDBIcon, MDBCard, MDBBtn,
     MDBCardBody,
@@ -12,9 +12,40 @@ import {
     MDBModalTitle,
     MDBModalBody,
     MDBModalFooter,
+
 } from "mdb-react-ui-kit";
+import axios from "axios";
+
 
 const Body = () => {
+    const [product, setProduct] = useState([])
+    const [error, setError] = useState('');
+
+    const token = localStorage.getItem('token');
+
+
+    useEffect(() => {
+        const getAllEvents = async () => {
+            try {
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                };
+                const { data } = await axios.get(`http://localhost:4001/api/v1/products`, config);
+                setProduct(data.products);
+                //console.log(data);
+            } catch (error) {
+                setError(error.response.data.message);
+            }
+        };
+        getAllEvents();
+    }, []);
+
+    console.log(product)
+
+
     const [centredModal, setCentredModal] = useState(false);
 
     const [centredModal1, setCentredModal1] = useState(false);
@@ -24,11 +55,26 @@ const Body = () => {
     const toggleOpen = () => setCentredModal(!centredModal);
     const toggleOpen1 = () => setCentredModal1(!centredModal1);
     const toggleOpen2 = () => setCentredModal2(!centredModal2);
+
     return (
         <div>
+
             <main class="my-3 gx-2">
                 <div className="container">
-                   
+
+                    <div className="container text-center">
+                        <div className="card">
+                            <figure class="text-center">
+                                <blockquote class="blockquote">
+                                    <p>"A Zero Waste Lifestyle is a journey. Not a destination."</p>
+                                </blockquote>
+                                <figcaption class="blockquote-footer">
+                                    Someone famous in <cite title="Source Title">Source Title</cite>
+                                </figcaption>
+                            </figure>
+
+                        </div>
+                    </div>
                     <div className="row my-5">
                         <div className="col-md-4 ">
                             {" "}
@@ -38,7 +84,7 @@ const Body = () => {
                                     rippleTag="div"
                                     className="bg-image hover-overlay"
                                 >
-                                    <MDBCardImage src="../assets/images/1.jpg" fluid alt="..."  style={{ height: "220px" , width: "100%" }}  />
+                                    <MDBCardImage src="../assets/images/1.jpg" fluid alt="..." style={{ height: "220px", width: "100%" }} />
                                     <a>
                                         <div
                                             className="mask"
@@ -214,20 +260,20 @@ const Body = () => {
                                                     ></MDBBtn>
                                                 </MDBModalHeader>
                                                 <MDBModalBody>
-                                                <div class="clearfix">
-                                                            <img
-                                                                src="../assets/images/5.jpeg"
-                                                                class="col-md-6 float-md-end mb-3 ms-md-3"
-                                                                alt="..."
-                                                            />
-                                                           The robustness of pigs does not mean that they are immune to diseases that can be transmitted via food. Domestic pigs today are a result of breeding practices that have traded the sturdiness of wild boars for faster growth and better feed conversion ratios.3 Besides, food waste today is as complex as our food system itself. It is no longer a benign mix of peels and trimmings that come from traceable origins. 
-                                                        </div>
+                                                    <div class="clearfix">
+                                                        <img
+                                                            src="../assets/images/5.jpeg"
+                                                            class="col-md-6 float-md-end mb-3 ms-md-3"
+                                                            alt="..."
+                                                        />
+                                                        The robustness of pigs does not mean that they are immune to diseases that can be transmitted via food. Domestic pigs today are a result of breeding practices that have traded the sturdiness of wild boars for faster growth and better feed conversion ratios.3 Besides, food waste today is as complex as our food system itself. It is no longer a benign mix of peels and trimmings that come from traceable origins.
+                                                    </div>
                                                 </MDBModalBody>
                                                 <MDBModalFooter>
                                                     <MDBBtn color="secondary" onClick={toggleOpen2}>
                                                         Close
                                                     </MDBBtn>
-                                                
+
                                                 </MDBModalFooter>
 
                                             </MDBModalContent>
@@ -238,7 +284,46 @@ const Body = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className="container">
+                    <div className="row my-5">
+                        {product.map((product, index) => (
+                            <div key={index} className="col-md-3 mb-2">
+                                <MDBCard style={{ height: "300px", width: "220px" }}>
+                                    {product.images.map((image, index) => (
+                                        <MDBRipple
+                                            key={index}
+                                            rippleColor="light"
+                                            rippleTag="div"
+                                            className="bg-image hover-overlay"
+                                        >
+                                            <MDBCardImage src={image.url} fluid alt={product.name} style={{ height: "220px", width: "350px" }} />
+                                            <a>
+                                                <div
+                                                    className="mask"
+                                                    style={{ backgroundColor: "rgba(251, 251, 251, 0.15)" }}
+                                                ></div>
+                                            </a>
+                                        </MDBRipple>
+                                    ))}
+                                    <MDBCardBody>
+                                        <MDBCardTitle>{product.name}</MDBCardTitle>
+                                        <MDBCardText>{product.category}</MDBCardText>
+                                        {/* Modal code here */}
+                                    </MDBCardBody>
+                                </MDBCard>
+                            </div>
+
+                        ))}
+
+
+
+
+                    </div>
+                </div>
             </main>
+
+
 
         </div>
     )

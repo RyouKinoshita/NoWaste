@@ -19,15 +19,16 @@ router.post(
   upload.array("images", 10),
   newProduct
 );
-// router.get("/products", getProducts);
+
+router.get("/products", getProducts);
 
 // router.get("/product/:id", getSingleProduct);
-// router.get(
-//   "/admin/products",
-//   isAuthenticatedUser,
-//   authorizeRoles("admin", "seller"),
-//   getAdminProducts
-// );
+router.get(
+  "/admin/products",
+  isAuthenticatedUser,
+  authorizeRoles("admin", "seller"),
+  getAdminProducts
+);
 
 // router
 //   .route(

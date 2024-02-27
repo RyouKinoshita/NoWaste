@@ -32,7 +32,7 @@ const ProductsList = () => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:4001/api/v1/admin/product`,
+        `http://localhost:4001/api/v1/admin/products`,
         config
       );
       console.log(data);
@@ -201,8 +201,8 @@ const ProductsList = () => {
                 className="px-3"
                 bordered
                 striped
-                hover
-                style={{ color: "white", fontWeight: "bold" }}
+                
+                style={{ color: "black", fontWeight: "bold" }}
               />
             )}
           </Fragment>
