@@ -8,7 +8,15 @@ const Homepage = () => {
   return (
     <div>
       <>
+        {/* <div
+          style={{
+            padding: "20px",
+            backgroundImage: 'url("../assets/images/waster.png")',
+          }}
+          position="fixed"
+        > */}
         <Navbar />
+        {/* </div> */}
         <Header />
         <Body />
         <Footer />
