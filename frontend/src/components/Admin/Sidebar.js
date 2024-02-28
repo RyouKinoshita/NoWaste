@@ -7,32 +7,79 @@ import {
   MDBListGroup,
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
+import { Sidenav, Nav, Toggle } from "rsuite";
+import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
+import GroupIcon from "@rsuite/icons/legacy/Group";
+import MagicIcon from "@rsuite/icons/legacy/Magic";
+import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
+import ProductIcon from "@rsuite/icons/legacy/ProductHunt";
+import "rsuite/dist/rsuite.min.css";
 
 const Sidebar = () => {
+  const [expanded, setExpanded] = React.useState(true);
+  const [activeKey, setActiveKey] = React.useState("1");
   return (
-    <MDBCard className="rounded" style={{ height: "100%" }}>
-      <MDBCardBody className="d-flex flex-column">
-        <div className="sidebar-wrapper">
-          <MDBListGroup className="list-group-flush">
-            <MDBListGroupItem>
-              <Link to="/admin/productslist" className="nav-link">
-                <MDBIcon icon="box" className="me-2" /> Products
+    // <MDBCard className="rounded" style={{ height: "100%" }}>
+    //   <MDBCardBody className="d-flex flex-column">
+    //     <div className="sidebar-wrapper">
+    //       <MDBListGroup className="list-group-flush">
+    //         <MDBListGroupItem>
+    //           <Link to="/admin/productslist" className="nav-link">
+    //             <MDBIcon icon="box" className="me-2" /> Products
+    //           </Link>
+    //         </MDBListGroupItem>
+    //         <MDBListGroupItem>
+    //           <Link to="/admin/userslist" className="nav-link">
+    //             <MDBIcon icon="users" className="me-2" /> Users
+    //           </Link>
+    //         </MDBListGroupItem>
+    //         <MDBListGroupItem>
+    //           <Link to="/orders" className="nav-link">
+    //             <MDBIcon icon="clipboard-list" className="me-2" /> Orders
+    //           </Link>
+    //         </MDBListGroupItem>
+    //       </MDBListGroup>
+    //     </div>
+    //   </MDBCardBody>
+    // </MDBCard>
+    <div style={{ width: 240 }}>
+      <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
+        <Sidenav.Body>
+          <Nav activeKey={activeKey} onSelect={setActiveKey}>
+            <Nav.Item eventKey="1" icon={<DashboardIcon />}>
+              <Link to="/dashboard" className="nav-link">
+                Dashboard
               </Link>
-            </MDBListGroupItem>
-            <MDBListGroupItem>
+            </Nav.Item>
+            <Nav.Item eventKey="2" icon={<GroupIcon />}>
               <Link to="/admin/userslist" className="nav-link">
-                <MDBIcon icon="users" className="me-2" /> Users
+                User Group
               </Link>
-            </MDBListGroupItem>
-            <MDBListGroupItem>
-              <Link to="/orders" className="nav-link">
-                <MDBIcon icon="clipboard-list" className="me-2" /> Orders
+            </Nav.Item>
+            <Nav.Item eventKey="1" icon={<ProductIcon />}>
+              <Link to="/admin/productslist" className="nav-link">
+                Products
               </Link>
-            </MDBListGroupItem>
-          </MDBListGroup>
-        </div>
-      </MDBCardBody>
-    </MDBCard>
+            </Nav.Item>
+            <Nav.Menu
+              placement="rightStart"
+              eventKey="3"
+              title="Advanced"
+              icon={<MagicIcon />}
+            >
+              <Nav.Item eventKey="3-1">Geo</Nav.Item>
+              <Nav.Item eventKey="3-2">Devices</Nav.Item>
+              <Nav.Item eventKey="3-3">Loyalty</Nav.Item>
+              <Nav.Item eventKey="3-4">Visit Depth</Nav.Item>
+            </Nav.Menu>
+          </Nav>
+        </Sidenav.Body>
+        <Sidenav.Toggle
+          expanded={expanded}
+          onToggle={(expanded) => setExpanded(expanded)}
+        />
+      </Sidenav>
+    </div>
   );
 };
 
