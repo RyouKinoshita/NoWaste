@@ -275,3 +275,38 @@ exports.updateUser = async (req, res, next) => {
     success: true,
   });
 };
+
+exports.getUsersByRole = async (req, res, next) => {
+  try {
+    // Fetch all users with their _id and role
+    const allUsers = await User.find({}, "_id role");
+
+    // Filter users with the role "seller"
+    const sellerUsers = allUsers.filter((user) => user.role === "seller");
+
+    // Check if any seller users were found
+    if (sellerUsers.length === 0) {
+      return res.status(404).json({ message: "No sellers found" });
+    }
+
+    // Extract the _id values of seller users
+    const sellerUserIds = sellerUsers.map((seller) => seller._id);
+
+    // Fetch seller users by their _id and select only the "name" field
+    const sellerDetails = await User.find(
+      { _id: { $in: sellerUserIds } },
+      "name"
+    );
+
+    res.status(200).json({
+      success: true,
+      sellers: sellerDetails,
+    });
+  } catch (error) {
+    console.error("Error in getSellerUsers:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};

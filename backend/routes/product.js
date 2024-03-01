@@ -30,13 +30,13 @@ router.get(
   getAdminProducts
 );
 
-// router
-//   .route(
-//     "/admin/product/:id",
-//     isAuthenticatedUser,
-//     authorizeRoles("admin", "seller")
-//   )
-//   .put(upload.array("images", 10), updateProduct)
-//   .delete(deleteProduct);
+router
+  .route(
+    "/admin/product/:id",
+    isAuthenticatedUser,
+    authorizeRoles("admin", "seller")
+  )
+  .put(upload.array("images", 10), updateProduct)
+  .delete(deleteProduct);
 
 module.exports = router;

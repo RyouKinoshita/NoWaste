@@ -11,6 +11,7 @@ import { getToken } from "../../utils/helpers";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getUser } from "../../utils/helpers";
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
@@ -63,7 +64,7 @@ const ProductsList = () => {
       toast.success("Product deleted successfully", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
-      navigate("/admin/product");
+      navigate("/admin/productslist");
     }
   }, [error, deleteError, isDeleted]);
 
@@ -118,7 +119,12 @@ const ProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Seller",
+          label: "Stock",
+          field: "stock",
+          sort: "asc",
+        },
+        {
+          label: "Seller ID",
           field: "seller",
           sort: "asc",
         },
@@ -137,6 +143,7 @@ const ProductsList = () => {
         price: `$${product.price}`,
         description: product.description,
         category: product.category,
+        stock: product.stock,
         seller: product.seller,
         actions: (
           <Fragment>
@@ -191,7 +198,7 @@ const ProductsList = () => {
               All Products
             </h1>
             <div className="d-flex justify-content-end mb-3">
-              <Link to="/admin/add-product  " className="btn btn-primary mr-5">
+              <Link to="/admin/newproduct  " className="btn btn-primary mr-5">
                 Add New Products
               </Link>
             </div>

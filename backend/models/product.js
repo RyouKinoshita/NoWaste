@@ -46,6 +46,13 @@ const productSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  sellerName: {
+    type: String,
+    ref: "User",
+    virtual: true,
+    foreignField: "_id",
+    justOne: true,
+  },
   stock: {
     type: Number,
     required: [true, "Please enter product stock"],
