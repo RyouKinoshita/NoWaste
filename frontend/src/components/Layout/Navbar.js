@@ -1,4 +1,11 @@
-import React, { useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getUser, logout } from "../utils/helpers";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Loader from "./Loader";
+import Avatar from "@mui/material/Avatar";
 import {
   MDBContainer,
   MDBNavbar,
@@ -11,80 +18,46 @@ import {
   MDBIcon,
   MDBInputGroup,
   MDBBtn,
+  MDBDropdown,
+  MDBDropdownToggle,
+  MDBDropdownMenu,
+  MDBDropdownItem,
 } from "mdb-react-ui-kit";
 import "../../index.css";
-import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const [user, setUser] = useState("");
+  const [loading, setLoading] = useState(true);
   const [openNav, setOpenNav] = useState(false);
   const navigate = useNavigate();
 
+  const logoutUser = async () => {
+    try {
+      await axios.get(`http://localhost:4001/api/v1/logout`);
+
+      setUser("");
+
+      logout(() => navigate("/"));
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   const logoutHandler = () => {
+    logoutUser();
+
+    toast.success("Logged out", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
     localStorage.clear();
-    alert("You are now logged out!");
     navigate("/");
   };
 
-  return (
-    // <header>
-    //   <nav
-    //     className="navbar navbar-expand-lg navbar-dark navbar-absolute bg-transparent shadow-none"
-    //     style={{ backgroundImage: 'url("../assets/images/waster.png")' }}
-    //   >
-    //     <div className="container">
-    //       <a className="navbar-brand text-white" href="javascript:;">
-    //         No Waste
-    //       </a>
-    //       <button
-    //         className="navbar-toggler"
-    //         type="button"
-    //         data-toggle="collapse"
-    //         data-target="#navbar-header-2"
-    //         aria-controls="navbar-header-2"
-    //         aria-expanded="false"
-    //         aria-label="Toggle navigation"
-    //       >
-    //         <span className="navbar-toggler-icon" />
-    //       </button>
-    //       <div className="collapse navbar-collapse" id="navbar-header-2">
-    //         <ul className="navbar-nav mx-auto">{/* ... */}</ul>
-    //         <ul className="nav navbar-nav">
-    //           <li className="nav-item nav-link text-white">
-    //             <Link to="/homepage" style={{ color: "white" }}>
-    //               <MDBIcon fas icon="home" className="me-1" />
-    //               Home
-    //             </Link>
-    //           </li>
-    //           <li className="nav-item nav-link text-white">
-    //             <Link to="/aboutus" style={{ color: "white" }}>
-    //               <MDBIcon fas icon="info-circle" className="me-1" />
-    //               About Us
-    //             </Link>
-    //           </li>
-    //           <li className="nav-item">
-    //             <a className="nav-link text-white">
-    //               <MDBIcon fas icon="address-book" className="me-1" />
-    //               Contact Us
-    //             </a>
-    //           </li>
-    //           <li className="nav-item nav-link text-white">
-    //             <Link to="/dashboard" style={{ color: "white" }}>
-    //               <MDBIcon fas icon="tachometer-alt" className="me-1" />
-    //               Dashboard
-    //             </Link>
-    //           </li>
+  useEffect(() => {
+    setUser(getUser());
+  }, []);
 
-    //           <li className="nav-item nav-link text-white">
-    //             <a onClick={logoutHandler} style={{ cursor: "pointer" }}>
-    //               <MDBIcon fas icon="sign-out-alt" className="me-1" />
-    //               Logout
-    //             </a>
-    //           </li>
-    //         </ul>
-    //       </div>
-    //     </div>
-    //   </nav>
-    // </header>
+  return (
     <div
       style={{
         padding: "20px",
@@ -97,7 +70,7 @@ const Navbar = () => {
         expand="lg"
         light
         bgColor="dark"
-        style={{ padding: "10px" }}
+        style={{ padding: "20px" }}
       >
         <MDBContainer fluid>
           <Link to="/homepage" style={{ color: "white" }}>
@@ -139,24 +112,74 @@ const Navbar = () => {
               style={{ justifyContent: "right" }}
               className="mr-auto mb-2 mb-lg-0"
             >
-              <MDBNavbarItem>
-                <Link
-                  to="/dashboard"
-                  style={{ color: "white", marginRight: "20px" }}
-                >
-                  <MDBIcon fas icon="tachometer-alt" className="me-1" />
-                  Dashboard
-                </Link>
-              </MDBNavbarItem>
-              <MDBNavbarItem>
-                <a
-                  onClick={logoutHandler}
-                  style={{ cursor: "pointer", color: "white" }}
-                >
-                  <MDBIcon fas icon="sign-out-alt" className="me-1" />
-                  Logout
-                </a>
-              </MDBNavbarItem>
+              <div className="d-flex align-items-center">
+                <MDBNavbarItem></MDBNavbarItem>
+                <MDBNavbarItem></MDBNavbarItem>
+              </div>
+              <div className="d-flex align-items-center">
+                <MDBNavbarItem>
+                  <span id="cart" className="ml-3">
+                    <MDBIcon
+                      fas
+                      icon="cart-plus"
+                      aria-label="add to shopping cart"
+                      href="/cart"
+                      style={{ color: "white" }}
+                    ></MDBIcon>
+                  </span>
+                </MDBNavbarItem>
+                <MDBNavbarItem>
+                  <div className="d-flex align-items-center">
+                    <Avatar>
+                      {user.avatar && (
+                        <img
+                          src={user.avatar.url}
+                          alt={user.name}
+                          style={{ maxWidth: "50px" }}
+                        />
+                      )}
+                    </Avatar>
+                    <MDBDropdown>
+                      <MDBDropdownToggle
+                        tag="a"
+                        className="nav-link"
+                        role="button"
+                      >
+                        {/* {user.name} */}
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu>
+                        <MDBDropdownItem>
+                          <Link
+                            to="/dashboard"
+                            style={{ color: "black", marginRight: "20px" }}
+                          >
+                            <MDBIcon
+                              fas
+                              icon="tachometer-alt"
+                              className="me-1"
+                            />
+                            Dashboard
+                          </Link>
+                        </MDBDropdownItem>
+                        <MDBDropdownItem>
+                          <a
+                            onClick={logoutHandler}
+                            style={{
+                              cursor: "pointer",
+                              color: "black",
+                              marginRight: "20px",
+                            }}
+                          >
+                            <MDBIcon fas icon="sign-out-alt" className="me-1" />
+                            Logout
+                          </a>
+                        </MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
+                    <span style={{ color: "white" }}>{user && user.name}</span>
+                  </div>
+                </MDBNavbarItem>
+              </div>
             </MDBNavbarNav>
           </MDBCollapse>
         </MDBContainer>

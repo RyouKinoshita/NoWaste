@@ -17,8 +17,11 @@ function App() {
         <Route path="/" element={<Login />} caseSensitive={true} />
         <Route path="/homepage" element={<Homepage />} exact="true" />
         <Route path="/register" element={<Register />} exact="true" />
-        <Route path="/aboutus" element={<Aboutus />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/aboutus"
+          element={(props) => <Aboutus {...props} title="About Us" />}
+        />
+        <Route path="/dashboard" element={<Dashboard title="Dashboard" />} />
         <Route path="/admin/userslist" element={<UsersList />} />
         <Route path="/admin/user/:id" element={<UpdateUser />} />
         <Route path="/admin/productslist" element={<ProductsList />} />
