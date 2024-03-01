@@ -92,10 +92,16 @@ const Navbar = () => {
       }}
       position="fixed"
     >
-      <MDBNavbar expand="lg" light bgColor="light" style={{ padding: "20px" }}>
+      <MDBNavbar
+        fixed="top"
+        expand="lg"
+        light
+        bgColor="dark"
+        style={{ padding: "10px" }}
+      >
         <MDBContainer fluid>
           <Link to="/homepage" style={{ color: "white" }}>
-            <MDBNavbarBrand href="#">No Waste</MDBNavbarBrand>
+            <MDBNavbarBrand style={{ color: "white" }}>No Waste</MDBNavbarBrand>
             <MDBNavbarToggler
               type="button"
               aria-expanded="false"
@@ -107,45 +113,45 @@ const Navbar = () => {
           </Link>
 
           <MDBCollapse navbar open={openNav}>
-            <MDBNavbarNav className="mr-auto">
-              {/* Left-aligned items */}
+            <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
+              {" "}
               <MDBNavbarItem>
-                <Link to="/aboutus" style={{ color: "black" }}>
+                <Link
+                  to="/aboutus"
+                  style={{ color: "white", marginRight: "20px" }}
+                >
                   <MDBIcon fas icon="info-circle" className="me-1" />
                   About Us
                 </Link>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <Link to="/contactus" style={{ color: "black" }}>
+                <Link
+                  to="/contactus"
+                  style={{ color: "white", marginRight: "20px" }}
+                >
                   <MDBIcon fas icon="address-book" className="me-1" />
                   Contact Us
                 </Link>
               </MDBNavbarItem>
+            </MDBNavbarNav>
+
+            <MDBNavbarNav
+              style={{ justifyContent: "right" }}
+              className="mr-auto mb-2 mb-lg-0"
+            >
               <MDBNavbarItem>
-                <Link to="/dashboard" style={{ color: "black" }}>
+                <Link
+                  to="/dashboard"
+                  style={{ color: "white", marginRight: "20px" }}
+                >
                   <MDBIcon fas icon="tachometer-alt" className="me-1" />
                   Dashboard
                 </Link>
               </MDBNavbarItem>
-            </MDBNavbarNav>
-
-            <MDBNavbarNav className="ml-auto">
-              {/* Right-aligned items */}
-              <MDBNavbarItem>
-                <MDBInputGroup tag="form" className="d-flex w-auto mb-3">
-                  <input
-                    className="form-control"
-                    placeholder="Type query"
-                    aria-label="Search"
-                    type="Search"
-                  />
-                  <MDBBtn outline>Search</MDBBtn>
-                </MDBInputGroup>
-              </MDBNavbarItem>
               <MDBNavbarItem>
                 <a
                   onClick={logoutHandler}
-                  style={{ cursor: "pointer", color: "black" }}
+                  style={{ cursor: "pointer", color: "white" }}
                 >
                   <MDBIcon fas icon="sign-out-alt" className="me-1" />
                   Logout

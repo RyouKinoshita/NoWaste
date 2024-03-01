@@ -32,7 +32,7 @@ const ProductsList = () => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:4001/api/v1/admin/products`,
+        `${process.env.REACT_APP_API}/admin/products`,
         config
       );
       console.log(data);
@@ -76,7 +76,7 @@ const ProductsList = () => {
         },
       };
       const { data } = await axios.delete(
-        `http://localhost:4001/api/v1/admin/product/${id}`,
+        `${process.env.REACT_APP_API}/admin/product/${id}`,
         config
       );
 
@@ -172,7 +172,9 @@ const ProductsList = () => {
   return (
     <Fragment>
       <Fragment>
-        <Navbar />
+        <div style={{ paddingBottom: "20px" }}>
+          <Navbar />
+        </div>
       </Fragment>
       <MetaData title={"All Products"} />
       <div className="row">
@@ -201,7 +203,6 @@ const ProductsList = () => {
                 className="px-3"
                 bordered
                 striped
-                
                 style={{ color: "black", fontWeight: "bold" }}
               />
             )}

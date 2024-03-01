@@ -13,7 +13,10 @@ import {
 const Dashboard = () => {
   return (
     <div>
-      <Navbar />
+      <div style={{ paddingBottom: "20px" }}>
+        <Navbar />
+      </div>
+
       <div className="col-12 col-md-2">
         <Sidebar />
       </div>

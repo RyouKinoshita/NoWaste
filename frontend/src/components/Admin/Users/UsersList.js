@@ -30,7 +30,7 @@ const UsersList = () => {
   const listUsers = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/admin/users`,
+        `${process.env.REACT_APP_API}/admin/users`,
         config
       );
       setUsers(data.users);
@@ -135,7 +135,9 @@ const UsersList = () => {
   return (
     <Fragment>
       <Fragment>
-        <Navbar />
+        <div style={{ paddingBottom: "20px" }}>
+          <Navbar />
+        </div>
       </Fragment>
       <MetaData title={"All Users"} />
       <div className="row">
@@ -144,7 +146,12 @@ const UsersList = () => {
         </div>
         <div className="col-12 col-md-10 mb-8">
           <Fragment>
-            <h1 className="my-5">All Users</h1>
+            <h1
+              className="my-5"
+              style={{ color: "black", fontWeight: "bold", marginLeft: "15px" }}
+            >
+              All Users
+            </h1>
             {loading ? (
               <Loader />
             ) : (
