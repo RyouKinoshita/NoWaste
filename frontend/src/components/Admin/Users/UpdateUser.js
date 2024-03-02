@@ -28,7 +28,7 @@ const UpdateUser = () => {
   const getUserDetails = async (id) => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/admin/user/${id}`,
+        `${process.env.REACT_APP_API}/admin/user/${id}`,
         config
       );
       setUser(data.user);
@@ -41,7 +41,7 @@ const UpdateUser = () => {
   const updateUser = async (id, userData) => {
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_API}/api/v1/admin/user/${id}`,
+        `${process.env.REACT_APP_API}/admin/user/${id}`,
         userData,
         config
       );
@@ -93,9 +93,9 @@ const UpdateUser = () => {
         <Loader />
       ) : (
         <Fragment>
-          <Fragment>
+          <div style={{ paddingBottom: "20px" }}>
             <Navbar />
-          </Fragment>
+          </div>
           <MetaData title={`Update User`} />
           <div className="row">
             <div className="col-12 col-md-2">
@@ -109,7 +109,9 @@ const UpdateUser = () => {
                     onSubmit={submitHandler}
                     style={{ border: "solid 4px white" }}
                   >
-                    <h1 className="mt-2 mb-5">Update User</h1>
+                    <h1 className="mt-2 mb-5" style={{ color: "black" }}>
+                      Update User
+                    </h1>
                     <div className="form-group">
                       <label htmlFor="name_field">Name</label>
                       <input

@@ -22,7 +22,7 @@ router.post(
 
 router.get("/products", getProducts);
 
-// router.get("/product/:id", getSingleProduct);
+router.get("/product/:id", getSingleProduct);
 router.get(
   "/admin/products",
   isAuthenticatedUser,

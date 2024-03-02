@@ -42,16 +42,9 @@ const productSchema = new mongoose.Schema({
     ref: "User",
   },
   seller: {
-    type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  sellerName: {
     type: String,
     ref: "User",
-    virtual: true,
-    foreignField: "_id",
-    justOne: true,
+    required: true,
   },
   stock: {
     type: Number,

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MetaData from "../../Layout/Metadata";
 import Loader from "../../Layout/Loader";
 import Sidebar from "../Sidebar";
@@ -13,17 +13,27 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
-const NewProduct = () => {
-  const [images, setImages] = useState([]);
-  const [imagesPreview, setImagesPreview] = useState([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [success, setSuccess] = useState("");
-  const [product, setProduct] = useState({});
+const UpdateProduct = () => {
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [stock, setStock] = useState(0);
   const [sellers, setSellers] = useState([]);
+  const [seller, setSeller] = useState([]);
+
+  const [images, setImages] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
+  const [imagesPreview, setImagesPreview] = useState([]);
+
+  const [error, setError] = useState("");
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [updateError, setUpdateError] = useState("");
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const categories = ["Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"];
-
+  let { id } = useParams();
   let navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
@@ -41,7 +51,6 @@ const NewProduct = () => {
         value.every((file) => file.size <= 1024 * 1024 * 10)
       ),
   });
-
   const {
     register,
     handleSubmit,
@@ -51,29 +60,50 @@ const NewProduct = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const timeoutId = setTimeout(() => {
-    setLoading(false);
-  }, 1000);
+  const errMsg = (message = "") =>
+    toast.error(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
+  const successMsg = (message = "") =>
+    toast.success(message, {
+      position: toast.POSITION.BOTTOM_CENTER,
+    });
 
-  const onChange = (e) => {
+  const onChange = async (e) => {
     const files = Array.from(e.target.files);
-    console.log(files); // Log the selected files
     setImagesPreview([]);
     setImages([]);
+    setOldImages([]);
     setValue("images", files);
+
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.readyState === 2) {
           setImagesPreview((oldArray) => [...oldArray, reader.result]);
-          setImages((oldArray) => [...oldArray, file]);
+          setImages((oldArray) => [...oldArray, reader.result]);
         }
       };
       reader.readAsDataURL(file);
     });
   };
 
-  const newProduct = async (formData) => {
+  const getProductDetails = async (id) => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}/product/${id}`
+      );
+      console.log("Fetched Product Details:", data);
+      setProduct(data.product);
+      const timeoutId = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
+
+  const updateProduct = async (id, productData) => {
     try {
       const config = {
         headers: {
@@ -81,17 +111,14 @@ const NewProduct = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       };
-
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/admin/product/new`,
-        formData,
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_API}/admin/product/${id}`,
+        productData,
         config
       );
-      setLoading(false);
-      setSuccess(data.success);
-      setProduct(data.product);
+      setIsUpdated(data.success);
     } catch (error) {
-      setError(error.response.data.message);
+      setUpdateError(error.response.data.message);
     }
   };
 
@@ -115,25 +142,48 @@ const NewProduct = () => {
       }
     };
 
+    const setFormValues = () => {
+      setName(product.name);
+      setPrice(product.price);
+      setDescription(product.description);
+      setCategory(product.category);
+      setStock(product.stock);
+      setSeller(product.seller);
+      setOldImages(product.images);
+
+      setValue("name", product.name);
+      setValue("price", product.price);
+      setValue("description", product.description);
+      setValue("category", product.category);
+      setValue("stock", product.stock);
+      setValue("seller", product.seller);
+      setValue("images", []); // Clear any previous selected images
+    };
+
     fetchSellers();
 
+    if (product && product._id !== id) {
+      getProductDetails(id);
+    } else {
+      setFormValues();
+      setLoading(false);
+    }
+
     if (error) {
-      toast.error(error, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      errMsg(error);
     }
-
-    if (success) {
+    if (updateError) {
+      errMsg(updateError);
+    }
+    if (isUpdated) {
       navigate("/admin/productslist");
-      toast.success("Product created successfully", {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+      successMsg("Product updated successfully");
     }
-  }, [error, success]);
+  }, [error, isUpdated, updateError, product, id, setValue]);
 
-  const onSubmit = async (data) => {
+  const submitHandler = async (data) => {
     const formData = new FormData();
-    formData.set("name", data.name); // Use data object to access form values
+    formData.set("name", data.name);
     formData.set("price", data.price);
     formData.set("description", data.description);
     formData.set("category", data.category);
@@ -147,8 +197,7 @@ const NewProduct = () => {
       const base64 = await convertFileToBase64(file);
       formData.append("images", base64);
     }
-
-    newProduct(formData);
+    updateProduct(product._id, formData);
   };
 
   function convertFileToBase64(file) {
@@ -166,36 +215,21 @@ const NewProduct = () => {
         <Loader />
       ) : (
         <Fragment>
-          <Fragment>
-            <div style={{ paddingBottom: "20px" }}>
-              <Navbar />
-            </div>
-          </Fragment>
-          <MetaData title={"New Product"} />
+          <MetaData title={"Update Product"} />
           <div className="row">
             <div className="col-12 col-md-2">
               <Sidebar />
             </div>
             <div className="col-12 col-md-10">
               <Fragment>
-                <div className="wrapper my-5" style={{ maxWidth: "1200px" }}>
+                <div className="wrapper my-5">
                   <form
-                    onSubmit={handleSubmit(onSubmit)}
                     className="shadow-lg"
+                    onSubmit={handleSubmit(submitHandler)}
                     encType="multipart/form-data"
                     style={{ border: "solid 4px white" }}
                   >
-                    <h1
-                      className="mb-4"
-                      style={{
-                        color: "black",
-                        fontWeight: "bold",
-                        marginLeft: "15px",
-                      }}
-                    >
-                      New Product
-                    </h1>
-
+                    <h1 className="mb-4">Update Product</h1>
                     <div className="form-group">
                       <label htmlFor="name_field">Name</label>
                       <input
@@ -212,7 +246,6 @@ const NewProduct = () => {
                         </p>
                       )}
                     </div>
-
                     <div className="form-group">
                       <label htmlFor="price_field">Price</label>
                       <input
@@ -229,30 +262,29 @@ const NewProduct = () => {
                         </p>
                       )}
                     </div>
-
                     <div className="form-group">
                       <label htmlFor="description_field">Description</label>
                       <textarea
-                        id="description_field"
                         className={`form-control ${
                           errors.description ? "is-invalid" : ""
                         }`}
+                        id="description_field"
+                        rows="8"
                         {...register("description")}
-                      />
+                      ></textarea>
                       {errors.description && (
                         <p className="invalid-feedback">
                           {errors.description.message}
                         </p>
                       )}
                     </div>
-
                     <div className="form-group">
                       <label htmlFor="category_field">Category</label>
                       <select
-                        id="category_field"
                         className={`form-control ${
                           errors.category ? "is-invalid" : ""
                         }`}
+                        id="category_field"
                         {...register("category")}
                       >
                         {categories.map((category) => (
@@ -316,6 +348,7 @@ const NewProduct = () => {
                           className={`custom-file-input ${
                             errors.images ? "is-invalid" : ""
                           }`}
+                          id="customFile"
                           onChange={onChange}
                           multiple
                         />
@@ -323,33 +356,43 @@ const NewProduct = () => {
                           className="custom-file-label"
                           htmlFor="customFile"
                         >
-                          Choose images
+                          Choose Images
                         </label>
-                        {errors.images && (
-                          <p className="invalid-feedback">
-                            {errors.images.message}
-                          </p>
-                        )}
+                        {oldImages &&
+                          oldImages.map((img) => (
+                            <img
+                              key={img}
+                              src={img.url}
+                              alt={img.url}
+                              className="mt-3 mr-2"
+                              width="55"
+                              height="52"
+                            />
+                          ))}
+                        {imagesPreview.map((img) => (
+                          <img
+                            src={img}
+                            key={img}
+                            alt="Images Preview"
+                            className="mt-3 mr-2"
+                            width="55"
+                            height="52"
+                          />
+                        ))}
                       </div>
-                      {imagesPreview.map((img) => (
-                        <img
-                          src={img}
-                          key={img}
-                          alt="Images Preview"
-                          className="mt-3 mr-2"
-                          width="55"
-                          height="52"
-                        />
-                      ))}
+                      {errors.images && (
+                        <p className="invalid-feedback">
+                          {errors.images.message}
+                        </p>
+                      )}
                     </div>
-
                     <button
                       id="loginsbut"
                       type="submit"
                       className="buttonforLogin"
-                      style={{ marginLeft: "15px", width: "340px" }}
+                      disabled={loading ? true : false}
                     >
-                      CREATE
+                      UPDATE
                     </button>
                   </form>
                 </div>
@@ -361,4 +404,5 @@ const NewProduct = () => {
     </>
   );
 };
-export default NewProduct;
+
+export default UpdateProduct;

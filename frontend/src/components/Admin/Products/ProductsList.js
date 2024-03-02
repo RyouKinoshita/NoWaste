@@ -124,7 +124,7 @@ const ProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Seller ID",
+          label: "Seller",
           field: "seller",
           sort: "asc",
         },
@@ -149,7 +149,7 @@ const ProductsList = () => {
           <Fragment>
             <div className="button-container">
               <Link
-                to={`/admin/product/${product._id}`}
+                to={`/admin/updateproduct/${product._id}`}
                 className="btn btn-primary py-1 px-2"
                 title="Edit Product"
               >

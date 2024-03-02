@@ -51,7 +51,7 @@ router
   .put(isAuthenticatedUser, upload.none(), updateUser);
 
 router.get(
-  "/admin/users/:role",
+  "/admin/users/sellers",
   isAuthenticatedUser,
   authorizeRoles("admin"),
   getUsersByRole
