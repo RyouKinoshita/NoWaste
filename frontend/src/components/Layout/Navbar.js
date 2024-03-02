@@ -22,6 +22,7 @@ import {
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem,
+  MDBBadge,
 } from "mdb-react-ui-kit";
 import "../../index.css";
 
@@ -60,8 +61,8 @@ const Navbar = () => {
   return (
     <div
       style={{
-        padding: "20px",
-        backgroundImage: 'url("../assets/images/waster.png")',
+        paddingBottom: "60px",
+        // backgroundImage: 'url("../assets/images/waster.png")',
       }}
       position="fixed"
     >
@@ -119,35 +120,47 @@ const Navbar = () => {
               <div className="d-flex align-items-center">
                 <MDBNavbarItem>
                   <span id="cart" className="ml-3">
+                    <MDBBadge pill color="danger">
+                      4
+                    </MDBBadge>
                     <MDBIcon
                       fas
                       icon="cart-plus"
                       aria-label="add to shopping cart"
                       href="/cart"
-                      style={{ color: "white" }}
+                      style={{
+                        color: "white",
+                        paddingRight: "10px",
+                        paddingLeft: "5px",
+                      }}
                     ></MDBIcon>
                   </span>
                 </MDBNavbarItem>
+
                 <MDBNavbarItem>
                   <div className="d-flex align-items-center">
-                    <Avatar>
-                      {user.avatar && (
-                        <img
-                          src={user.avatar.url}
-                          alt={user.name}
-                          style={{ maxWidth: "50px" }}
-                        />
-                      )}
-                    </Avatar>
                     <MDBDropdown>
                       <MDBDropdownToggle
                         tag="a"
                         className="nav-link"
                         role="button"
+                        style={{ fontSize: "0px" }}
                       >
-                        {/* {user.name} */}
+                        {/* Place the Avatar component here */}
+                        <Avatar>
+                          {user.avatar && (
+                            <img
+                              src={user.avatar.url}
+                              alt={user.name}
+                              style={{ maxWidth: "50px" }}
+                            />
+                          )}
+                        </Avatar>
                       </MDBDropdownToggle>
-                      <MDBDropdownMenu>
+                      <MDBDropdownMenu
+                        className="dropdown-menu-lg-right"
+                        style={{ padding: "12px" }}
+                      >
                         <MDBDropdownItem>
                           <Link
                             to="/dashboard"
@@ -176,7 +189,9 @@ const Navbar = () => {
                         </MDBDropdownItem>
                       </MDBDropdownMenu>
                     </MDBDropdown>
-                    <span style={{ color: "white" }}>{user && user.name}</span>
+                    <span style={{ color: "white", marginLeft: "10px" }}>
+                      Welcome {user && user.name}
+                    </span>
                   </div>
                 </MDBNavbarItem>
               </div>

@@ -70,7 +70,9 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+    >
       <div style={{ paddingBottom: "20px" }}>
         <Navbar />
       </div>
