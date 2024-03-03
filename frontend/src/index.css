@@ -26,6 +26,37 @@ body, button, input, select, textarea {
   flex-direction: column;
 }
 
+
+.mask-custom {
+  background: rgba(24, 24, 16, .2);
+  border-radius: 2em;
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+
+.slide-in-from-left {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+}
+@media (max-width: 767px) {
+  .bg-image {
+    height: 1400px !important;
+  }
+}
 .container {
   flex: 1;
 }
@@ -45,3 +76,45 @@ footer {
     opacity: 0;
   }
 }
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.zoom-in {
+  animation: zoomIn 4s ease-in-out;
+}
+
+.pic-zoom-in {
+  animation: zoomIn 8s ease-in-out;
+}
+
+.pic-zoom-in-2 {
+  animation: zoomIn 8.3s ease-in-out;
+}
+.pic-zoom-in-3 {
+  animation: zoomIn 8.4s ease-in-out;
+}
+.pic-zoom-in-4 {
+  animation: zoomIn 8.5s ease-in-out;
+}
+.pic-zoom-in-5 {
+  animation: zoomIn 8.6s ease-in-out;
+}
+.pic-zoom-in-6 {
+  animation: zoomIn 8.7s ease-in-out;
+}
+.animate-zoom-in {
+  animation: zoomIn 3.9s ease-in-out;
+}
+
+@media (min-width: 992px) {
+  .rotate-lg {
+    transform: rotate(6deg);
+  }
+}
+
