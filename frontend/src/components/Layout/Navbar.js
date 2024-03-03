@@ -75,7 +75,9 @@ const Navbar = () => {
       >
         <MDBContainer fluid>
           <Link to="/homepage" style={{ color: "white" }}>
-            <MDBNavbarBrand style={{ color: "white" }}>No Waste</MDBNavbarBrand>
+            <MDBNavbarBrand style={{ color: "white", fontSize: "20px" }}>
+              No Waste
+            </MDBNavbarBrand>
             <MDBNavbarToggler
               type="button"
               aria-expanded="false"
@@ -92,19 +94,14 @@ const Navbar = () => {
               <MDBNavbarItem>
                 <Link
                   to="/aboutus"
-                  style={{ color: "white", marginRight: "20px" }}
+                  style={{
+                    color: "white",
+                    marginRight: "20px",
+                    fontSize: "15px",
+                  }}
                 >
                   <MDBIcon fas icon="info-circle" className="me-1" />
                   About Us
-                </Link>
-              </MDBNavbarItem>
-              <MDBNavbarItem>
-                <Link
-                  to="/contactus"
-                  style={{ color: "white", marginRight: "20px" }}
-                >
-                  <MDBIcon fas icon="address-book" className="me-1" />
-                  Contact Us
                 </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
@@ -146,7 +143,6 @@ const Navbar = () => {
                         role="button"
                         style={{ fontSize: "0px" }}
                       >
-                        {/* Place the Avatar component here */}
                         <Avatar>
                           {user.avatar && (
                             <img
@@ -159,9 +155,9 @@ const Navbar = () => {
                       </MDBDropdownToggle>
                       <MDBDropdownMenu
                         className="dropdown-menu-lg-right"
-                        style={{ padding: "12px" }}
+                        style={{ padding: "12px", fontSize: "17px" }}
                       >
-                        <MDBDropdownItem>
+                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
                           <Link
                             to="/dashboard"
                             style={{ color: "black", marginRight: "20px" }}
@@ -174,7 +170,29 @@ const Navbar = () => {
                             Dashboard
                           </Link>
                         </MDBDropdownItem>
-                        <MDBDropdownItem>
+                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
+                          <Link
+                            to="/profile"
+                            style={{ color: "black", marginRight: "20px" }}
+                          >
+                            <MDBIcon fas icon="user-circle" className="me-1" />
+                            My Profile
+                          </Link>
+                        </MDBDropdownItem>
+                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
+                          <Link
+                            to="/orders"
+                            style={{ color: "black", marginRight: "20px" }}
+                          >
+                            <MDBIcon
+                              fas
+                              icon="clipboard-list"
+                              className="me-1"
+                            />
+                            My Orders
+                          </Link>
+                        </MDBDropdownItem>
+                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
                           <a
                             onClick={logoutHandler}
                             style={{
@@ -189,7 +207,13 @@ const Navbar = () => {
                         </MDBDropdownItem>
                       </MDBDropdownMenu>
                     </MDBDropdown>
-                    <span style={{ color: "white", marginLeft: "10px" }}>
+                    <span
+                      style={{
+                        color: "white",
+                        marginLeft: "10px",
+                        fontSize: "20px",
+                      }}
+                    >
                       Welcome {user && user.name}
                     </span>
                   </div>
