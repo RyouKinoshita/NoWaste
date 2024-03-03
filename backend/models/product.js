@@ -42,7 +42,7 @@ const productSchema = new mongoose.Schema({
     ref: "User",
   },
   seller: {
-    type: mongoose.Schema.ObjectId,
+    type: String,
     ref: "User",
     required: true,
   },

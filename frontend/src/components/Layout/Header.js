@@ -28,20 +28,20 @@ const Header = () => {
   const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.clear();
-    alert("You are now Logout!");
+    alert("You are now logged out!");
     navigate("/");
   };
   console.log(logoutHandler);
   return (
     <header>
       <div
-        className="page-header min-vh-100"
+        className="page-header min-vh-50"
         style={{
           backgroundImage: 'url("../assets/images/waster.png")',
           backgroundSize: "cover", // You can adjust this property
           backgroundRepeat: "no-repeat",
           width: "100vw",
-          height: "100vh",
+          height: "60vh",
         }}
         loading="lazy"
       >

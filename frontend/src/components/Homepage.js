@@ -8,7 +8,10 @@ const Homepage = () => {
   return (
     <div>
       <>
-        <Navbar />
+        <div style={{ paddingBottom: "0px" }}>
+          <Navbar />
+        </div>
+
         <Header />
         <Body />
         <Footer />

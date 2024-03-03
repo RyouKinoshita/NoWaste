@@ -19,23 +19,24 @@ router.post(
   upload.array("images", 10),
   newProduct
 );
-// router.get("/products", getProducts);
 
-// router.get("/product/:id", getSingleProduct);
-// router.get(
-//   "/admin/products",
-//   isAuthenticatedUser,
-//   authorizeRoles("admin", "seller"),
-//   getAdminProducts
-// );
+router.get("/products", getProducts);
 
-// router
-//   .route(
-//     "/admin/product/:id",
-//     isAuthenticatedUser,
-//     authorizeRoles("admin", "seller")
-//   )
-//   .put(upload.array("images", 10), updateProduct)
-//   .delete(deleteProduct);
+router.get("/product/:id", getSingleProduct);
+router.get(
+  "/admin/products",
+  isAuthenticatedUser,
+  authorizeRoles("admin", "seller"),
+  getAdminProducts
+);
+
+router
+  .route(
+    "/admin/product/:id",
+    isAuthenticatedUser,
+    authorizeRoles("admin", "seller")
+  )
+  .put(upload.array("images", 10), updateProduct)
+  .delete(deleteProduct);
 
 module.exports = router;
