@@ -122,7 +122,7 @@ export default function Login() {
                           Login
                         </button>
                       </div>
-                      <a className="small text-muted" href="#!">
+                      <a className="small text-muted" href="/UpdatePassword">
                         Forgot password?
                       </a>
                       <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>

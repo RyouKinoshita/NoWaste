@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Homepage from "./components/Homepage";
-import Login from "./components/User/Login";
-import Register from "./components/User/Register";
+import Login from "./components/user/Login";
+import Register from "./components/user/Register";
 import Dashboard from "./components/Admin/Dashboard";
 import UsersList from "./components/Admin/Users/UsersList";
 import UpdateUser from "./components/Admin/Users/UpdateUser";
