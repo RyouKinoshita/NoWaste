@@ -63,15 +63,21 @@ const Profile = () => {
                     />
                   )}
                   <div className="d-flex justify-content-center mb-2">
-                    <MDBBtn outline className="ms-1">
-                      <Link to="/updateprofile">Update Profile</Link>
-                    </MDBBtn>
-                    <MDBBtn outline className="ms-1">
-                      <Link to="/updatepass">Update Password</Link>
-                    </MDBBtn>
-                    <MDBBtn outline className="ms-1">
-                      <Link to="/orders">View Orders</Link>
-                    </MDBBtn>
+                    <Link to="/updateprofile">
+                      <MDBBtn outline className="ms-1">
+                        Update Profile
+                      </MDBBtn>
+                    </Link>
+                    <Link to="/updatepass">
+                      <MDBBtn outline className="ms-1">
+                        Update Password
+                      </MDBBtn>
+                    </Link>
+                    <Link to="/orders">
+                      <MDBBtn outline className="ms-1">
+                        View Orders
+                      </MDBBtn>
+                    </Link>
                   </div>
                 </MDBCardBody>
               </MDBCard>

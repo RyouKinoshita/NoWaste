@@ -12,7 +12,13 @@ import {
 const Footer = () => {
   return (
     <div>
-      <MDBFooter className="text-center" color="white" bgColor="dark">
+      <MDBFooter
+        className="text-center"
+        color="white"
+        bgColor="dark"
+        position="relative"
+        style={{ top: "0px" }}
+      >
         <MDBContainer className="p-4">
           <section className="">
             <form action="">
@@ -55,9 +61,7 @@ const Footer = () => {
           style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
         >
           © 2024 Copyright:
-          <a className="text-white" href="https://mdbootstrap.com/">
-            NoWaste
-          </a>
+          <a className="text-white">NoWaste</a>
         </div>
       </MDBFooter>
     </div>

@@ -157,41 +157,23 @@ const Navbar = () => {
                         className="dropdown-menu-lg-right"
                         style={{ padding: "12px", fontSize: "17px" }}
                       >
-                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                          <Link
-                            to="/dashboard"
-                            style={{ color: "black", marginRight: "20px" }}
-                          >
+                        <Link to="/dashboard" style={{ color: "black" }}>
+                          <MDBDropdownItem style={{ paddingBottom: "3px" }}>
                             <MDBIcon
                               fas
                               icon="tachometer-alt"
                               className="me-1"
                             />
                             Dashboard
-                          </Link>
-                        </MDBDropdownItem>
-                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                          <Link
-                            to="/profile"
-                            style={{ color: "black", marginRight: "20px" }}
-                          >
+                          </MDBDropdownItem>
+                        </Link>
+                        <Link to="/profile" style={{ color: "black" }}>
+                          <MDBDropdownItem style={{ paddingBottom: "3px" }}>
                             <MDBIcon fas icon="user-circle" className="me-1" />
                             My Profile
-                          </Link>
-                        </MDBDropdownItem>
-                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                          <Link
-                            to="/orders"
-                            style={{ color: "black", marginRight: "20px" }}
-                          >
-                            <MDBIcon
-                              fas
-                              icon="clipboard-list"
-                              className="me-1"
-                            />
-                            My Orders
-                          </Link>
-                        </MDBDropdownItem>
+                          </MDBDropdownItem>
+                        </Link>
+
                         <MDBDropdownItem style={{ paddingBottom: "3px" }}>
                           <a
                             onClick={logoutHandler}

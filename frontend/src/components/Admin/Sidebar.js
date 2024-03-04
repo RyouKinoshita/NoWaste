@@ -9,11 +9,10 @@ import ArticlesIcon from "@rsuite/icons/legacy/Pencil";
 import "rsuite/dist/rsuite.min.css";
 
 const Sidebar = () => {
-  const [expanded, setExpanded] = React.useState(true);
   const [activeKey, setActiveKey] = React.useState("1");
   return (
-    <div style={{ width: 260, height: "auto" }}>
-      <Sidenav expanded={expanded} defaultOpenKeys={["3", "4"]}>
+    <div style={{ width: 260, height: "100vh", overflowY: "auto" }}>
+      <Sidenav defaultOpenKeys={["3", "4"]}>
         <Sidenav.Body>
           <Nav activeKey={activeKey} onSelect={setActiveKey}>
             <Nav.Item eventKey="1" icon={<DashboardIcon />}>
@@ -41,23 +40,8 @@ const Sidebar = () => {
                 Articles
               </Link>
             </Nav.Item>
-            {/* <Nav.Menu
-              placement="rightStart"
-              eventKey="3"
-              title="Advanced"
-              icon={<MagicIcon />}
-            >
-              <Nav.Item eventKey="3-1">Geo</Nav.Item>
-              <Nav.Item eventKey="3-2">Devices</Nav.Item>
-              <Nav.Item eventKey="3-3">Loyalty</Nav.Item>
-              <Nav.Item eventKey="3-4">Visit Depth</Nav.Item>
-            </Nav.Menu> */}
           </Nav>
         </Sidenav.Body>
-        <Sidenav.Toggle
-          expanded={expanded}
-          onToggle={(expanded) => setExpanded(expanded)}
-        />
       </Sidenav>
     </div>
   );
