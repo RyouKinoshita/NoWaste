@@ -11,7 +11,14 @@ import "rsuite/dist/rsuite.min.css";
 const Sidebar = () => {
   const [activeKey, setActiveKey] = React.useState("1");
   return (
-    <div style={{ width: 290, height: "100vh", overflowY: "auto" }}>
+    <div
+      style={{
+        width: 290,
+        height: "100vh",
+        overflowY: "auto",
+        paddingTop: "20px",
+      }}
+    >
       <Sidenav defaultOpenKeys={[]}>
         <Sidenav.Body>
           <Nav activeKey={activeKey} onSelect={setActiveKey}>

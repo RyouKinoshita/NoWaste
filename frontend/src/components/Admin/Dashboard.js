@@ -115,7 +115,7 @@ const Dashboard = () => {
       <Fragment>
         <div className="row">
           <div className="col-10 col-md-2 ">
-            <Card>
+            <Card style={{ marginTop: "2px" }}>
               <Sidebar />
             </Card>
           </div>
