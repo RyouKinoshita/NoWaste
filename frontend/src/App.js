@@ -16,6 +16,7 @@ import NewProduct from "./components/Admin/Products/NewProduct";
 import UpdateProduct from "./components/Admin/Products/UpdateProduct";
 import Aboutus from "./components/Layout/Aboutus";
 import SellerDashboard from "./components/User/Sellers/SellerDashboard";
+import SellerProductsList from "./components/User/Sellers/SellerProductsList";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 
 function App() {
@@ -69,6 +70,7 @@ function App() {
           <Route path="/admin/updateproduct/:id" element={<UpdateProduct />} />
           //Seller routes
           <Route path="/sellerdashboard" element={<SellerDashboard />} />
+          <Route path="/sellerproductslist" element={<SellerProductsList />} />
         </Routes>
       </Router>
     </>

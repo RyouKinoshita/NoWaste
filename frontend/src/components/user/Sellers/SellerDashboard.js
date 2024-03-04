@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../Layout/Navbar";
 import AdminFooter from "../../Layout/Admin/AdminFooter";
-import Sidebar from "../../Admin/Sidebar";
+import SellerSidebar from "./SellerSidebar";
 import MetaData from "../../Layout/Metadata";
 import Loader from "../../Layout/Loader";
 import { getToken } from "../../utils/helpers";
@@ -27,7 +27,7 @@ const SellerDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getAdminProducts = async () => {
+  const getSellerProducts = async () => {
     try {
       const config = {
         headers: {
@@ -37,10 +37,9 @@ const SellerDashboard = () => {
       };
 
       const { data } = await axios.get(
-        ` ${process.env.REACT_APP_API}/admin/products`,
+        ` ${process.env.REACT_APP_API}/seller/products`,
         config
       );
-      console.log("There will be a data", data);
       setProducts(data.products);
       const timeoutId = setTimeout(() => {
         setLoading(false);
@@ -50,30 +49,7 @@ const SellerDashboard = () => {
     }
   };
 
-  const allUsers = async () => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${getToken()}`,
-        },
-      };
-
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/admin/users`,
-        config
-      );
-      // console.log(data);
-      setUsers(data.users);
-      const timeoutId = setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
-
-  const getAdminOrders = async () => {
+  const getSellerOrders = async () => {
     try {
       const config = {
         headers: {
@@ -97,9 +73,8 @@ const SellerDashboard = () => {
   };
 
   useEffect(() => {
-    getAdminProducts();
-    allUsers();
-    getAdminOrders();
+    getSellerProducts();
+    getSellerOrders();
   }, []);
 
   return (
@@ -113,7 +88,7 @@ const SellerDashboard = () => {
         <div className="row">
           <div className="col-10 col-md-2 ">
             <Card>
-              <Sidebar />
+              <SellerSidebar />
             </Card>
           </div>
 
@@ -153,7 +128,7 @@ const SellerDashboard = () => {
                           <div className="card text-white bg-success o-hidden h-100">
                             <div className="card-body">
                               <div className="text-center card-font-size">
-                                Products
+                                Products Listed
                                 <br /> <b>{products && products.length}</b>
                               </div>
                             </div>
@@ -169,36 +144,7 @@ const SellerDashboard = () => {
                             </Link>
                           </div>
                         </div>
-                        <div
-                          className="col-xl-3 col-sm-6 mb-3"
-                          style={{ height: "125px" }}
-                        >
-                          <div
-                            className="card text-white  o-hidden h-100"
-                            style={{ backgroundColor: "#76448A" }}
-                          >
-                            <div
-                              className="card-body"
-                              style={{ backgroundColor: "#76448A" }}
-                            >
-                              <div className="text-center card-font-size">
-                                Users
-                                <br /> <b>{users && users.length}</b>
-                              </div>
-                            </div>
 
-                            <Link
-                              className="card-footer text-white clearfix small z-1"
-                              to="/admin/userslist"
-                              style={{ backgroundColor: " #A569BD" }}
-                            >
-                              <span className="float-left">View Details</span>
-                              <span className="float-right">
-                                <i className="fa fa-angle-right"></i>
-                              </span>
-                            </Link>
-                          </div>
-                        </div>
                         <div
                           className="col-xl-3 col-sm-6 mb-3"
                           style={{ height: "125px" }}
@@ -212,7 +158,7 @@ const SellerDashboard = () => {
                               style={{ backgroundColor: "red" }}
                             >
                               <div className="text-center card-font-size">
-                                Orders
+                                Products Sold
                                 <br /> <b>{orders && orders.length}</b>
                               </div>
                             </div>

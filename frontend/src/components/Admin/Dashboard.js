@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OrderPerMonth from "./Charts/OrderPerMonth";
+import PredictiveChart from "./Charts/PredictiveChart";
 import {
   MDBContainer as Container,
   MDBRow as Row,
@@ -145,6 +146,17 @@ const Dashboard = () => {
                     </Card>
                   </Col>
                   <Col className="custom-card-column">
+                    <Col className="custom-card-column">
+                      <Card>
+                        <CardBody style={{ height: "460px", width: "700px" }}>
+                          <CardTitle className="custom-card-title">
+                            Predictive Chart for Vegetable Sales
+                          </CardTitle>
+                          <PredictiveChart />
+                        </CardBody>
+                      </Card>
+                    </Col>
+                    <Col className="custom-card-column"></Col>
                     <Row>
                       <Col style={{ height: "250px", width: "200px" }}>
                         <div>

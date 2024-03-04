@@ -114,9 +114,6 @@ const Navbar = () => {
                 {user && user.role === "buyer" && (
                   <MDBNavbarItem>
                     <span id="cart" className="ml-3">
-                      <MDBBadge pill color="danger">
-                        4
-                      </MDBBadge>
                       <MDBIcon
                         fas
                         icon="cart-plus"
@@ -127,7 +124,11 @@ const Navbar = () => {
                           paddingRight: "10px",
                           paddingLeft: "5px",
                         }}
+                        size="lg"
                       ></MDBIcon>
+                      <MDBBadge notification pill color="danger">
+                        4
+                      </MDBBadge>
                     </span>
                   </MDBNavbarItem>
                 )}
