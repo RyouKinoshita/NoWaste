@@ -20,25 +20,25 @@ const Sidebar = () => {
                 Dashboard
               </Link>
             </Nav.Item>
-            <hr />
+            <hr className="hr hr-blurry" />
             <Nav.Item icon={<GroupIcon />}>
               <Link to="/admin/userslist" className="nav-link">
                 User Group
               </Link>
             </Nav.Item>
-            <hr />
+            <hr className="hr hr-blurry" />
             <Nav.Item icon={<ProductIcon />}>
               <Link to="/admin/productslist" className="nav-link">
                 Products
               </Link>
             </Nav.Item>
-            <hr />
+            <hr className="hr hr-blurry" />
             <Nav.Item icon={<OrdersIcon />}>
               <Link to="/admin/orderslist" className="nav-link">
                 Orders
               </Link>
             </Nav.Item>
-            <hr />
+            <hr className="hr hr-blurry" />
             <Nav.Item icon={<ArticlesIcon />}>
               <Link to="/admin/articleslist" className="nav-link">
                 Articles

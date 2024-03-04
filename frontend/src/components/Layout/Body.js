@@ -77,6 +77,7 @@ const Body = () => {
               </figure>
             </div>
           </div>
+          <hr className="hr hr-blurry" />
           <div className="row my-5">
             <div className="col-md-4 ">
               {" "}
@@ -291,7 +292,7 @@ const Body = () => {
             </div>
           </div>
         </div>
-
+        <hr className="hr hr-blurry" />
         <div className="container">
           <div className="row my-5">
             {product.map((product, index) => (

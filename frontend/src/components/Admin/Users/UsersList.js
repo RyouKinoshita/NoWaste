@@ -152,6 +152,7 @@ const UsersList = () => {
             >
               All Users
             </h1>
+            <hr className="hr hr-blurry" />
             {loading ? (
               <Loader />
             ) : (

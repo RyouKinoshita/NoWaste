@@ -203,6 +203,7 @@ const ProductsList = () => {
             >
               All Products
             </h1>
+            <hr className="hr hr-blurry" />
             <div className="d-flex justify-content-end mb-3">
               <Link to="/admin/newproduct  " className="btn btn-primary mr-5">
                 Add New Products

@@ -127,7 +127,7 @@ const Dashboard = () => {
             >
               Admin Dashboard
             </h1>
-
+            <hr className="hr hr-blurry" />
             {loading ? (
               <Loader />
             ) : (

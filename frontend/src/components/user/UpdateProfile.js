@@ -112,7 +112,7 @@ const UpdateProfile = () => {
   return (
     <Fragment>
       <section style={{ backgroundColor: "#eee" }}>
-        <MDBContainer className="py-5">
+        <MDBContainer>
           <MDBRow>
             <MDBCol lg="3">
               <MDBCard className="mb-4">
