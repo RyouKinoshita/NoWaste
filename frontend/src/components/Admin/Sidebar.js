@@ -11,31 +11,35 @@ import "rsuite/dist/rsuite.min.css";
 const Sidebar = () => {
   const [activeKey, setActiveKey] = React.useState("1");
   return (
-    <div style={{ width: 260, height: "100vh", overflowY: "auto" }}>
-      <Sidenav defaultOpenKeys={["3", "4"]}>
+    <div style={{ width: 290, height: "100vh", overflowY: "auto" }}>
+      <Sidenav defaultOpenKeys={[]}>
         <Sidenav.Body>
           <Nav activeKey={activeKey} onSelect={setActiveKey}>
-            <Nav.Item eventKey="1" icon={<DashboardIcon />}>
+            <Nav.Item icon={<DashboardIcon />}>
               <Link to="/dashboard" className="nav-link">
                 Dashboard
               </Link>
             </Nav.Item>
-            <Nav.Item eventKey="2" icon={<GroupIcon />}>
+            <hr />
+            <Nav.Item icon={<GroupIcon />}>
               <Link to="/admin/userslist" className="nav-link">
                 User Group
               </Link>
             </Nav.Item>
-            <Nav.Item eventKey="1" icon={<ProductIcon />}>
+            <hr />
+            <Nav.Item icon={<ProductIcon />}>
               <Link to="/admin/productslist" className="nav-link">
                 Products
               </Link>
             </Nav.Item>
-            <Nav.Item eventKey="1" icon={<OrdersIcon />}>
+            <hr />
+            <Nav.Item icon={<OrdersIcon />}>
               <Link to="/admin/orderslist" className="nav-link">
                 Orders
               </Link>
             </Nav.Item>
-            <Nav.Item eventKey="1" icon={<ArticlesIcon />}>
+            <hr />
+            <Nav.Item icon={<ArticlesIcon />}>
               <Link to="/admin/articleslist" className="nav-link">
                 Articles
               </Link>
