@@ -34,6 +34,7 @@ const NewProduct = () => {
     description: Yup.string().required("Description is required"),
     category: Yup.string().required("Category is required"),
     stock: Yup.number().required("Stock is required"),
+    location: Yup.string().required("Location is required"),
     seller: Yup.string().required("Seller is required"),
     images: Yup.array()
       .required("At least one image is required")
@@ -138,6 +139,7 @@ const NewProduct = () => {
     formData.set("description", data.description);
     formData.set("category", data.category);
     formData.set("stock", data.stock);
+    formData.set("location", data.location);
     const selectedSeller = sellers.find((seller) => seller._id === data.seller);
     if (selectedSeller) {
       formData.set("seller", selectedSeller.name);
@@ -281,6 +283,22 @@ const NewProduct = () => {
                       {errors.stock && (
                         <p className="invalid-feedback">
                           {errors.stock.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="location_field">Location</label>
+                      <textarea
+                        id="location_field"
+                        className={`form-control ${
+                          errors.location ? "is-invalid" : ""
+                        }`}
+                        {...register("location")}
+                      />
+                      {errors.location && (
+                        <p className="invalid-feedback">
+                          {errors.location.message}
                         </p>
                       )}
                     </div>

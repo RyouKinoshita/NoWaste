@@ -124,6 +124,11 @@ const ProductsList = () => {
           sort: "asc",
         },
         {
+          label: "Location",
+          field: "location",
+          sort: "asc",
+        },
+        {
           label: "Seller",
           field: "seller",
           sort: "asc",
@@ -144,6 +149,7 @@ const ProductsList = () => {
         description: product.description,
         category: product.category,
         stock: product.stock,
+        location: product.location,
         seller: product.seller,
         actions: (
           <Fragment>

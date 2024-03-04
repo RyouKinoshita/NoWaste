@@ -19,6 +19,7 @@ const UpdateProduct = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
+  const [location, setLocation] = useState("");
   const [sellers, setSellers] = useState([]);
   const [seller, setSeller] = useState([]);
 
@@ -44,6 +45,7 @@ const UpdateProduct = () => {
     description: Yup.string().required("Description is required"),
     category: Yup.string().required("Category is required"),
     stock: Yup.number().required("Stock is required"),
+    location: Yup.string().required("Location is required"),
     seller: Yup.string().required("Seller is required"),
     images: Yup.array()
       .required("At least one image is required")
@@ -148,6 +150,7 @@ const UpdateProduct = () => {
       setDescription(product.description);
       setCategory(product.category);
       setStock(product.stock);
+      setLocation(product.location);
       setSeller(product.seller);
       setOldImages(product.images);
 
@@ -156,6 +159,7 @@ const UpdateProduct = () => {
       setValue("description", product.description);
       setValue("category", product.category);
       setValue("stock", product.stock);
+      setValue("location", product.location);
       setValue("seller", product.seller);
       setValue("images", []); // Clear any previous selected images
     };
@@ -188,6 +192,7 @@ const UpdateProduct = () => {
     formData.set("description", data.description);
     formData.set("category", data.category);
     formData.set("stock", data.stock);
+    formData.set("location", data.location);
     const selectedSeller = sellers.find((seller) => seller._id === data.seller);
     if (selectedSeller) {
       formData.set("seller", selectedSeller.name);
@@ -313,6 +318,22 @@ const UpdateProduct = () => {
                       {errors.stock && (
                         <p className="invalid-feedback">
                           {errors.stock.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="location_field">Location</label>
+                      <textarea
+                        id="location_field"
+                        className={`form-control ${
+                          errors.location ? "is-invalid" : ""
+                        }`}
+                        {...register("location")}
+                      />
+                      {errors.location && (
+                        <p className="invalid-feedback">
+                          {errors.location.message}
                         </p>
                       )}
                     </div>
