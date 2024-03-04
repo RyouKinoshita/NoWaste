@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Homepage from "./components/Homepage";
-import Login from "./components/user/Login";
-import Register from "./components/user/Register";
-import ForgotPassword from "./components/user/ForgotPassword";
-import NewPassword from "./components/user/NewPassword";
+import Login from "./components/User/Login";
+import Register from "./components/User/Register";
+import ForgotPassword from "./components/User/ForgotPassword";
+import NewPassword from "./components/User/NewPassword";
 import Dashboard from "./components/Admin/Dashboard";
 import Profile from "./components/User/Profile";
+import UpdateProfile from "./components/User/UpdateProfile";
 import UsersList from "./components/Admin/Users/UsersList";
 import UpdateUser from "./components/Admin/Users/UpdateUser";
 import ProductsList from "./components/Admin/Products/ProductsList";
@@ -37,6 +38,7 @@ function App() {
           />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/updateprofile" element={<UpdateProfile />} />
           //Admin routes
           <Route
             path="/dashboard"
