@@ -17,7 +17,7 @@ import {
   MDBCard as Card,
   MDBCardBody as CardBody,
   MDBCardTitle as CardTitle,
-} from 'mdb-react-ui-kit';
+} from "mdb-react-ui-kit";
 import UserRoleBuyer from "./Charts/UserRoleBuyer";
 import UserRoleSellers from "./Charts/UserRoleSellers";
 import UserRoleAdmin from "./Charts/UserRoleAdmin";
@@ -30,21 +30,20 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
-
   const getAdminProducts = async () => {
     try {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          'Authorization': `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       };
 
       const { data } = await axios.get(
-       ` ${process.env.REACT_APP_API}/admin/products`,
+        ` ${process.env.REACT_APP_API}/admin/products`,
         config
       );
-      console.log('There will be a data', data);
+      console.log("There will be a data", data);
       setProducts(data.products);
       const timeoutId = setTimeout(() => {
         setLoading(false);
@@ -59,7 +58,7 @@ const Dashboard = () => {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          'Authorization': `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       };
 
@@ -82,12 +81,12 @@ const Dashboard = () => {
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          'Authorization': `Bearer ${getToken()}`,
+          Authorization: `Bearer ${getToken()}`,
         },
       };
 
       const { data } = await axios.get(
-      `${process.env.REACT_APP_API}/admin/order`,
+        `${process.env.REACT_APP_API}/admin/order`,
         config
       );
       // console.log('There will be a data', data);
@@ -108,18 +107,20 @@ const Dashboard = () => {
 
   return (
     <div
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh",}}
+      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
     >
       <div style={{ paddingBottom: "20px" }}>
         <Navbar />
       </div>
       <Fragment>
         <div className="row">
-          <div className="col-12 col-md-2 " >
-            <Sidebar />
+          <div className="col-10 col-md-2 ">
+            <Card>
+              <Sidebar />
+            </Card>
           </div>
 
-          <div className="col-12 col-md-10" >
+          <div className="col-12 col-md-10">
             <h1
               className="my-4"
               style={{ color: "black", marginLeft: "-10px" }}
@@ -132,21 +133,22 @@ const Dashboard = () => {
             ) : (
               <Fragment>
                 <div className="row pr-4">
-
                   <MetaData title={"Admin Dashboard"} />
-                  <Col className="custom-card-column" >
+                  <Col className="custom-card-column">
                     <Card>
-                      <CardBody style={{ height: '460px', width: '700px' }}>
-                        <CardTitle className="custom-card-title">Order Per Month</CardTitle>
+                      <CardBody style={{ height: "460px", width: "700px" }}>
+                        <CardTitle className="custom-card-title">
+                          Order Per Month
+                        </CardTitle>
                         <OrderPerMonth orders={orders} />
                       </CardBody>
                     </Card>
                   </Col>
                   <Col className="custom-card-column">
                     <Row>
-                      <Col style={{ height: '250px', width: '200px' }}>
+                      <Col style={{ height: "250px", width: "200px" }}>
                         <div>
-                          <div style={{ height: '250px', width: '250px' }} >
+                          <div style={{ height: "250px", width: "250px" }}>
                             <center>
                               <UserRoleBuyer users={users} />
                             </center>
@@ -155,7 +157,7 @@ const Dashboard = () => {
                       </Col>
                       <Col>
                         <div>
-                          <div style={{ height: '250px', width: '250px' }}>
+                          <div style={{ height: "250px", width: "250px" }}>
                             <center>
                               <UserRoleSellers users={users} />
                             </center>
@@ -164,8 +166,8 @@ const Dashboard = () => {
                       </Col>
                     </Row>
                     <Col className="col-xl-2 col-sm-6 mb-3">
-                      <div style={{ height: '250px', width: '600px' }}>
-                        <div style={{ height: '250px', width: '600px' }}>
+                      <div style={{ height: "250px", width: "600px" }}>
+                        <div style={{ height: "250px", width: "600px" }}>
                           <center>
                             <UserRoleAdmin users={users} />
                           </center>
@@ -175,10 +177,13 @@ const Dashboard = () => {
                   </Col>
 
                   {/* THIS IS NO. OF DATA */}
-                  <div className="row pr-4" >
-                    <div className="col-xl-10 col-sm-6 mb-3" >
-                      <Row >
-                        <div className="col-xl-3 col-sm-6 mb-3" style={{height:'125px'}}>
+                  <div className="row pr-4">
+                    <div className="col-xl-10 col-sm-6 mb-3">
+                      <Row>
+                        <div
+                          className="col-xl-3 col-sm-6 mb-3"
+                          style={{ height: "125px" }}
+                        >
                           <div className="card text-white bg-success o-hidden h-100">
                             <div className="card-body">
                               <div className="text-center card-font-size">
@@ -198,7 +203,10 @@ const Dashboard = () => {
                             </Link>
                           </div>
                         </div>
-                        <div className="col-xl-3 col-sm-6 mb-3" style={{height:'125px'}}>
+                        <div
+                          className="col-xl-3 col-sm-6 mb-3"
+                          style={{ height: "125px" }}
+                        >
                           <div
                             className="card text-white  o-hidden h-100"
                             style={{ backgroundColor: "#76448A" }}
@@ -225,7 +233,10 @@ const Dashboard = () => {
                             </Link>
                           </div>
                         </div>
-                        <div className="col-xl-3 col-sm-6 mb-3" style={{height:'125px'}}> 
+                        <div
+                          className="col-xl-3 col-sm-6 mb-3"
+                          style={{ height: "125px" }}
+                        >
                           <div
                             className="card text-white  o-hidden h-100"
                             style={{ backgroundColor: "#1F618D" }}

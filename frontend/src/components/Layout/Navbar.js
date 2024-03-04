@@ -74,7 +74,7 @@ const Navbar = () => {
         style={{ padding: "20px" }}
       >
         <MDBContainer fluid>
-          <Link to="/homepage" style={{ color: "white" }}>
+          <Link to="/" style={{ color: "white" }}>
             <MDBNavbarBrand style={{ color: "white", fontSize: "20px" }}>
               No Waste
             </MDBNavbarBrand>
@@ -133,91 +133,95 @@ const Navbar = () => {
                     ></MDBIcon>
                   </span>
                 </MDBNavbarItem>
+                {user ? (
+                  <MDBNavbarItem>
+                    <div className="d-flex align-items-center">
+                      <MDBDropdown>
+                        <MDBDropdownToggle
+                          tag="a"
+                          className="nav-link"
+                          role="button"
+                          style={{ fontSize: "0px" }}
+                        >
+                          <Avatar>
+                            {user.avatar && (
+                              <img
+                                src={user.avatar.url}
+                                alt={user.name}
+                                style={{ maxWidth: "50px" }}
+                              />
+                            )}
+                          </Avatar>
+                        </MDBDropdownToggle>
+                        <MDBDropdownMenu
+                          className="dropdown-menu-lg-right"
+                          style={{ padding: "12px", fontSize: "17px" }}
+                        >
+                          <Link to="/dashboard" style={{ color: "black" }}>
+                            <MDBDropdownItem style={{ paddingBottom: "3px" }}>
+                              <MDBIcon
+                                fas
+                                icon="tachometer-alt"
+                                className="me-1"
+                              />
+                              Dashboard
+                            </MDBDropdownItem>
+                          </Link>
+                          <Link to="/profile" style={{ color: "black" }}>
+                            <MDBDropdownItem style={{ paddingBottom: "3px" }}>
+                              <MDBIcon
+                                fas
+                                icon="user-circle"
+                                className="me-1"
+                              />
+                              My Profile
+                            </MDBDropdownItem>
+                          </Link>
 
-                <MDBNavbarItem>
-                  <div className="d-flex align-items-center">
-                    <MDBDropdown>
-                      <MDBDropdownToggle
-                        tag="a"
-                        className="nav-link"
-                        role="button"
-                        style={{ fontSize: "0px" }}
+                          <MDBDropdownItem style={{ paddingBottom: "3px" }}>
+                            <a
+                              onClick={logoutHandler}
+                              style={{
+                                cursor: "pointer",
+                                color: "black",
+                                marginRight: "20px",
+                              }}
+                            >
+                              <MDBIcon
+                                fas
+                                icon="sign-out-alt"
+                                className="me-1"
+                              />
+                              Logout
+                            </a>
+                          </MDBDropdownItem>
+                        </MDBDropdownMenu>
+                      </MDBDropdown>
+                      <span
+                        style={{
+                          color: "white",
+                          marginLeft: "10px",
+                          fontSize: "20px",
+                        }}
                       >
-                        <Avatar>
-                          {user.avatar && (
-                            <img
-                              src={user.avatar.url}
-                              alt={user.name}
-                              style={{ maxWidth: "50px" }}
-                            />
-                          )}
-                        </Avatar>
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu
-                        className="dropdown-menu-lg-right"
-                        style={{ padding: "12px", fontSize: "17px" }}
-                      >
-                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                          <Link
-                            to="/dashboard"
-                            style={{ color: "black", marginRight: "20px" }}
-                          >
-                            <MDBIcon
-                              fas
-                              icon="tachometer-alt"
-                              className="me-1"
-                            />
-                            Dashboard
-                          </Link>
-                        </MDBDropdownItem>
-                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                          <Link
-                            to="/profile"
-                            style={{ color: "black", marginRight: "20px" }}
-                          >
-                            <MDBIcon fas icon="user-circle" className="me-1" />
-                            My Profile
-                          </Link>
-                        </MDBDropdownItem>
-                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                          <Link
-                            to="/orders"
-                            style={{ color: "black", marginRight: "20px" }}
-                          >
-                            <MDBIcon
-                              fas
-                              icon="clipboard-list"
-                              className="me-1"
-                            />
-                            My Orders
-                          </Link>
-                        </MDBDropdownItem>
-                        <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                          <a
-                            onClick={logoutHandler}
-                            style={{
-                              cursor: "pointer",
-                              color: "black",
-                              marginRight: "20px",
-                            }}
-                          >
-                            <MDBIcon fas icon="sign-out-alt" className="me-1" />
-                            Logout
-                          </a>
-                        </MDBDropdownItem>
-                      </MDBDropdownMenu>
-                    </MDBDropdown>
-                    <span
-                      style={{
-                        color: "white",
-                        marginLeft: "10px",
-                        fontSize: "20px",
-                      }}
-                    >
-                      Welcome {user && user.name}
-                    </span>
-                  </div>
-                </MDBNavbarItem>
+                        Welcome {user && user.name}
+                      </span>
+                    </div>
+                  </MDBNavbarItem>
+                ) : (
+                  <Fragment>
+                    <Link to="/login">
+                      <MDBBtn className="me-1" color="light" rippleColor="dark">
+                        Login
+                      </MDBBtn>
+                    </Link>
+                    <Link to="/register">
+                      <MDBBtn className="me-1" color="dark">
+                        Register
+                      </MDBBtn>
+                    </Link>
+                  </Fragment>
+                )}
               </div>
             </MDBNavbarNav>
           </MDBCollapse>

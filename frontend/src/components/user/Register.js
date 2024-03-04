@@ -94,7 +94,9 @@ const Register = () => {
                       }}
                     >
                       <div className="d-flex align-items-center mb-3 pb-1">
-                        <span className="h2 fw-bold mb-0">No Waste</span>
+                        <Link to="/">
+                          <span className="h2 fw-bold mb-0">No Waste</span>
+                        </Link>
                       </div>
                       <h5
                         className="fw-normal mb-3 pb-3"
@@ -166,7 +168,7 @@ const Register = () => {
                       </div>
                       <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                         Already have an account?{" "}
-                        <Link to="/" style={{ color: "#393f81" }}>
+                        <Link to="/login" style={{ color: "#393f81" }}>
                           Login here
                         </Link>
                       </p>
