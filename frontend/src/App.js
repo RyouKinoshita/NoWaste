@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Homepage from "./components/Homepage";
-import Login from "./components/User/Login";
-import Register from "./components/User/Register";
+import Login from "./components/user/Login";
+import Register from "./components/user/Register";
+import ForgotPassword from "./components/user/ForgotPassword";
+import NewPassword from "./components/user/NewPassword";
 import Dashboard from "./components/Admin/Dashboard";
 import Profile from "./components/User/Profile";
 import UsersList from "./components/Admin/Users/UsersList";
@@ -23,6 +25,16 @@ function App() {
           <Route path="/" element={<Homepage />} caseSensitive={true} />
           <Route path="/login" element={<Login />} exact="true" />
           <Route path="/register" element={<Register />} exact="true" />
+          <Route
+            path="/forgotPassword"
+            element={<ForgotPassword />}
+            exact="true"
+          />
+          <Route
+            path="/newPassword/:token"
+            element={<NewPassword />}
+            exact="true"
+          />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/profile" element={<Profile />} />
           //Admin routes
