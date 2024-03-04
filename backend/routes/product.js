@@ -9,6 +9,7 @@ const {
   updateProduct,
   deleteProduct,
   getAdminProducts,
+  getSellerProducts,
 } = require("../controllers/productController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 
@@ -21,6 +22,13 @@ router.post(
 );
 
 router.get("/products", getProducts);
+
+router.get(
+  "/seller/products",
+  isAuthenticatedUser,
+  authorizeRoles("seller"),
+  getSellerProducts
+);
 
 router.get("/product/:id", getSingleProduct);
 router.get(
