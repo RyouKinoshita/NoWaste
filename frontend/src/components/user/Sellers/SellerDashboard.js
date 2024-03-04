@@ -1,15 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../Layout/Navbar";
-import AdminFooter from "../Layout/Admin/AdminFooter";
-import Sidebar from "../Admin/Sidebar";
-import MetaData from "../Layout/Metadata";
-import Loader from "../Layout/Loader";
-import { getToken } from "../utils/helpers";
+import Navbar from "../../Layout/Navbar";
+import AdminFooter from "../../Layout/Admin/AdminFooter";
+import Sidebar from "../../Admin/Sidebar";
+import MetaData from "../../Layout/Metadata";
+import Loader from "../../Layout/Loader";
+import { getToken } from "../../utils/helpers";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import OrderPerMonth from "./Charts/OrderPerMonth";
+import OrderPerMonth from "../../Admin/Charts/OrderPerMonth";
 import {
   MDBContainer as Container,
   MDBRow as Row,
@@ -18,11 +18,8 @@ import {
   MDBCardBody as CardBody,
   MDBCardTitle as CardTitle,
 } from "mdb-react-ui-kit";
-import UserRoleBuyer from "./Charts/UserRoleBuyer";
-import UserRoleSellers from "./Charts/UserRoleSellers";
-import UserRoleAdmin from "./Charts/UserRoleAdmin";
 
-const Dashboard = () => {
+const SellerDashboard = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [users, setUsers] = useState([]);
@@ -125,7 +122,7 @@ const Dashboard = () => {
               className="my-4"
               style={{ color: "black", marginLeft: "-10px" }}
             >
-              Admin Dashboard
+              Seller Dashboard
             </h1>
 
             {loading ? (
@@ -133,7 +130,7 @@ const Dashboard = () => {
             ) : (
               <Fragment>
                 <div className="row pr-4">
-                  <MetaData title={"Admin Dashboard"} />
+                  <MetaData title={"Seller Dashboard"} />
                   <Col className="custom-card-column">
                     <Card>
                       <CardBody style={{ height: "460px", width: "700px" }}>
@@ -143,37 +140,6 @@ const Dashboard = () => {
                         <OrderPerMonth orders={orders} />
                       </CardBody>
                     </Card>
-                  </Col>
-                  <Col className="custom-card-column">
-                    <Row>
-                      <Col style={{ height: "250px", width: "200px" }}>
-                        <div>
-                          <div style={{ height: "250px", width: "250px" }}>
-                            <center>
-                              <UserRoleBuyer users={users} />
-                            </center>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col>
-                        <div>
-                          <div style={{ height: "250px", width: "250px" }}>
-                            <center>
-                              <UserRoleSellers users={users} />
-                            </center>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                    <Col className="col-xl-2 col-sm-6 mb-3">
-                      <div style={{ height: "250px", width: "600px" }}>
-                        <div style={{ height: "250px", width: "600px" }}>
-                          <center>
-                            <UserRoleAdmin users={users} />
-                          </center>
-                        </div>
-                      </div>
-                    </Col>
                   </Col>
 
                   {/* THIS IS NO. OF DATA */}
@@ -194,7 +160,7 @@ const Dashboard = () => {
 
                             <Link
                               className="card-footer text-white clearfix small z-1"
-                              to="/admin/productslist"
+                              to="/seller/productslist"
                             >
                               <span className="float-left">View Details</span>
                               <span className="float-right">
@@ -287,4 +253,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default SellerDashboard;

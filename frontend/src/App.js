@@ -12,46 +12,51 @@ import ProductsList from "./components/Admin/Products/ProductsList";
 import NewProduct from "./components/Admin/Products/NewProduct";
 import UpdateProduct from "./components/Admin/Products/UpdateProduct";
 import Aboutus from "./components/Layout/Aboutus";
+import SellerDashboard from "./components/User/Sellers/SellerDashboard";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Homepage />} caseSensitive={true} />
-        <Route path="/login" element={<Login />} exact="true" />
-        <Route path="/register" element={<Register />} exact="true" />
-        <Route path="/aboutus" element={<Aboutus />} />
-        <Route path="/profile" element={<Profile />} />
-        //Admin routes
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute isAdmin={true}>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/userslist"
-          element={
-            <ProtectedRoute isAdmin={true}>
-              <UsersList />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/admin/user/:id" element={<UpdateUser />} />
-        <Route
-          path="/admin/productslist"
-          element={
-            <ProtectedRoute isAdmin={true}>
-              <ProductsList />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/admin/newproduct" element={<NewProduct />} />
-        <Route path="/admin/updateproduct/:id" element={<UpdateProduct />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Homepage />} caseSensitive={true} />
+          <Route path="/login" element={<Login />} exact="true" />
+          <Route path="/register" element={<Register />} exact="true" />
+          <Route path="/aboutus" element={<Aboutus />} />
+          <Route path="/profile" element={<Profile />} />
+          //Admin routes
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/userslist"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UsersList />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/admin/user/:id" element={<UpdateUser />} />
+          <Route
+            path="/admin/productslist"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductsList />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/admin/newproduct" element={<NewProduct />} />
+          <Route path="/admin/updateproduct/:id" element={<UpdateProduct />} />
+          //Seller routes
+          <Route path="/sellerdashboard" element={<SellerDashboard />} />
+        </Routes>
+      </Router>
     </>
   );
 }

@@ -111,31 +111,69 @@ const Navbar = () => {
               className="mr-auto mb-2 mb-lg-0"
             >
               <div className="d-flex align-items-center">
-                <MDBNavbarItem></MDBNavbarItem>
-                <MDBNavbarItem></MDBNavbarItem>
-              </div>
-              <div className="d-flex align-items-center">
-                <MDBNavbarItem>
-                  <span id="cart" className="ml-3">
-                    <MDBBadge pill color="danger">
-                      4
-                    </MDBBadge>
-                    <MDBIcon
-                      fas
-                      icon="cart-plus"
-                      aria-label="add to shopping cart"
-                      href="/cart"
+                {user && user.role === "buyer" && (
+                  <MDBNavbarItem>
+                    <span id="cart" className="ml-3">
+                      <MDBBadge pill color="danger">
+                        4
+                      </MDBBadge>
+                      <MDBIcon
+                        fas
+                        icon="cart-plus"
+                        aria-label="add to shopping cart"
+                        href="/cart"
+                        style={{
+                          color: "white",
+                          paddingRight: "10px",
+                          paddingLeft: "5px",
+                        }}
+                      ></MDBIcon>
+                    </span>
+                  </MDBNavbarItem>
+                )}
+                {user && user.role === "admin" && (
+                  <MDBNavbarItem>
+                    <Link
+                      to="/dashboard"
                       style={{
                         color: "white",
-                        paddingRight: "10px",
-                        paddingLeft: "5px",
+                        marginRight: "5px",
+                        fontSize: "15px",
                       }}
-                    ></MDBIcon>
-                  </span>
-                </MDBNavbarItem>
+                    >
+                      <MDBIcon fas icon="tachometer-alt" className="me-1" />
+                      Admin Dashboard
+                    </Link>
+                  </MDBNavbarItem>
+                )}
+                {user && user.role === "seller" && (
+                  <MDBNavbarItem>
+                    <Link
+                      to="/sellerdashboard"
+                      style={{
+                        color: "white",
+                        marginRight: "5px",
+                        fontSize: "15px",
+                      }}
+                    >
+                      <MDBIcon fas icon="tachometer-alt" className="me-1" />
+                      Seller Dashboard
+                    </Link>
+                  </MDBNavbarItem>
+                )}
+
                 {user ? (
                   <MDBNavbarItem>
                     <div className="d-flex align-items-center">
+                      <span
+                        style={{
+                          color: "white",
+                          marginLeft: "10px",
+                          fontSize: "20px",
+                        }}
+                      >
+                        Welcome {user && user.name}
+                      </span>
                       <MDBDropdown>
                         <MDBDropdownToggle
                           tag="a"
@@ -157,16 +195,6 @@ const Navbar = () => {
                           className="dropdown-menu-lg-right"
                           style={{ padding: "12px", fontSize: "17px" }}
                         >
-                          <Link to="/dashboard" style={{ color: "black" }}>
-                            <MDBDropdownItem style={{ paddingBottom: "3px" }}>
-                              <MDBIcon
-                                fas
-                                icon="tachometer-alt"
-                                className="me-1"
-                              />
-                              Dashboard
-                            </MDBDropdownItem>
-                          </Link>
                           <Link to="/profile" style={{ color: "black" }}>
                             <MDBDropdownItem style={{ paddingBottom: "3px" }}>
                               <MDBIcon
@@ -197,15 +225,6 @@ const Navbar = () => {
                           </MDBDropdownItem>
                         </MDBDropdownMenu>
                       </MDBDropdown>
-                      <span
-                        style={{
-                          color: "white",
-                          marginLeft: "10px",
-                          fontSize: "20px",
-                        }}
-                      >
-                        Welcome {user && user.name}
-                      </span>
                     </div>
                   </MDBNavbarItem>
                 ) : (

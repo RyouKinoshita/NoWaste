@@ -52,7 +52,7 @@ const Register = () => {
       formData.append("avatar", avatar);
 
       const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/register`,
+        `${process.env.REACT_APP_API}/register`,
         formData,
         config
       );
