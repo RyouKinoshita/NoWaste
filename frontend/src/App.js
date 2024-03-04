@@ -3,6 +3,7 @@ import Homepage from "./components/Homepage";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
 import Dashboard from "./components/Admin/Dashboard";
+import Profile from "./components/User/Profile";
 import UsersList from "./components/Admin/Users/UsersList";
 import UpdateUser from "./components/Admin/Users/UpdateUser";
 import ProductsList from "./components/Admin/Products/ProductsList";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<Register />} exact="true" />
         <Route path="/aboutus" element={<Aboutus />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/admin/userslist" element={<UsersList />} />
         <Route path="/admin/user/:id" element={<UpdateUser />} />
         <Route path="/admin/productslist" element={<ProductsList />} />
