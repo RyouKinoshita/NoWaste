@@ -54,9 +54,12 @@ const Body = () => {
 
   const [centredModal2, setCentredModal2] = useState(false);
 
+  const [centredModal3, setCentredModal3] = useState(false);
+
   const toggleOpen = () => setCentredModal(!centredModal);
   const toggleOpen1 = () => setCentredModal1(!centredModal1);
   const toggleOpen2 = () => setCentredModal2(!centredModal2);
+  const toggleOpen3 = () => setCentredModal3(!centredModal3);
 
   return (
     <div>
@@ -323,9 +326,45 @@ const Body = () => {
                   ))}
                   <MDBCardBody>
                     <MDBCardTitle>{product.name}</MDBCardTitle>
-                    <MDBCardText>Category: {product.category}</MDBCardText>
+                    <MDBCardText>Price {product.price}</MDBCardText>
                     <MDBCardText>Stock: {product.stock}</MDBCardText>
+                    <MDBBtn onClick={toggleOpen3}> View Details </MDBBtn>
                     {/* Modal code here */}
+                    <MDBModal
+                      tabIndex="-1"
+                      open={centredModal3}
+                      setOpen={setCentredModal3}
+                    >
+                      <MDBModalDialog centered>
+                        <MDBModalContent>
+                          <MDBModalHeader>
+                            <MDBModalTitle>{product.category} - {product.name}</MDBModalTitle>
+                            <MDBBtn
+                              className="btn-close"
+                              color="none"
+                              onClick={toggleOpen3}
+                            ></MDBBtn>
+                          </MDBModalHeader>
+                          <MDBModalBody>
+                            <div class="clearfix">
+                              <img
+                                src="../assets/images/5.jpeg"
+                                class="col-md-6 float-md-end mb-3 ms-md-3"
+                                alt="..."
+                              />
+
+                              <MDBCardText>Price {product.price}</MDBCardText>
+                              <MDBCardText>Stock: {product.stock}</MDBCardText>
+                            </div>
+                          </MDBModalBody>
+                          <MDBModalFooter>
+                            <MDBBtn color="secondary" onClick={toggleOpen3}>
+                              Close
+                            </MDBBtn>
+                          </MDBModalFooter>
+                        </MDBModalContent>
+                      </MDBModalDialog>
+                    </MDBModal>
                   </MDBCardBody>
                 </MDBCard>
               </div>
