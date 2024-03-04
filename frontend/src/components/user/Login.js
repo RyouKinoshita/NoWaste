@@ -30,7 +30,7 @@ export default function Login() {
       );
       console.log(data);
       localStorage.setItem("user", JSON.stringify(data));
-      authenticate(data, () => navigate("/homepage"));
+      authenticate(data, () => navigate("/"));
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +88,9 @@ export default function Login() {
                   <div className="card-body p-4 p-lg-5 text-black">
                     <form onSubmit={handleSubmit}>
                       <div className="d-flex align-items-center mb-3 pb-1">
-                        <span className="h2 fw-bold mb-0">No Waste</span>
+                        <Link to="/">
+                          <span className="h2 fw-bold mb-0">No Waste</span>
+                        </Link>
                       </div>
                       <h5
                         className="fw-normal mb-3 pb-3"
