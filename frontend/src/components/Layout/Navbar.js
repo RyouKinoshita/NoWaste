@@ -211,10 +211,12 @@ const Navbar = () => {
                 ) : (
                   <Fragment>
                     <Link to="/login">
-                      <MDBBtn className="me-1">Login</MDBBtn>
+                      <MDBBtn className="me-1" color="light" rippleColor="dark">
+                        Login
+                      </MDBBtn>
                     </Link>
                     <Link to="/register">
-                      <MDBBtn className="me-1" color="secondary">
+                      <MDBBtn className="me-1" color="dark">
                         Register
                       </MDBBtn>
                     </Link>
