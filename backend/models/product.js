@@ -52,6 +52,10 @@ const productSchema = new mongoose.Schema({
     maxLength: [5, "Product name cannot exceed 5 characters"],
     default: 0,
   },
+  location: {
+    type: String,
+    required: [true, "Please enter product location"],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

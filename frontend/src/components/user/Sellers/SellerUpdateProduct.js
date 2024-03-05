@@ -13,7 +13,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
-const UpdateProduct = () => {
+const SellerUpdateProduct = () => {
+  /**
+   * TODO: Make controllers for Sellers and update this component
+   * */
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
@@ -426,4 +429,4 @@ const UpdateProduct = () => {
   );
 };
 
-export default UpdateProduct;
+export default SellerUpdateProduct;

@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
-
 import MetaData from "../../Layout/Metadata";
 import Loader from "../../Layout/Loader";
-import Sidebar from "../Sidebar";
+import SellerSidebar from "./SellerSidebar";
 import Navbar from "../../Layout/Navbar";
 import AdminFooter from "../../Layout/Admin/AdminFooter";
 import { getToken } from "../../utils/helpers";
@@ -13,7 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getUser } from "../../utils/helpers";
 
-const ProductsList = () => {
+const SellerProductsList = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [deleteError, setDeleteError] = useState("");
@@ -23,7 +22,7 @@ const ProductsList = () => {
   const [isDeleted, setIsDeleted] = useState(false);
 
   let navigate = useNavigate();
-  const getAdminProducts = async () => {
+  const getSellerProducts = async () => {
     try {
       const config = {
         headers: {
@@ -33,7 +32,7 @@ const ProductsList = () => {
       };
 
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/admin/products`,
+        `${process.env.REACT_APP_API}/seller/products`,
         config
       );
       console.log(data);
@@ -46,7 +45,7 @@ const ProductsList = () => {
     }
   };
   useEffect(() => {
-    getAdminProducts();
+    getSellerProducts();
 
     if (error) {
       toast.error(error, {
@@ -64,7 +63,7 @@ const ProductsList = () => {
       toast.success("Product deleted successfully", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
-      navigate("/admin/productslist");
+      navigate("/sellerproductslist");
     }
   }, [error, deleteError, isDeleted]);
 
@@ -192,7 +191,7 @@ const ProductsList = () => {
       <MetaData title={"All Products"} />
       <div className="row">
         <div className="col-12 col-md-2">
-          <Sidebar />
+          <SellerSidebar />
         </div>
 
         <div className="col-12 col-md-10" style={{ justifyContent: "center" }}>
@@ -228,4 +227,4 @@ const ProductsList = () => {
   );
 };
 
-export default ProductsList;
+export default SellerProductsList;

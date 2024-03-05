@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const User = require("../models/user");
 const Order = require("../models/order");
 const APIFeatures = require("../utils/apiFeatures");
 const cloudinary = require("cloudinary");
@@ -196,4 +197,40 @@ exports.updateProduct = async (req, res, next) => {
     success: true,
     product,
   });
+};
+
+exports.getSellerProducts = async (req, res, next) => {
+  try {
+    // Fetch all products
+    const allProducts = await Product.find();
+
+    // Find the current user with the role "seller"
+    const currentUser = await User.findOne({
+      _id: req.user.id,
+      role: "seller",
+    });
+
+    if (!currentUser) {
+      return res.status(403).json({
+        success: false,
+        message: "Current user is not authorized as a seller",
+      });
+    }
+
+    // Filter products where the seller's name matches the current user's name
+    const sellerProducts = allProducts.filter(
+      (product) => product.seller === currentUser.name
+    );
+
+    res.status(200).json({
+      success: true,
+      products: sellerProducts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
 };
