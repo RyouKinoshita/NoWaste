@@ -13,7 +13,7 @@ const SellerSidebar = () => {
   return (
     <div
       style={{
-        width: 290,
+        width: 220,
         height: "100vh",
         overflowY: "auto",
         paddingTop: "20px",

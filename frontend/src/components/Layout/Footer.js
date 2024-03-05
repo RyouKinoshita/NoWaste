@@ -25,22 +25,22 @@ const Footer = () => {
               <MDBRow className="d-flex justify-content-center">
                 <MDBCol size="auto">
                   <p className="pt-2">
-                    <strong>Sign up for our newsletter</strong>
+                    <strong>Give us your feedback!</strong>
                   </p>
                 </MDBCol>
 
                 <MDBCol md="5" start>
                   <MDBInput
                     contrast
-                    type="email"
-                    label="Email address"
+                    type="feedback"
+                    label="What can we improve on?"
                     className="mb-4"
                   />
                 </MDBCol>
 
                 <MDBCol size="auto">
                   <MDBBtn outline color="light" type="submit" className="mb-4">
-                    Subscribe
+                    Send
                   </MDBBtn>
                 </MDBCol>
               </MDBRow>
