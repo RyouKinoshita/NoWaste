@@ -10,7 +10,7 @@ import Dashboard from "./components/Admin/Dashboard";
 import Profile from "./components/User/Profile";
 import UsersList from "./components/Admin/Users/UsersList";
 import UpdateUser from "./components/Admin/Users/UpdateUser";
-// import UpdateProfile  from "./components/Admin/Users/UpdateProfile";
+import UpdateProfile  from "./components/User/UpdateProfile";
 import ProductsList from "./components/Admin/Products/ProductsList";
 import NewProduct from "./components/Admin/Products/NewProduct";
 import UpdateProduct from "./components/Admin/Products/UpdateProduct";
@@ -42,7 +42,7 @@ function App() {
           />
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/profile" element={<Profile />} />
-          {/* <Route path="/updateprofile" element={<UpdateProfile />} /> */}
+          <Route path="/updateprofile" element={<UpdateProfile />} />
           //Admin routes
           <Route
             path="/dashboard"
