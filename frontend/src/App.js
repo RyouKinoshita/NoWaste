@@ -7,15 +7,19 @@ import Register from "./components/user/Register";
 import ForgotPassword from "./components/user/ForgotPassword";
 import NewPassword from "./components/user/NewPassword";
 import Dashboard from "./components/Admin/Dashboard";
-import Profile from "./components/User/Profile";
+import Profile from "./components/user/Profile";
 import UsersList from "./components/Admin/Users/UsersList";
 import UpdateUser from "./components/Admin/Users/UpdateUser";
 import ProductsList from "./components/Admin/Products/ProductsList";
 import NewProduct from "./components/Admin/Products/NewProduct";
 import UpdateProduct from "./components/Admin/Products/UpdateProduct";
 import Aboutus from "./components/Layout/Aboutus";
-import SellerDashboard from "./components/User/Sellers/SellerDashboard";
+import SellerDashboard from "./components/user/Sellers/SellerDashboard";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
+import ArticlesList from "./components/Admin/Articles/ArticlesList";
+import CreateArticle from "./components/Admin/Articles/CreateArticle";
+import UpdateArticle from "./components/Admin/Articles/UpdateArticle";
+
 
 function App() {
   return (
@@ -67,6 +71,30 @@ function App() {
           <Route path="/admin/updateproduct/:id" element={<UpdateProduct />} />
           //Seller routes
           <Route path="/sellerdashboard" element={<SellerDashboard />} />
+          <Route
+          path="/admin/articleslist"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <ArticlesList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/article/create"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <CreateArticle />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/article/update/:id"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <UpdateArticle />
+            </ProtectedRoute>
+          }
+        />
         </Routes>
       </Router>
     </>

@@ -5,6 +5,7 @@ const cors = require("cors");
 const auth = require("./routes/auth");
 const product = require("./routes/product");
 const order = require("./routes/order");
+const article = require("./routes/article");
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
@@ -15,5 +16,6 @@ app.use(cookieParser());
 app.use("/api/v1", auth);
 app.use("/api/v1", product);
 app.use("/api/v1", order);
+app.use("/api/v1", article);
 
 module.exports = app;

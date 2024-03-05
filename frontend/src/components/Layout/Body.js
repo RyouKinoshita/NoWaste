@@ -77,7 +77,49 @@ const Body = () => {
               </figure>
             </div>
           </div>
+          <br/> 
+        <div style={{width: '100%'}}><iframe width={1350} height={600} frameBorder={0} scrolling="no" marginHeight={0} marginWidth={0} src="https://maps.google.com/maps?width=1500&height=600&hl=en&q=G25P+828,%20Taguig,%201630%20Metro%20Manila+(No%20Waste%20System)&t=k&z=14&ie=UTF8&iwloc=B&output=embed">&lt;a href="https://www.gps.ie/"&gt;gps devices&lt;/a&gt;</iframe></div>
+        <div className="container">
           <div className="row my-5">
+            {product.map((product, index) => (
+              <div key={index} className="col-md-3 mb-2">
+                <MDBCard style={{ height: "300px", width: "220px" }}>
+                  {product.images.map((image, index) => (
+                    <MDBRipple
+                      key={index}
+                      rippleColor="light"
+                      rippleTag="div"
+                      className="bg-image hover-overlay"
+                    >
+                      <MDBCardImage
+                        src={image.url}
+                        fluid
+                        alt={product.name}
+                        style={{ height: "220px", width: "350px" }}
+                      />
+                      <a>
+                        <div
+                          className="mask"
+                          style={{
+                            backgroundColor: "rgba(251, 251, 251, 0.15)",
+                          }}
+                        ></div>
+                      </a>
+                    </MDBRipple>
+                  ))}
+                  <MDBCardBody>
+                    <MDBCardTitle>{product.name}</MDBCardTitle>
+                    <MDBCardText>Category: {product.category}</MDBCardText>
+                    <MDBCardText>Stock: {product.stock}</MDBCardText>
+                    {/* Modal code here */}
+                  </MDBCardBody>
+                </MDBCard>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="row my-5">
             <div className="col-md-4 ">
               {" "}
               <MDBCard>
@@ -292,45 +334,7 @@ const Body = () => {
           </div>
         </div>
 
-        <div className="container">
-          <div className="row my-5">
-            {product.map((product, index) => (
-              <div key={index} className="col-md-3 mb-2">
-                <MDBCard style={{ height: "300px", width: "220px" }}>
-                  {product.images.map((image, index) => (
-                    <MDBRipple
-                      key={index}
-                      rippleColor="light"
-                      rippleTag="div"
-                      className="bg-image hover-overlay"
-                    >
-                      <MDBCardImage
-                        src={image.url}
-                        fluid
-                        alt={product.name}
-                        style={{ height: "220px", width: "350px" }}
-                      />
-                      <a>
-                        <div
-                          className="mask"
-                          style={{
-                            backgroundColor: "rgba(251, 251, 251, 0.15)",
-                          }}
-                        ></div>
-                      </a>
-                    </MDBRipple>
-                  ))}
-                  <MDBCardBody>
-                    <MDBCardTitle>{product.name}</MDBCardTitle>
-                    <MDBCardText>Category: {product.category}</MDBCardText>
-                    <MDBCardText>Stock: {product.stock}</MDBCardText>
-                    {/* Modal code here */}
-                  </MDBCardBody>
-                </MDBCard>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </main>
     </div>
   );
