@@ -1,3 +1,4 @@
+
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser, logout } from "../utils/helpers";
@@ -28,9 +29,13 @@ import "../../index.css";
 
 const Navbar = () => {
   const [user, setUser] = useState("");
+  const [cartItems, setCartItems] = useState([])
   const [loading, setLoading] = useState(true);
   const [openNav, setOpenNav] = useState(false);
+  const [error, setError] = useState('')
   const navigate = useNavigate();
+  const userId = user._id
+  // console.log(userId)
 
   const logoutUser = async () => {
     try {
@@ -55,6 +60,24 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    // const getUserCartItem = async () => {
+    //   try {
+    //     const config = {
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         'Authorization': `Bearer ${getToken()}`,
+    //       },
+    //     };
+    //     const { data } = await axios.get(`${process.env.REACT_APP_API}/user/get-cartItems/${id}`, config);
+
+    //     setCartItems(data.cartItems);
+    //     setSuccess(data.message);
+    //   } catch (error) {
+    //     setError(error.response.data.message);
+    //   }
+    // };
+    // getUserCartItem();
+
     setUser(getUser());
   }, []);
 
@@ -93,15 +116,38 @@ const Navbar = () => {
               {" "}
               <MDBNavbarItem>
                 <Link
-                  to="/aboutus"
+                  to="/products"
                   style={{
                     color: "white",
-                    marginRight: "20px",
+                    // marginRight: "20px",
                     fontSize: "15px",
                   }}
                 >
                   <MDBIcon fas icon="info-circle" className="me-1" />
+                  Products
+                </Link>
+                <Link
+                  to="/aboutus"
+                  style={{
+                    color: "white",
+                    marginLeft: "15px",
+                    fontSize: "15px",
+                  }}
+                >
                   About Us
+                </Link>
+                <Link
+                  to={`/user/added-cart/${userId}`}
+                  style={{
+                    color: "white",
+                    marginLeft: "15px",
+                    fontSize: "15px",
+                  }}
+                >
+                  <i class="fa-brands fa-opencart" style={{ color: '#B197FC' }}></i>
+                  <MDBBadge notification pill color="danger">
+                    {cartItems.length}
+                  </MDBBadge>
                 </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>

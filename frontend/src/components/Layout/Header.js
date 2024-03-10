@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   MDBCarousel,
@@ -31,7 +32,7 @@ const Header = () => {
     alert("You are now logged out!");
     navigate("/");
   };
-  console.log(logoutHandler);
+  // console.log(logoutHandler);
   return (
     <header>
       <div
@@ -58,9 +59,6 @@ const Header = () => {
                 management.
               </p>
               <div className="buttons">
-                <button type="button" className="btn btn-white mt-4">
-                  Get Started
-                </button>
                 <button
                   type="button"
                   className="btn text-white shadow-none mt-4"
@@ -77,3 +75,4 @@ const Header = () => {
 };
 
 export default Header;
+
