@@ -1,3 +1,4 @@
+
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
@@ -104,13 +105,8 @@ const ProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Price",
+          label: "Price Per Sack",
           field: "price",
-          sort: "asc",
-        },
-        {
-          label: "Description",
-          field: "description",
           sort: "asc",
         },
         {
@@ -119,8 +115,13 @@ const ProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Stock",
-          field: "stock",
+          label: "Quality",
+          field: "quality",
+          sort: "asc",
+        },
+        {
+          label: "Sack",
+          field: "sack",
           sort: "asc",
         },
         {
@@ -145,10 +146,10 @@ const ProductsList = () => {
       data.rows.push({
         id: product._id,
         name: product.name,
-        price: `$${product.price}`,
-        description: product.description,
+        price: `₱${product.price}`,
         category: product.category,
-        stock: product.stock,
+        quality: product.quality,
+        sack: product.sack,
         location: product.location,
         seller: product.seller,
         actions: (
@@ -229,3 +230,4 @@ const ProductsList = () => {
 };
 
 export default ProductsList;
+

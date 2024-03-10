@@ -1,3 +1,4 @@
+
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../../Layout/Metadata";
@@ -22,7 +23,8 @@ const NewProduct = () => {
   const [product, setProduct] = useState({});
   const [sellers, setSellers] = useState([]);
 
-  const categories = ["Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"];
+  const categories = ["Mix Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"];
+  const qualities = ["Bruised", "Spoiled", "Good", "Overripe",'Wilted'];
 
   let navigate = useNavigate();
 
@@ -33,7 +35,8 @@ const NewProduct = () => {
       .positive("Price must be a positive number"),
     description: Yup.string().required("Description is required"),
     category: Yup.string().required("Category is required"),
-    stock: Yup.number().required("Stock is required"),
+    quality: Yup.string().required("Quality is required"),
+    sack: Yup.number().required("Sack is required"),
     location: Yup.string().required("Location is required"),
     seller: Yup.string().required("Seller is required"),
     images: Yup.array()
@@ -138,7 +141,8 @@ const NewProduct = () => {
     formData.set("price", data.price);
     formData.set("description", data.description);
     formData.set("category", data.category);
-    formData.set("stock", data.stock);
+    formData.set("quality", data.quality);
+    formData.set("sack", data.sack);
     formData.set("location", data.location);
     const selectedSeller = sellers.find((seller) => seller._id === data.seller);
     if (selectedSeller) {
@@ -269,20 +273,41 @@ const NewProduct = () => {
                         </p>
                       )}
                     </div>
+                    <div className="form-group">
+                      <label htmlFor="quality_field">Quality</label>
+                      <select
+                        id="quality_field"
+                        className={`form-control ${
+                          errors.quality ? "is-invalid" : ""
+                        }`}
+                        {...register("quality")}
+                      >
+                        {qualities.map((quality) => (
+                          <option key={quality} value={quality}>
+                            {quality}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.quality && (
+                        <p className="invalid-feedback">
+                          {errors.quality.message}
+                        </p>
+                      )}
+                    </div>
 
                     <div className="form-group">
-                      <label htmlFor="stock_field">Stock</label>
+                      <label htmlFor="sack_field">Sack</label>
                       <input
                         type="text"
-                        id="stock_field"
+                        id="sack_field"
                         className={`form-control ${
-                          errors.stock ? "is-invalid" : ""
+                          errors.sack ? "is-invalid" : ""
                         }`}
-                        {...register("stock")}
+                        {...register("sack")}
                       />
-                      {errors.stock && (
+                      {errors.sack && (
                         <p className="invalid-feedback">
-                          {errors.stock.message}
+                          {errors.sack.message}
                         </p>
                       )}
                     </div>
