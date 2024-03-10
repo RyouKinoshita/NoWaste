@@ -13,12 +13,12 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 
-import "../../index.css";
+import "../../../index.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getToken } from "../utils/helpers";
+import { getToken } from "../../utils/helpers";
 
 const UpdateProfile = () => {
   const [name, setName] = useState("");

@@ -9,8 +9,8 @@ import NewPassword from "./components/User/NewPassword";
 import Dashboard from "./components/Admin/Dashboard";
 import Profile from "./components/User/Profile";
 import UsersList from "./components/Admin/Users/UsersList";
-// import Updateuser from "./components/Admin/Users/UpdateUser";
-import UpdateProfile  from "./components/User/UpdateProfile";
+import UpdateUser from "./components/Admin/Users/UpdateUser";
+// import UpdateProfile  from "./components/User/user/UpdateProfile";
 import ProductsList from "./components/Admin/Products/ProductsList";
 import NewProduct from "./components/Admin/Products/NewProduct";
 import UpdateProduct from "./components/Admin/Products/UpdateProduct";
@@ -20,6 +20,9 @@ import ProtectedRoute from "./components/Route/ProtectedRoute";
 import ArticlesList from "./components/Admin/Articles/ArticlesList";
 import CreateArticle from "./components/Admin/Articles/CreateArticle";
 import UpdateArticle from "./components/Admin/Articles/UpdateArticle";
+import UpdateProfile from "./components/User/UserProfile/UpdateProfile";
+import Products from "./components/User/Products";
+import ProcessCart from "./components/User/UserProfile/ProcessCart";
 
 
 function App() {
@@ -28,6 +31,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} caseSensitive={true} />
+          <Route path="/products" element={<Products />} exact="true" />
+          <Route path="/user/added-cart/:id" element={<ProcessCart />} exact="true" />
           <Route path="/login" element={<Login />} exact="true" />
           <Route path="/register" element={<Register />} exact="true" />
           <Route
@@ -60,7 +65,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route path="/admin/user/:id" element={<UpdateUser />} /> */}
+          <Route path="/admin/user/:id" element={<UpdateUser />} />
           <Route
             path="/admin/productslist"
             element={

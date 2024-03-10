@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
-import { getUser, logout } from "../utils/helpers";
+import { getUser, logout } from "../../utils/helpers";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Avatar from "@mui/material/Avatar";
-import { getToken } from "../utils/helpers";
+import { getToken } from "../../utils/helpers";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,11 +18,12 @@ import {
     MDBInput,
     MDBInputGroup,
 } from 'mdb-react-ui-kit';
-import Footer from '../Layout/Footer';
-import Navbar from "../Layout/Navbar";
+import Footer from '../../Layout/Footer';
+import Navbar from "../../Layout/Navbar";
 import * as Yup from "yup";
 
 const ProcessCart = () => {
+    
     const formRef = useRef(null);
     const [formData, setFormData] = useState(null);
 
@@ -306,4 +307,4 @@ const ProcessCart = () => {
     )
 }
 
-export default ProcessCart
+export default ProcessCart;
