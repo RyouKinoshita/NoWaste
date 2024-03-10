@@ -9,7 +9,7 @@ import NewPassword from "./components/User/NewPassword";
 import Dashboard from "./components/Admin/Dashboard";
 import Profile from "./components/User/Profile";
 import UsersList from "./components/Admin/Users/UsersList";
-import UpdateUser from "./components/Admin/Users/UpdateUser";
+// import Updateuser from "./components/Admin/Users/UpdateUser";
 import UpdateProfile  from "./components/User/UpdateProfile";
 import ProductsList from "./components/Admin/Products/ProductsList";
 import NewProduct from "./components/Admin/Products/NewProduct";
@@ -60,7 +60,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/admin/user/:id" element={<UpdateUser />} />
+          {/* <Route path="/admin/user/:id" element={<UpdateUser />} /> */}
           <Route
             path="/admin/productslist"
             element={
