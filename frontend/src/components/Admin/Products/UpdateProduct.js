@@ -1,3 +1,4 @@
+
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MetaData from "../../Layout/Metadata";
@@ -18,7 +19,8 @@ const UpdateProduct = () => {
   const [price, setPrice] = useState(0);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [stock, setStock] = useState(0);
+  const [quality, setQuality] = useState("");
+  const [sack, setSack] = useState(0);
   const [location, setLocation] = useState("");
   const [sellers, setSellers] = useState([]);
   const [seller, setSeller] = useState([]);
@@ -33,7 +35,9 @@ const UpdateProduct = () => {
   const [updateError, setUpdateError] = useState("");
   const [isUpdated, setIsUpdated] = useState(false);
 
-  const categories = ["Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"];
+  const categories = ["Mix Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"];
+  const qualities = ["Bruised", "Spoiled", "Good", "Overripe",'Wilted'];
+
   let { id } = useParams();
   let navigate = useNavigate();
 
@@ -44,7 +48,8 @@ const UpdateProduct = () => {
       .positive("Price must be a positive number"),
     description: Yup.string().required("Description is required"),
     category: Yup.string().required("Category is required"),
-    stock: Yup.number().required("Stock is required"),
+    quality: Yup.string().required("Quality is required"),
+    sack: Yup.number().required("Sack is required"),
     location: Yup.string().required("Location is required"),
     seller: Yup.string().required("Seller is required"),
     images: Yup.array()
@@ -149,7 +154,8 @@ const UpdateProduct = () => {
       setPrice(product.price);
       setDescription(product.description);
       setCategory(product.category);
-      setStock(product.stock);
+      setQuality(product.quality);
+      setSack(product.sack);
       setLocation(product.location);
       setSeller(product.seller);
       setOldImages(product.images);
@@ -158,7 +164,8 @@ const UpdateProduct = () => {
       setValue("price", product.price);
       setValue("description", product.description);
       setValue("category", product.category);
-      setValue("stock", product.stock);
+      setValue("quality", product.quality);
+      setValue("sack", product.sack);
       setValue("location", product.location);
       setValue("seller", product.seller);
       setValue("images", []); // Clear any previous selected images
@@ -191,7 +198,8 @@ const UpdateProduct = () => {
     formData.set("price", data.price);
     formData.set("description", data.description);
     formData.set("category", data.category);
-    formData.set("stock", data.stock);
+    formData.set("quality", data.quality);
+    formData.set("sack", data.sack);
     formData.set("location", data.location);
     const selectedSeller = sellers.find((seller) => seller._id === data.seller);
     if (selectedSeller) {
@@ -306,18 +314,40 @@ const UpdateProduct = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="stock_field">Stock</label>
+                      <label htmlFor="quality_field">Quality</label>
+                      <select
+                        className={`form-control ${
+                          errors.quality ? "is-invalid" : ""
+                        }`}
+                        id="quality_field"
+                        {...register("quality")}
+                      >
+                        {qualities.map((quality) => (
+                          <option key={quality} value={quality}>
+                            {quality}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.quality && (
+                        <p className="invalid-feedback">
+                          {errors.quality.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="sack_field">Sack</label>
                       <input
                         type="text"
-                        id="stock_field"
+                        id="sack_field"
                         className={`form-control ${
-                          errors.stock ? "is-invalid" : ""
+                          errors.sack ? "is-invalid" : ""
                         }`}
-                        {...register("stock")}
+                        {...register("sack")}
                       />
-                      {errors.stock && (
+                      {errors.sack && (
                         <p className="invalid-feedback">
-                          {errors.stock.message}
+                          {errors.sack.message}
                         </p>
                       )}
                     </div>

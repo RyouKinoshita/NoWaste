@@ -1,3 +1,4 @@
+
 import React, { Fragment, useEffect, useState } from "react";
 import {
   MDBCol,
@@ -42,7 +43,7 @@ const UpdateProfile = () => {
     };
     try {
       const { data } = await axios.get(
-     `   http://localhost:4001/api/v1/me`,
+        `http://localhost:4001/api/v1/me`,
         config
       );
       setName(data.user.name);
@@ -68,7 +69,7 @@ const UpdateProfile = () => {
     };
     try {
       const { data } = await axios.put(
-      `  http://localhost:4001/api/v1/me/update`,
+        `http://localhost:4001/api/v1/me/update`,
         userData,
         config
       );
