@@ -33,8 +33,16 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please select category for this product"],
     enum: {
-      values: ["Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"],
+      values: ["Mix Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"],
       message: "Please select correct category for product",
+    },
+  },
+  quality: {
+    type: String,
+    required: [true, "Please select the quality of this product"],
+    enum: {
+      values: ["Bruised", "Underripe", "Spoiled", "Good", "Overripe", "Wilted"],
+      message: "Please select correct quality for product",
     },
   },
   assignedTo: {
@@ -46,9 +54,9 @@ const productSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  stock: {
+  sack: {
     type: Number,
-    required: [true, "Please enter product stock"],
+    required: [true, "Please enter product sack"],
     maxLength: [5, "Product name cannot exceed 5 characters"],
     default: 0,
   },
