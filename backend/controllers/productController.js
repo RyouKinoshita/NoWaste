@@ -156,51 +156,59 @@ exports.getAdminProducts = async (req, res, next) => {
 //     product,
 //   });
 // };
-
 exports.updateProduct = async (req, res, next) => {
-  let product = await Product.findById(req.params.id);
-
-  if (!product) {
-    return res.status(404).json({
-      success: false,
-      message: "Product not found",
-    });
-  }
-  let images = req.body.images;
-
-  if (images !== undefined) {
-    // Deleting images associated with the service
-    for (let i = 0; i < product.images.length; i++) {
-      const result = await cloudinary.v2.uploader.destroy(
-        product.images[i].public_id
-      );
+  try {
+    let product = await Product.findById(req.params.id);
+    console.log(req.body)
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      })
     }
+    let images = []
 
+    if (typeof req.body.images === 'string') {
+      images.push(req.body.images)
+    } else {
+      images = req.body.images
+    }
+    if (images !== undefined) {
+      // Deleting images associated with the product
+      for (let i = 0; i < product.images.length; i++) {
+        const result = await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+      }
+    }
     let imagesLinks = [];
     for (let i = 0; i < images.length; i++) {
       const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: "products",
+        folder: 'products'
       });
       imagesLinks.push({
         public_id: result.public_id,
-        url: result.secure_url,
-      });
-    }
+        url: result.secure_url
+      })
 
-    req.body.images = imagesLinks;
+    }
+    req.body.images = imagesLinks
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+      useFindandModify: false
+    })
+    // console.log(product)
+    return res.status(200).json({
+      success: true,
+      product
+    })
+
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+
   }
 
-  product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-    useFindandModify: false,
-  });
-
-  return res.status(200).json({
-    success: true,
-    product,
-  });
 };
+
 
 exports.getSellerProducts = async (req, res, next) => {
   try {
