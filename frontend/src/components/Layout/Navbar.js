@@ -55,6 +55,7 @@ const Navbar = () => {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
     localStorage.clear();
+    window.location.reload();
     navigate("/");
   };
 
