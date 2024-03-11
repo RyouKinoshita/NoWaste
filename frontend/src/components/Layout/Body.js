@@ -67,7 +67,7 @@ const Body = () => {
       <main class="my-3 gx-2">
         <div className="container">
           <br />
-          <div style={{ width: "100%" }}>
+          {/* <div style={{ width: "100%" }}>
             <iframe
               width={1350}
               height={600}
@@ -80,7 +80,7 @@ const Body = () => {
               &lt;a href="https://www.gps.ie/"&gt;gps devices&lt;/a&gt;
             </iframe>
           </div>
-          <hr className="hr hr-blurry" />
+          <hr className="hr hr-blurry" /> */}
           <div>
             <Products />
           </div>
