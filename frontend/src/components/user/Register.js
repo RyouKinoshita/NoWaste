@@ -1,17 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { MDBInput } from "mdb-react-ui-kit";
 
+const RegisterSchema = yup.object().shape({
+  name: yup.string().required("Please enter your name"),
+  email: yup
+    .string()
+    .email("Please enter a valid email address")
+    .required("Please enter your email"),
+  password: yup
+    .string()
+    .min(6, "Your password must be at least 6 characters")
+    .required("Please enter your password"),
+  avatar: yup
+    .mixed()
+    .test("fileSize", "File size too large. Maximum is 10MB.", (value) => {
+      if (!value) return true; // Allow empty file (no avatar)
+      return value[0].size <= 10 * 1024 * 1024; // 10MB limit
+    }),
+});
+
 const Register = () => {
-  const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState(
     "../../../assets/images/default-avatar.png"
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(RegisterSchema),
+  });
 
-  let navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");
@@ -20,7 +48,7 @@ const Register = () => {
       console.log(error);
       setError();
     }
-  }, [error.isAuthenticated, navigate]);
+  }, [error, isAuthenticated, navigate]);
 
   const onChange = (e) => {
     if (e.target.name === "avatar") {
@@ -29,7 +57,6 @@ const Register = () => {
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
-          setAvatar(e.target.files[0]);
         }
       };
 
@@ -37,7 +64,7 @@ const Register = () => {
     }
   };
 
-  const register = async (userData) => {
+  const onSubmit = async (data) => {
     try {
       const config = {
         headers: {
@@ -46,23 +73,24 @@ const Register = () => {
       };
 
       const formData = new FormData();
-      formData.append("name", userData.get("name"));
-      formData.append("email", userData.get("email"));
-      formData.append("password", userData.get("password"));
-      formData.append("avatar", avatar);
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("avatar", data.avatar[0]);
 
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/register`,
+      const { data: responseData } = await axios.post(
+        `${process.env.REACT_APP_API}register`,
         formData,
         config
       );
-      console.log(data.user);
+
+      console.log(responseData.user);
       setIsAuthenticated(true);
       navigate("/");
     } catch (error) {
       setIsAuthenticated(false);
-      setError(error.response.data.message);
-      console.log(error.response.data.message);
+      setError(error.response?.data?.message || "An error occurred");
+      console.error(error.response?.data?.message || "An error occurred");
     }
   };
 
@@ -86,13 +114,7 @@ const Register = () => {
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        const formData = new FormData(e.target);
-                        register(formData);
-                      }}
-                    >
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="d-flex align-items-center mb-3 pb-1">
                         <Link to="/">
                           <span className="h2 fw-bold mb-0">No Waste</span>
@@ -106,27 +128,38 @@ const Register = () => {
                       </h5>
                       <div className="form-outline mb-4">
                         <MDBInput
+                          {...register("name")}
                           className="mb-4"
                           type="text"
                           label="Full Name"
-                          name="name"
                         />
+                        {errors.name && (
+                          <p className="text-danger">{errors.name.message}</p>
+                        )}
                       </div>
                       <div className="form-outline mb-4">
                         <MDBInput
+                          {...register("email")}
                           className="mb-4"
                           type="email"
                           label="Email address"
-                          name="email"
                         />
+                        {errors.email && (
+                          <p className="text-danger">{errors.email.message}</p>
+                        )}
                       </div>
                       <div className="form-outline mb-4">
                         <MDBInput
+                          {...register("password")}
                           className="mb-4"
                           type="password"
                           label="Password"
-                          name="password"
                         />
+                        {errors.password && (
+                          <p className="text-danger">
+                            {errors.password.message}
+                          </p>
+                        )}
                       </div>
                       <div className="form-outline mb-4">
                         <div className="d-flex align-items-center">
@@ -147,14 +180,16 @@ const Register = () => {
                               className="custom-file-input"
                               id="customFile"
                               accept="image/*"
-                              onChange={onChange}
+                              onChange={(e) => {
+                                onChange(e);
+                                setValue("avatar", e.target.files);
+                              }}
                             />
-                            {/* <label
-                              className="custom-file-label"
-                              htmlFor="customFile"
-                            >
-                              Choose Avatar
-                            </label> */}
+                            {errors.avatar && (
+                              <p className="text-danger">
+                                {errors.avatar.message}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>

@@ -1,72 +1,63 @@
 import { Link, useNavigate } from "react-router-dom";
-import { authenticate } from "../utils/helpers";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import axios from "axios";
+import React from "react";
+import { MDBInput } from "mdb-react-ui-kit";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { authenticate } from "../utils/helpers";
 
-import React, { useState } from "react";
-import {
-  MDBInput,
-  MDBCol,
-  MDBRow,
-  MDBCheckbox,
-  MDBBtn,
-} from "mdb-react-ui-kit";
+const schema = yup.object().shape({
+  email: yup.string().required("Email is required").email("Invalid email"),
+  password: yup.string().required("Password is required"),
+});
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const navigate = useNavigate();
-  const login = async (email, password) => {
+
+  const login = async (data) => {
     try {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
-      // const { data } = await axios.post(${process.env.REACT_APP_API}/api/v1/login, form, config)
-      const { data } = await axios.post(
-        `http://localhost:4001/api/v1/login`,
-        { email, password },
+
+      const { data: responseData } = await axios.post(
+        `${process.env.REACT_APP_API}login`,
+        data,
         config
       );
-      console.log(data);
-      localStorage.setItem("user", JSON.stringify(data));
-      authenticate(data, () => navigate("/"));
+
+      localStorage.setItem("user", JSON.stringify(responseData));
+      authenticate(responseData, () => navigate("/"));
     } catch (error) {
-      console.log(error);
+      if (error.response && error.response.status === 401) {
+        // Show toast for incorrect email or password
+        toast.error("Incorrect email or password", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        console.log(error);
+      }
     }
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    login(email, password);
+
+  const onSubmit = (data) => {
+    login(data);
   };
 
   return (
-    // <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
-    //     <form onSubmit={handleSubmit} style={{ width: "300px" }}>
-    //         <MDBRow className='mb-4'>
-    //             <MDBCol>
-    //                 <MDBInput className='mb-4' type='email' label='Email address' value={email}
-    //                     onChange={(e) => setEmail(e.target.value)} />
-    //                 <MDBInput className='mb-4' type='password' label='Password' value={password}
-    //                     onChange={(e) => setPassword(e.target.value)} />
-    //             </MDBCol>
-    //         </MDBRow>
-
-    //         <MDBRow className='mb-4'>
-    //             <MDBCol size='auto'>
-    //                 <MDBCheckbox id='form1Example3' label='Remember me' defaultChecked />
-    //             </MDBCol>
-    //             <MDBCol size='auto'>
-    //                 <a href='#!'>Forgot password?</a>
-    //             </MDBCol>
-    //         </MDBRow>
-
-    //         <MDBBtn type='submit' size="sm" block>
-    //             Sign in
-    //         </MDBBtn>
-    //     </form>
-    // </div>
-
     <section
       className="vh-100"
       style={{ backgroundImage: 'url("../assets/images/wall.jpg")' }}
@@ -86,7 +77,7 @@ export default function Login() {
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">
                   <div className="card-body p-4 p-lg-5 text-black">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="d-flex align-items-center mb-3 pb-1">
                         <Link to="/">
                           <span className="h2 fw-bold mb-0">No Waste</span>
@@ -100,21 +91,27 @@ export default function Login() {
                       </h5>
                       <div className="form-outline mb-4">
                         <MDBInput
+                          {...register("email")}
                           className="mb-4"
                           type="email"
                           label="Email address"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
                         />
+                        {errors.email && (
+                          <p className="text-danger">{errors.email.message}</p>
+                        )}
                       </div>
                       <div className="form-outline mb-4">
                         <MDBInput
+                          {...register("password")}
                           className="mb-4"
                           type="password"
                           label="Password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
                         />
+                        {errors.password && (
+                          <p className="text-danger">
+                            {errors.password.message}
+                          </p>
+                        )}
                       </div>
                       <div className="pt-1 mb-4">
                         <button
