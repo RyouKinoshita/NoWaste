@@ -51,6 +51,7 @@ exports.newProduct = async (req, res, next) => {
 
 
 exports.getProducts = async (req, res, next) => {
+  const resPerPage = 7;
   const productsCount = await Product.countDocuments();
   const apiFeatures = new APIFeatures(Product.find(), req.query)
     .search()
@@ -60,6 +61,7 @@ exports.getProducts = async (req, res, next) => {
     const productss = await Product.find();
     console.log(productss);
 
+  apiFeatures.pagination(resPerPage);
   const products = await apiFeatures.query;
   let filteredProductsCount = products.length;
   res.status(200).json({
