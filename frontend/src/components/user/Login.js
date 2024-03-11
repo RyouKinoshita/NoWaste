@@ -33,22 +33,50 @@ export default function Login() {
         },
       };
 
-      const { data: responseData } = await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_API}login`,
         data,
         config
       );
 
-      localStorage.setItem("user", JSON.stringify(responseData));
-      authenticate(responseData, () => navigate("/"));
+      const responseData = response.data;
+
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(responseData));
+        authenticate(responseData, () => navigate("/"));
+      } else {
+        // Check for the 'isDeleted' property in the response data
+        if (
+          responseData &&
+          responseData.message ===
+            "Your account has been deactivated. Please contact support."
+        ) {
+          toast.error(responseData.message, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else {
+          toast.error("Incorrect email or password", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+      }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        // Show toast for incorrect email or password
-        toast.error("Incorrect email or password", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      } else {
-        console.log(error);
+        if (
+          error.response.data.message ===
+          "Your account has been deactivated. Please contact support."
+        ) {
+          toast.error(
+            "Your account has been deactivated. Please contact support.",
+            {
+              position: toast.POSITION.TOP_CENTER,
+            }
+          );
+        } else {
+          toast.error("Incorrect email or password", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
       }
     }
   };

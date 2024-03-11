@@ -49,19 +49,32 @@ exports.loginUser = async (req, res, next) => {
     return res.status(400).json({ error: "Please enter email & password" });
   }
 
-  const user = await User.findOne({ email }).select("+password");
+  try {
+    const user = await User.findOne({ email }).select("+password");
 
-  if (!user) {
-    return res.status(401).json({ message: "Invalid Email or Password" });
+    if (!user) {
+      console.log("User not found");
+      return res.status(401).json({ message: "Invalid Email or Password" });
+    }
+    if (user.isDeleted) {
+      return res.status(401).json({
+        message: "Your account has been deactivated. Please contact support.",
+      });
+    }
+
+    const isPasswordMatched = await user.comparePassword(password);
+
+    if (!isPasswordMatched) {
+      console.log("Password does not match");
+      return res.status(401).json({ message: "Invalid Email or Password" });
+    }
+
+    console.log("Login successful");
+    sendToken(user, 200, res);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-
-  const isPasswordMatched = await user.comparePassword(password);
-
-  if (!isPasswordMatched) {
-    return res.status(401).json({ message: "Invalid Email or Password" });
-  }
-
-  sendToken(user, 200, res);
 };
 
 exports.logout = async (req, res, next) => {
