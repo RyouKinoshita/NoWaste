@@ -52,7 +52,7 @@ const Products = () => {
   const [filteredProduct, setFilteredProduct] = useState([]);
   const [error, setError] = useState("");
   const users = JSON.parse(localStorage.getItem("user"));
-  const userId = users.user._id;
+  const userId = users && users.user ? users.user._id : null;
 
   // console.log(userId)
 
@@ -147,10 +147,6 @@ const Products = () => {
 
   return (
     <>
-      <Fragment>
-        <Navbar />
-      </Fragment>
-      <Header />
       <div>
         <main class="my-3 gx-2">
           <div className="container">
@@ -228,14 +224,33 @@ const Products = () => {
                         <CardText>Description: {product.description}</CardText>
                         <CardText>Seller: {product.seller}</CardText>
                         <CardText>Location: {product.location}</CardText>
-                        <MDBBtn
-                          color="dark"
-                          rippleColor="dark"
-                          disabled={product.sack === 0}
-                          onClick={() => addToCart(product._id)}
-                        >
-                          Add To Cart
-                        </MDBBtn>
+                        {user && user.role === "buyer" ? (
+                          <MDBBtn
+                            color="dark"
+                            rippleColor="dark"
+                            disabled={product.sack === 0}
+                            onClick={() => addToCart(product._id)}
+                          >
+                            Add To Cart
+                          </MDBBtn>
+                        ) : user &&
+                          (user.role === "admin" || user.role === "seller") ? (
+                          <MDBBtn
+                            color="dark"
+                            rippleColor="dark"
+                            disabled="true"
+                          >
+                            Must be a buyer to access this
+                          </MDBBtn>
+                        ) : (
+                          <MDBBtn
+                            color="dark"
+                            rippleColor="dark"
+                            onClick={() => navigate("/login")}
+                          >
+                            Log in first to access this
+                          </MDBBtn>
+                        )}
                         {/* Modal code here */}
                       </CardBody>
                     </Card>
@@ -246,7 +261,6 @@ const Products = () => {
           </div>
         </main>
       </div>
-      <Footer />
     </>
   );
 };

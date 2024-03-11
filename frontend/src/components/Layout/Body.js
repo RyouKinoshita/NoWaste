@@ -17,6 +17,7 @@ import {
   MDBModalFooter,
 } from "mdb-react-ui-kit";
 import axios from "axios";
+import Products from "../User/Products";
 
 const Body = () => {
   const [product, setProduct] = useState([]);
@@ -79,46 +80,10 @@ const Body = () => {
               &lt;a href="https://www.gps.ie/"&gt;gps devices&lt;/a&gt;
             </iframe>
           </div>
-          <div className="container">
-            <div className="row my-5">
-              {product.map((product, index) => (
-                <div key={index} className="col-md-3 mb-2">
-                  <MDBCard style={{ height: "300px", width: "220px" }}>
-                    {product.images.map((image, index) => (
-                      <MDBRipple
-                        key={index}
-                        rippleColor="light"
-                        rippleTag="div"
-                        className="bg-image hover-overlay"
-                      >
-                        <MDBCardImage
-                          src={image.url}
-                          fluid
-                          alt={product.name}
-                          style={{ height: "220px", width: "350px" }}
-                        />
-                        <a>
-                          <div
-                            className="mask"
-                            style={{
-                              backgroundColor: "rgba(251, 251, 251, 0.15)",
-                            }}
-                          ></div>
-                        </a>
-                      </MDBRipple>
-                    ))}
-                    <MDBCardBody>
-                      <MDBCardTitle>{product.name}</MDBCardTitle>
-                      <MDBCardText>Category: {product.category}</MDBCardText>
-                      <MDBCardText>Sack: {product.sack}</MDBCardText>
-                      {/* Modal code here */}
-                    </MDBCardBody>
-                  </MDBCard>
-                </div>
-              ))}
-            </div>
+          <hr className="hr hr-blurry" />
+          <div>
+            <Products />
           </div>
-
           <hr className="hr hr-blurry" />
           <div className="row my-5">
             <div className="col-md-4 ">

@@ -115,19 +115,6 @@ const Navbar = () => {
               {" "}
               <MDBNavbarItem>
                 <Link
-                  to="/products"
-                  style={{
-                    color: "white",
-                    // marginRight: "20px",
-                    fontSize: "15px",
-                  }}
-                >
-                  <MDBIcon fas icon="shopping-basket" className="me-1" />
-                  Products
-                </Link>
-              </MDBNavbarItem>
-              <MDBNavbarItem>
-                <Link
                   to="/aboutus"
                   style={{
                     color: "white",
