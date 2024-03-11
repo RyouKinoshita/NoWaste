@@ -24,6 +24,7 @@ import UpdateProfile from "./components/User/UserProfile/UpdateProfile";
 import Products from "./components/User/Products";
 import ProcessCart from "./components/User/UserProfile/ProcessCart";
 
+import NoAuth from "./components/Layout/NoAuth";
 
 function App() {
   return (
@@ -31,8 +32,13 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} caseSensitive={true} />
+          <Route path="/noauth" element={<NoAuth />} exact="true" />
           <Route path="/products" element={<Products />} exact="true" />
-          <Route path="/user/added-cart/:id" element={<ProcessCart />} exact="true" />
+          <Route
+            path="/user/added-cart/:id"
+            element={<ProcessCart />}
+            exact="true"
+          />
           <Route path="/login" element={<Login />} exact="true" />
           <Route path="/register" element={<Register />} exact="true" />
           <Route

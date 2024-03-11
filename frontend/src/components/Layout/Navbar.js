@@ -1,4 +1,3 @@
-
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser, logout } from "../utils/helpers";
@@ -29,12 +28,12 @@ import "../../index.css";
 
 const Navbar = () => {
   const [user, setUser] = useState("");
-  const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openNav, setOpenNav] = useState(false);
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const userId = user._id
+  const userId = user._id;
   // console.log(userId)
 
   const logoutUser = async () => {
@@ -123,9 +122,11 @@ const Navbar = () => {
                     fontSize: "15px",
                   }}
                 >
-                  <MDBIcon fas icon="info-circle" className="me-1" />
+                  <MDBIcon fas icon="shopping-basket" className="me-1" />
                   Products
                 </Link>
+              </MDBNavbarItem>
+              <MDBNavbarItem>
                 <Link
                   to="/aboutus"
                   style={{
@@ -134,20 +135,8 @@ const Navbar = () => {
                     fontSize: "15px",
                   }}
                 >
+                  <MDBIcon fas icon="info-circle" className="me-1" />
                   About Us
-                </Link>
-                <Link
-                  to={`/user/added-cart/${userId}`}
-                  style={{
-                    color: "white",
-                    marginLeft: "15px",
-                    fontSize: "15px",
-                  }}
-                >
-                  <i class="fa-brands fa-opencart" style={{ color: '#B197FC' }}></i>
-                  <MDBBadge notification pill color="danger">
-                    {cartItems.length}
-                  </MDBBadge>
                 </Link>
               </MDBNavbarItem>
             </MDBNavbarNav>
@@ -159,23 +148,22 @@ const Navbar = () => {
               <div className="d-flex align-items-center">
                 {user && user.role === "buyer" && (
                   <MDBNavbarItem>
-                    <span id="cart" className="ml-3">
-                      <MDBIcon
-                        fas
-                        icon="cart-plus"
-                        aria-label="add to shopping cart"
-                        href="/cart"
-                        style={{
-                          color: "white",
-                          paddingRight: "10px",
-                          paddingLeft: "5px",
-                        }}
-                        size="lg"
-                      ></MDBIcon>
+                    <Link
+                      to={`/user/added-cart/${userId}`}
+                      style={{
+                        color: "white",
+                        marginLeft: "15px",
+                        fontSize: "15px",
+                      }}
+                    >
+                      <i
+                        class="fa-brands fa-opencart"
+                        style={{ color: "white" }}
+                      ></i>
                       <MDBBadge notification pill color="danger">
-                        4
+                        {cartItems.length}
                       </MDBBadge>
-                    </span>
+                    </Link>
                   </MDBNavbarItem>
                 )}
                 {user && user.role === "admin" && (

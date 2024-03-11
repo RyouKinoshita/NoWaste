@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   MDBCarousel,
@@ -58,21 +57,25 @@ const Header = () => {
                 government’s efforts in combating the problems with waste
                 management.
               </p>
-              <div className="buttons">
-                <button
-                  type="button"
-                  className="btn text-white shadow-none mt-4"
-                >
-                  Read more
-                </button>
-              </div>
             </div>
           </div>
         </div>
       </div>
+      <div className="container text-center mt-4">
+        <div className="card">
+          <figure class="text-center">
+            <blockquote class="blockquote">
+              <p>"A Zero Waste Lifestyle is a journey. Not a destination."</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+              Someone famous in <cite title="Source Title">Source Title</cite>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+      <hr className="hr hr-blurry" />
     </header>
   );
 };
 
 export default Header;
-

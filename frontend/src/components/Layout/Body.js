@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   MDBRipple,
@@ -66,24 +65,20 @@ const Body = () => {
     <div>
       <main class="my-3 gx-2">
         <div className="container">
-          <div className="container text-center">
-            <div className="card">
-              <figure class="text-center">
-                <blockquote class="blockquote">
-                  <p>
-                    "A Zero Waste Lifestyle is a journey. Not a destination."
-                  </p>
-                </blockquote>
-                <figcaption class="blockquote-footer">
-                  Someone famous in{" "}
-                  <cite title="Source Title">Source Title</cite>
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-          <hr className="hr hr-blurry" />
           <br />
-          <div style={{ width: '100%' }}><iframe width={1350} height={600} frameBorder={0} scrolling="no" marginHeight={0} marginWidth={0} src="https://maps.google.com/maps?width=1500&height=600&hl=en&q=G25P+828,%20Taguig,%201630%20Metro%20Manila+(No%20Waste%20System)&t=k&z=14&ie=UTF8&iwloc=B&output=embed">&lt;a href="https://www.gps.ie/"&gt;gps devices&lt;/a&gt;</iframe></div>
+          <div style={{ width: "100%" }}>
+            <iframe
+              width={1350}
+              height={600}
+              frameBorder={0}
+              scrolling="no"
+              marginHeight={0}
+              marginWidth={0}
+              src="https://maps.google.com/maps?width=1500&height=600&hl=en&q=G25P+828,%20Taguig,%201630%20Metro%20Manila+(No%20Waste%20System)&t=k&z=14&ie=UTF8&iwloc=B&output=embed"
+            >
+              &lt;a href="https://www.gps.ie/"&gt;gps devices&lt;/a&gt;
+            </iframe>
+          </div>
           <div className="container">
             <div className="row my-5">
               {product.map((product, index) => (
@@ -339,8 +334,6 @@ const Body = () => {
             </div>
           </div>
         </div>
-
-  
       </main>
     </div>
   );
