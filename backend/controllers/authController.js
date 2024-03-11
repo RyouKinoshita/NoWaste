@@ -220,11 +220,16 @@ exports.updateProfile = async (req, res, next) => {
 };
 
 exports.allUsers = async (req, res, next) => {
-  const users = await User.find();
-  res.status(200).json({
-    success: true,
-    users,
-  });
+  try {
+    const users = await User.find({ isDeleted: false });
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 exports.getUserDetails = async (req, res, next) => {
@@ -243,20 +248,28 @@ exports.getUserDetails = async (req, res, next) => {
 };
 
 exports.deleteUser = async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  try {
+    const user = await User.findById(req.params.id);
 
-  if (!user) {
-    return res
-      .status(401)
-      .json({ message: `User is not found with id: ${req.params.id}` });
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: `User is not found with id: ${req.params.id}` });
+    }
+
+    // Instead of deleting the image from cloudinary, you can keep it as is.
+
+    // Soft delete by updating 'isDeleted' to true
+    user.isDeleted = true;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
-
-  const image_id = user.avatar.public_id;
-  await cloudinary.v2.uploader.destroy(image_id);
-  await User.findByIdAndRemove(req.params.id);
-  return res.status(200).json({
-    success: true,
-  });
 };
 
 exports.updateUser = async (req, res, next) => {
