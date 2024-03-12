@@ -1,4 +1,3 @@
-
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../../Layout/Metadata";
@@ -23,8 +22,16 @@ const NewProduct = () => {
   const [product, setProduct] = useState({});
   const [sellers, setSellers] = useState([]);
 
-  const categories = ["Mix Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"];
-  const qualities = ["Bruised", "Spoiled", "Good", "Overripe",'Wilted'];
+  const categories = [
+    "Mixed Vegetables",
+    "Mixed Fruits",
+    "Vegetable",
+    "Grains",
+    "Fruits",
+    "Nuts",
+    "Root Crops",
+  ];
+  const qualities = ["Bruised", "Spoiled", "Good", "Overripe", "Wilted"];
 
   let navigate = useNavigate();
 
@@ -220,7 +227,7 @@ const NewProduct = () => {
                     </div>
 
                     <div className="form-group">
-                      <label htmlFor="price_field">Price</label>
+                      <label htmlFor="price_field">Price per sack</label>
                       <input
                         type="text"
                         id="price_field"
@@ -232,6 +239,23 @@ const NewProduct = () => {
                       {errors.price && (
                         <p className="invalid-feedback">
                           {errors.price.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="sack_field">Sack</label>
+                      <input
+                        type="text"
+                        id="sack_field"
+                        className={`form-control ${
+                          errors.sack ? "is-invalid" : ""
+                        }`}
+                        {...register("sack")}
+                      />
+                      {errors.sack && (
+                        <p className="invalid-feedback">
+                          {errors.sack.message}
                         </p>
                       )}
                     </div>
@@ -291,23 +315,6 @@ const NewProduct = () => {
                       {errors.quality && (
                         <p className="invalid-feedback">
                           {errors.quality.message}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="sack_field">Sack</label>
-                      <input
-                        type="text"
-                        id="sack_field"
-                        className={`form-control ${
-                          errors.sack ? "is-invalid" : ""
-                        }`}
-                        {...register("sack")}
-                      />
-                      {errors.sack && (
-                        <p className="invalid-feedback">
-                          {errors.sack.message}
                         </p>
                       )}
                     </div>

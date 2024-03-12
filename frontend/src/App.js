@@ -17,6 +17,7 @@ import UpdateProduct from "./components/Admin/Products/UpdateProduct";
 import Aboutus from "./components/Layout/Aboutus";
 import SellerDashboard from "./components/User/Sellers/SellerDashboard";
 import SellerProductsList from "./components/User/Sellers/SellerProductsList";
+import SellerNewProduct from "./components/User/Sellers/SellerNewProduct";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
 import ArticlesList from "./components/Admin/Articles/ArticlesList";
 import CreateArticle from "./components/Admin/Articles/CreateArticle";
@@ -83,9 +84,10 @@ function App() {
           />
           <Route path="/admin/newproduct" element={<NewProduct />} />
           <Route path="/admin/updateproduct/:id" element={<UpdateProduct />} />
-          //Seller routes
+          //Seller routes SellerNewProduct
           <Route path="/sellerdashboard" element={<SellerDashboard />} />
           <Route path="/sellerproductslist" element={<SellerProductsList />} />
+          <Route path="/sellernewprod" element={<SellerNewProduct />} />
           <Route
             path="/admin/articleslist"
             element={

@@ -91,6 +91,8 @@ const Products = () => {
           `http://localhost:4001/api/v1/products`,
           config
         );
+        console.log("Total products:", data.products);
+
         setProduct(data.products);
         setFilteredProduct(data.products);
         //console.log(data);

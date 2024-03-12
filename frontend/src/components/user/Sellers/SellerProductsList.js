@@ -103,13 +103,8 @@ const SellerProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Price",
+          label: "Price Per Sack",
           field: "price",
-          sort: "asc",
-        },
-        {
-          label: "Description",
-          field: "description",
           sort: "asc",
         },
         {
@@ -118,8 +113,13 @@ const SellerProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Stock",
-          field: "stock",
+          label: "Quality",
+          field: "quality",
+          sort: "asc",
+        },
+        {
+          label: "Sack",
+          field: "sack",
           sort: "asc",
         },
         {
@@ -132,10 +132,6 @@ const SellerProductsList = () => {
           field: "seller",
           sort: "asc",
         },
-        // {
-        //   label: "Actions",
-        //   field: "actions",
-        // },
       ],
       rows: [],
     };
@@ -144,10 +140,10 @@ const SellerProductsList = () => {
       data.rows.push({
         id: product._id,
         name: product.name,
-        price: `$${product.price}`,
-        description: product.description,
+        price: `₱${product.price}`,
         category: product.category,
-        stock: product.stock,
+        quality: product.quality,
+        sack: product.sack,
         location: product.location,
         seller: product.seller,
         // actions: (
@@ -204,7 +200,7 @@ const SellerProductsList = () => {
             </h1>
             <hr className="hr hr-blurry" />
             <div className="d-flex justify-content-end mb-3">
-              <Link to="/admin/newproduct  " className="btn btn-primary mr-5">
+              <Link to="/sellernewprod  " className="btn btn-primary mr-5">
                 Add New Products
               </Link>
             </div>
