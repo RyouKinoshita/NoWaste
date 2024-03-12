@@ -147,7 +147,6 @@ const ProductsList = () => {
     };
 
     products.forEach((product) => {
-      console.log("Avatar Array:", product.images);
       data.rows.push({
         id: product._id,
         name: product.name,

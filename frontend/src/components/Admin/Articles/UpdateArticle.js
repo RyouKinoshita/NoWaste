@@ -1,15 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { MDBDataTable } from "mdbreact";
 import {
   MDBInputGroup,
   MDBInput,
-  MDBBtn,
   MDBCard,
   MDBRow as Row,
   MDBCol as Col,
-  MDBCardImage,
-  MDBRipple,
   MDBTextArea,
 } from "mdb-react-ui-kit";
 import Loader from "../../Layout/Loader";

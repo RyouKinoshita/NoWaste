@@ -128,6 +128,11 @@ const SellerProductsList = () => {
           sort: "asc",
         },
         {
+          label: "Image",
+          field: "image",
+          sort: "asc",
+        },
+        {
           label: "Seller",
           field: "seller",
           sort: "asc",
@@ -146,6 +151,23 @@ const SellerProductsList = () => {
         sack: product.sack,
         location: product.location,
         seller: product.seller,
+        image: (
+          <Fragment>
+            {product.images && product.images.length > 0 && (
+              <p>
+                <img
+                  src={product.images[0].url}
+                  alt={product.title}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                  }}
+                />
+              </p>
+            )}
+          </Fragment>
+        ),
         // actions: (
         //   <Fragment>
         //     <div className="button-container">
