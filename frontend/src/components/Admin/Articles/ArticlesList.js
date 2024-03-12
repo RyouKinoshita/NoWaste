@@ -14,6 +14,7 @@ import { getUser } from "../../utils/helpers";
 import MetaData from "../../Layout/Metadata";
 const ArticlesList = () => {
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   console.log(articles);
 
@@ -31,6 +32,7 @@ const ArticlesList = () => {
           config
         );
         setArticles(data.data);
+        setLoading(false);
       } catch (error) {
         setError(error.response.data.message);
       }
@@ -141,11 +143,9 @@ const ArticlesList = () => {
 
   return (
     <Fragment>
-      <Fragment>
-        <div style={{ paddingBottom: "20px" }}>
-          <Navbar />
-        </div>
-      </Fragment>
+      <div style={{ paddingBottom: "20px" }}>
+        <Navbar />
+      </div>
       <MetaData title={"Article List"} />
       <div className="row">
         <div className="col-12 col-md-2">
@@ -160,21 +160,28 @@ const ArticlesList = () => {
             >
               All Articles
             </h1>
-            <div className="d-flex justify-content-end mb-3">
-              <Link
-                to={"/admin/article/create"}
-                className="btn btn-primary mr-5"
-              >
-                Add New Article
-              </Link>
-            </div>
-            <MDBDataTable
-              data={ArticlesDatatable()}
-              className="px-3"
-              bordered
-              striped
-              style={{ color: "black", fontWeight: "bold" }}
-            />
+            <hr className="hr hr-blurry" />
+            {loading ? (
+              <Loader />
+            ) : (
+              <Fragment>
+                <div className="d-flex justify-content-end mb-3">
+                  <Link
+                    to={"/admin/article/create"}
+                    className="btn btn-primary mr-5"
+                  >
+                    Add New Article
+                  </Link>
+                </div>
+                <MDBDataTable
+                  data={ArticlesDatatable()}
+                  className="px-3"
+                  bordered
+                  striped
+                  style={{ color: "black", fontWeight: "bold" }}
+                />
+              </Fragment>
+            )}
           </Fragment>
         </div>
         <AdminFooter />

@@ -4,6 +4,7 @@ import MetaData from "../../Layout/Metadata";
 import Loader from "../../Layout/Loader";
 import Sidebar from "../Sidebar";
 import Navbar from "../../Layout/Navbar";
+import AdminFooter from "../../Layout/Admin/AdminFooter";
 import { getToken } from "../../utils/helpers";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -467,6 +468,7 @@ const UpdateProduct = () => {
                 </div>
               </Fragment>
             </div>
+            <AdminFooter />
           </div>
         </Fragment>
       )}

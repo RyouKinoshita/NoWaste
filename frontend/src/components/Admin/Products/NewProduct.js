@@ -405,6 +405,7 @@ const NewProduct = () => {
                 </div>
               </Fragment>
             </div>
+            <AdminFooter />
           </div>
         </Fragment>
       )}

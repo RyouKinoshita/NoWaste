@@ -32,6 +32,7 @@ const UpdateArticle = () => {
   const [article, setArticle] = useState([]);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +50,7 @@ const UpdateArticle = () => {
         );
         // console.log(data)
         setArticle(data.article);
+        setLoading(false);
       } catch (error) {
         setError(error.response.data.message);
       }
@@ -121,89 +123,96 @@ const UpdateArticle = () => {
           <Fragment>
             {article && (
               <>
-                <MDBCard>
-                  <form encType="multipart/form-data" className="shadow-lg p-4">
-                    <Row>
-                      <Col>
-                        <h1
-                          className="my-5"
-                          style={{
-                            color: "black",
-                            fontWeight: "bold",
-                            marginLeft: "15px",
-                          }}
-                        >
-                          Update Article
-                        </h1>
-                        <>
-                          <MDBInputGroup
-                            textBefore={article.title}
-                            className="mb-3 p-2"
+                {loading ? (
+                  <Loader />
+                ) : (
+                  <MDBCard>
+                    <form
+                      encType="multipart/form-data"
+                      className="shadow-lg p-4"
+                    >
+                      <Row>
+                        <Col>
+                          <h1
+                            className="my-5"
+                            style={{
+                              color: "black",
+                              fontWeight: "bold",
+                              marginLeft: "15px",
+                            }}
                           >
-                            <MDBInput
-                              label="New Title"
-                              id="form1"
-                              type="text"
-                              value={title}
-                              onChange={(e) => setTitle(e.target.value)}
-                            />
-                          </MDBInputGroup>
-                          <MDBInputGroup
-                            textBefore={article.author}
-                            className="mb-3 p-2"
-                          >
-                            <MDBInput
-                              label="New Author"
-                              id="form1"
-                              type="text"
-                              value={author}
-                              onChange={(e) => setAuthor(e.target.value)}
-                            />
-                          </MDBInputGroup>
-                          <MDBInputGroup
-                            textBefore={article.description}
-                            className="mb-3 p-2"
-                          >
-                            <MDBTextArea
-                              className="form-control"
-                              label="New Description"
-                              value={description}
-                              onChange={(e) => setDescription(e.target.value)}
-                            />
-                          </MDBInputGroup>
-
-                          <button
-                            type="submit"
-                            className="btn btn-primary"
-                            onClick={submitHandler}
-                          >
-                            Submit
-                          </button>
-                        </>
-                      </Col>
-                      <Col>
-                        {article.image && article.image.length > 0 && (
+                            Update Article
+                          </h1>
                           <>
-                            <img
-                              src={article.image[0].url}
-                              alt="Article"
-                              style={{ width: "400px", height: "400px" }}
-                            />
-                          </>
-                        )}
+                            <MDBInputGroup
+                              textBefore={article.title}
+                              className="mb-3 p-2"
+                            >
+                              <MDBInput
+                                label="New Title"
+                                id="form1"
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                              />
+                            </MDBInputGroup>
+                            <MDBInputGroup
+                              textBefore={article.author}
+                              className="mb-3 p-2"
+                            >
+                              <MDBInput
+                                label="New Author"
+                                id="form1"
+                                type="text"
+                                value={author}
+                                onChange={(e) => setAuthor(e.target.value)}
+                              />
+                            </MDBInputGroup>
+                            <MDBInputGroup
+                              textBefore={article.description}
+                              className="mb-3 p-2"
+                            >
+                              <MDBTextArea
+                                className="form-control"
+                                label="New Description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                              />
+                            </MDBInputGroup>
 
-                        <MDBInputGroup className="mb-3 my-3">
-                          <input
-                            className="form-control"
-                            type="file"
-                            name="avatar"
-                            onChange={onChange}
-                          />
-                        </MDBInputGroup>
-                      </Col>
-                    </Row>
-                  </form>
-                </MDBCard>
+                            <button
+                              type="submit"
+                              className="btn btn-primary"
+                              onClick={submitHandler}
+                            >
+                              Submit
+                            </button>
+                          </>
+                        </Col>
+                        <Col>
+                          {article.image && article.image.length > 0 && (
+                            <>
+                              <img
+                                src={article.image[0].url}
+                                alt="Article"
+                                style={{ width: "400px", height: "400px" }}
+                              />
+                            </>
+                          )}
+
+                          <MDBInputGroup className="mb-3 my-3">
+                            <input
+                              className="form-control"
+                              type="file"
+                              name="avatar"
+                              onChange={onChange}
+                            />
+                          </MDBInputGroup>
+                        </Col>
+                      </Row>
+                    </form>
+                  </MDBCard>
+                )}
               </>
             )}
           </Fragment>
