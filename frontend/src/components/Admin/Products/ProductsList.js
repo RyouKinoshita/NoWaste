@@ -40,7 +40,7 @@ const ProductsList = () => {
       setProducts(data.products);
       const timeoutId = setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 1500);
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -134,6 +134,11 @@ const ProductsList = () => {
           sort: "asc",
         },
         {
+          label: "Image",
+          field: "image",
+          sort: "asc",
+        },
+        {
           label: "Actions",
           field: "actions",
         },
@@ -142,6 +147,7 @@ const ProductsList = () => {
     };
 
     products.forEach((product) => {
+      console.log("Avatar Array:", product.images);
       data.rows.push({
         id: product._id,
         name: product.name,
@@ -151,6 +157,23 @@ const ProductsList = () => {
         sack: product.sack,
         location: product.location,
         seller: product.seller,
+        image: (
+          <Fragment>
+            {product.images && product.images.length > 0 && (
+              <p>
+                <img
+                  src={product.images[0].url}
+                  alt={product.title}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                  }}
+                />
+              </p>
+            )}
+          </Fragment>
+        ),
         actions: (
           <Fragment>
             <div className="button-container">

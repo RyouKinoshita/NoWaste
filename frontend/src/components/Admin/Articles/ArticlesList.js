@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
-
 import Loader from "../../Layout/Loader";
 import Sidebar from "../Sidebar";
 import Navbar from "../../Layout/Navbar";
@@ -32,7 +31,9 @@ const ArticlesList = () => {
           config
         );
         setArticles(data.data);
-        setLoading(false);
+        const timeoutId = setTimeout(() => {
+          setLoading(false);
+        }, 1500);
       } catch (error) {
         setError(error.response.data.message);
       }
