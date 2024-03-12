@@ -182,7 +182,7 @@ const Aboutus = () => {
       </div>
 
       {/* FEATURE SECTION */}
-      <h3 align="center">Our Features</h3>
+      <h3 align="center">Future Features Planned</h3>
       <div
         className="d-flex justify-content-center align-items-center"
         style={{ minHeight: "30vh" }}
@@ -198,22 +198,17 @@ const Aboutus = () => {
               <h6 className="fw-normal mb-0">Integration</h6>
               <div className="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0" />
             </div>
-            <div className="col-lg-3 col-md-6 mb-5 mb-md-5 mb-lg-0 position-relative">
-              <i className="fas fa-layer-group fa-3x text-primary mb-4 zoom-in" />
-              <h5 className="text-primary fw-bold mb-3">Good</h5>
-              <h6 className="fw-normal mb-0">Content</h6>
-              <div className="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0" />
-            </div>
             <div className="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative">
               <i className="fas fa-map-location fa-3x text-primary mb-4 zoom-in" />
-              <h5 className="text-primary fw-bold mb-3">Easy</h5>
-              <h6 className="fw-normal mb-0">Geomapping</h6>
+              <h5 className="text-primary fw-bold mb-3">Geomapping</h5>
+              <h6 className="fw-normal mb-0">Store Locations</h6>
               <div className="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0" />
             </div>
             <div className="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative">
-              <i className="fas fa-users fa-3x text-primary mb-4 zoom-in" />
-              <h5 className="text-primary fw-bold mb-3">User-friendly</h5>
-              <h6 className="fw-normal mb-0"> Navigation</h6>
+              <i className="fas fa-tags fa-3x text-primary mb-4 zoom-in" />
+              <h5 className="text-primary fw-bold mb-3">Pricing Standards</h5>
+              <h6 className="fw-normal mb-0">For Economic Viability</h6>
+              <div className="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0" />
             </div>
           </div>
         </div>
