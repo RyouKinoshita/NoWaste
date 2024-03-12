@@ -157,6 +157,13 @@ const Products = () => {
               <MDBBtn
                 color="light"
                 rippleColor="dark"
+                onClick={() => filterProducts("All")}
+              >
+                All
+              </MDBBtn>
+              <MDBBtn
+                color="light"
+                rippleColor="dark"
                 onClick={() => filterProducts("Underripped")}
               >
                 Underripped
