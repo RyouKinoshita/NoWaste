@@ -1,5 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import MetaData from "../../Layout/Metadata";
 import Sidebar from "../Sidebar";
 import Navbar from "../../Layout/Navbar";
@@ -10,7 +13,23 @@ import { getToken, successMsg, errMsg } from "../../utils/helpers";
 import axios from "axios";
 import Loader from "../../Layout/Loader";
 
+const schema = yup.object().shape({
+  name: yup.string().required("Name is required"),
+  email: yup.string().email("Invalid email").required("Email is required"),
+  role: yup.string().required("Role is required"),
+});
+
 const UpdateUser = () => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [user, setUser] = useState({});
@@ -33,6 +52,9 @@ const UpdateUser = () => {
       );
       setUser(data.user);
       setLoading(false);
+      setValue("name", data.user.name);
+      setValue("email", data.user.email);
+      setValue("role", data.user.role);
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -52,13 +74,7 @@ const UpdateUser = () => {
   };
 
   useEffect(() => {
-    if (user && user._id !== id) {
-      getUserDetails(id);
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-      setRole(user.role);
-    }
+    getUserDetails(id);
 
     if (error) {
       errMsg(error);
@@ -69,22 +85,10 @@ const UpdateUser = () => {
       successMsg("User updated successfully");
       navigate("/admin/userslist");
     }
-  }, [error, isUpdated, id, user]);
+  }, [error, isUpdated, id]);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-
-    const userData = {
-      name,
-      email,
-      role,
-    };
-
-    updateUser(user._id, userData);
+  const onSubmit = (data) => {
+    updateUser(user._id, data);
   };
 
   return (
@@ -105,8 +109,8 @@ const UpdateUser = () => {
               <div className="row wrapper">
                 <div className="col-10 col-lg-5">
                   <form
-                    className="shadow-lg"
-                    onSubmit={submitHandler}
+                    className="shadow-lg p-4 rounded"
+                    onSubmit={handleSubmit(onSubmit)}
                     style={{ border: "solid 4px white" }}
                   >
                     <h1 className="mt-2 mb-5" style={{ color: "black" }}>
@@ -117,37 +121,55 @@ const UpdateUser = () => {
                       <input
                         type="text"
                         id="name_field"
-                        className="form-control"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        className={`form-control ${
+                          errors.name ? "is-invalid" : ""
+                        }`}
+                        {...register("name")}
                       />
+                      {errors.name && (
+                        <p className="invalid-feedback">
+                          {errors.name.message}
+                        </p>
+                      )}
                     </div>
                     <div className="form-group">
                       <label htmlFor="email_field">Email</label>
                       <input
                         type="email"
                         id="email_field"
-                        className="form-control"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        className={`form-control ${
+                          errors.email ? "is-invalid" : ""
+                        }`}
+                        {...register("email")}
                       />
+                      {errors.email && (
+                        <p className="invalid-feedback">
+                          {errors.email.message}
+                        </p>
+                      )}
                     </div>
                     <div className="form-group">
                       <label htmlFor="role_field">Role</label>
                       <select
                         id="role_field"
-                        className="form-control"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
+                        className={`form-control ${
+                          errors.role ? "is-invalid" : ""
+                        }`}
+                        {...register("role")}
                       >
                         <option value="admin">admin</option>
                         <option value="buyer">buyer</option>
                         <option value="seller">seller</option>
                       </select>
+                      {errors.role && (
+                        <p className="invalid-feedback">
+                          {errors.role.message}
+                        </p>
+                      )}
                     </div>
                     <button
                       type="submit"
-                      className="buttonforLogin"
+                      className="buttonforLogin mt-4"
                       style={{ marginLeft: "0px" }}
                     >
                       Update
