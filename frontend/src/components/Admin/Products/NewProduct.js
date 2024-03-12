@@ -194,7 +194,7 @@ const NewProduct = () => {
                 <div className="wrapper my-5" style={{ maxWidth: "1200px" }}>
                   <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="shadow-lg"
+                    className="shadow-lg rounded p-4"
                     encType="multipart/form-data"
                     style={{ border: "solid 4px white" }}
                   >
@@ -209,7 +209,7 @@ const NewProduct = () => {
                       New Product
                     </h1>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="name_field">Name</label>
                       <input
                         type="text"
@@ -226,7 +226,7 @@ const NewProduct = () => {
                       )}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="price_field">Price per sack</label>
                       <input
                         type="text"
@@ -243,7 +243,7 @@ const NewProduct = () => {
                       )}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="sack_field">Sack</label>
                       <input
                         type="text"
@@ -260,7 +260,7 @@ const NewProduct = () => {
                       )}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="description_field">Description</label>
                       <textarea
                         id="description_field"
@@ -276,7 +276,7 @@ const NewProduct = () => {
                       )}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="category_field">Category</label>
                       <select
                         id="category_field"
@@ -297,7 +297,7 @@ const NewProduct = () => {
                         </p>
                       )}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="quality_field">Quality</label>
                       <select
                         id="quality_field"
@@ -319,7 +319,7 @@ const NewProduct = () => {
                       )}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="location_field">Location</label>
                       <textarea
                         id="location_field"
@@ -335,7 +335,7 @@ const NewProduct = () => {
                       )}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="seller_field">Seller</label>
                       <select
                         id="seller_field"
@@ -357,7 +357,7 @@ const NewProduct = () => {
                       )}
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label>Images</label>
                       <div className="custom-file">
                         <input
@@ -376,7 +376,7 @@ const NewProduct = () => {
                           Choose images
                         </label>
                         {errors.images && (
-                          <p className="invalid-feedback">
+                          <p className="invalid-feedback p-3">
                             {errors.images.message}
                           </p>
                         )}
@@ -396,8 +396,8 @@ const NewProduct = () => {
                     <button
                       id="loginsbut"
                       type="submit"
-                      className="buttonforLogin"
-                      style={{ marginLeft: "15px", width: "340px" }}
+                      className="btn btn-primary m-4 p-2"
+                      style={{ marginLeft: "15px", width: "200px" }}
                     >
                       CREATE
                     </button>

@@ -107,7 +107,7 @@ const UpdateUser = () => {
             </div>
             <div className="col-12 col-md-10">
               <div className="row wrapper">
-                <div className="col-10 col-lg-5">
+                <div className="col-10 col-lg-5 mt-4">
                   <form
                     className="shadow-lg p-4 rounded"
                     onSubmit={handleSubmit(onSubmit)}
@@ -116,7 +116,7 @@ const UpdateUser = () => {
                     <h1 className="mt-2 mb-5" style={{ color: "black" }}>
                       Update User
                     </h1>
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="name_field">Name</label>
                       <input
                         type="text"
@@ -132,7 +132,7 @@ const UpdateUser = () => {
                         </p>
                       )}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="email_field">Email</label>
                       <input
                         type="email"
@@ -148,7 +148,7 @@ const UpdateUser = () => {
                         </p>
                       )}
                     </div>
-                    <div className="form-group">
+                    <div className="form-group p-2">
                       <label htmlFor="role_field">Role</label>
                       <select
                         id="role_field"
@@ -169,7 +169,7 @@ const UpdateUser = () => {
                     </div>
                     <button
                       type="submit"
-                      className="buttonforLogin mt-4"
+                      className="btn btn-primary ptb-3 m-4"
                       style={{ marginLeft: "0px" }}
                     >
                       Update

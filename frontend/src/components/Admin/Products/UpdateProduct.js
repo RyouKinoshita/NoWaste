@@ -1,11 +1,9 @@
-
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MetaData from "../../Layout/Metadata";
 import Loader from "../../Layout/Loader";
 import Sidebar from "../Sidebar";
 import Navbar from "../../Layout/Navbar";
-import AdminFooter from "../../Layout/Admin/AdminFooter";
 import { getToken } from "../../utils/helpers";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -35,8 +33,14 @@ const UpdateProduct = () => {
   const [updateError, setUpdateError] = useState("");
   const [isUpdated, setIsUpdated] = useState(false);
 
-  const categories = ["Mix Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"];
-  const qualities = ["Bruised", "Spoiled", "Good", "Overripe",'Wilted'];
+  const categories = [
+    "Mix Vegetable",
+    "Grains",
+    "Fruits",
+    "Nuts",
+    "Root Crops",
+  ];
+  const qualities = ["Bruised", "Spoiled", "Good", "Overripe", "Wilted"];
 
   let { id } = useParams();
   let navigate = useNavigate();
@@ -228,21 +232,35 @@ const UpdateProduct = () => {
         <Loader />
       ) : (
         <Fragment>
+          <Fragment>
+            <div style={{ paddingBottom: "20px" }}>
+              <Navbar />
+            </div>
+          </Fragment>
           <MetaData title={"Update Product"} />
           <div className="row">
             <div className="col-12 col-md-2">
               <Sidebar />
             </div>
-            <div className="col-12 col-md-10">
+            <div className="col-12 col-md-9">
               <Fragment>
                 <div className="wrapper my-5">
                   <form
-                    className="shadow-lg"
+                    className="shadow-lg p-4"
                     onSubmit={handleSubmit(submitHandler)}
                     encType="multipart/form-data"
                     style={{ border: "solid 4px white" }}
                   >
-                    <h1 className="mb-4">Update Product</h1>
+                    <h1
+                      className="mb-4"
+                      style={{
+                        color: "black",
+                        fontWeight: "bold",
+                        marginLeft: "15px",
+                      }}
+                    >
+                      Update Product
+                    </h1>
                     <div className="form-group">
                       <label htmlFor="name_field">Name</label>
                       <input
@@ -440,7 +458,7 @@ const UpdateProduct = () => {
                     <button
                       id="loginsbut"
                       type="submit"
-                      className="buttonforLogin"
+                      className="btn btn-primary"
                       disabled={loading ? true : false}
                     >
                       UPDATE
