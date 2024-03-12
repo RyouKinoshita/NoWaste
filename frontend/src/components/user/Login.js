@@ -44,6 +44,9 @@ export default function Login() {
       if (response.status === 200) {
         localStorage.setItem("user", JSON.stringify(responseData));
         authenticate(responseData, () => navigate("/"));
+        toast.success("You are now logged in!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       } else {
         // Check for the 'isDeleted' property in the response data
         if (
