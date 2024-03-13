@@ -107,26 +107,30 @@ const UsersOrders = () => {
 
   return (
     <>
+      <Navbar />
       <Container className="my-5">
-        <Col>
-          <h3 style={{ textAlign: "center" }}>Your Orders</h3>
-        </Col>
-        <Card className="my-3">
-          <Row className="px-4">
+        <Row>
+          <Card>
             <Col>
-              <Card>
-                <MDBDataTable
-                  data={userOrdersDatatables()}
-                  className="px-3"
-                  bordered
-                  striped
-                  style={{ color: "black", fontWeight: "bold" }}
-                />
-              </Card>
+              <h3 style={{ textAlign: "center" }}>Your Orders</h3>
             </Col>
-          </Row>
-        </Card>
+            <Card className="my-3">
+              <Row className="px-4">
+                <Col>
+                  <MDBDataTable
+                    data={userOrdersDatatables()}
+                    className="px-3"
+                    bordered
+                    striped
+                    style={{ color: "black", fontWeight: "bold" }}
+                  />
+                </Col>
+              </Row>
+            </Card>
+          </Card>
+        </Row>
       </Container>
+      <Footer />
     </>
   );
 };

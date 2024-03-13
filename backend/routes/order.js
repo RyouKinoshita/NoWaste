@@ -12,14 +12,11 @@ const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 router.get(
   "/admin/order",
   isAuthenticatedUser,
-  authorizeRoles("admin", "seller"),
+  authorizeRoles("admin"),
   getAdminOrder
 );
-router.post("/order-create", isAuthenticatedUser, orderCreate)
-router.get(
-  "/user/orders/:id",
-  getUserOrders
-);
+router.post("/order-create", isAuthenticatedUser, orderCreate);
+router.get("/user/orders/:id", getUserOrders);
 // router.get(
 //   "/user/fill-up-form/:id",
 //   getUserFillUpForm
