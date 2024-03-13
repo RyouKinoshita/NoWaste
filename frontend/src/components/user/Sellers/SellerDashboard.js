@@ -135,7 +135,7 @@ const SellerDashboard = () => {
 
                             <Link
                               className="card-footer text-white clearfix small z-1"
-                              to="/seller/productslist"
+                              to="/sellerproductslist"
                             >
                               <span className="float-left">View Details</span>
                               <span className="float-right">
