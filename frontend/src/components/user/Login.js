@@ -98,12 +98,18 @@ export default function Login() {
           <div className="col col-xl-10" style={{ color: "#76FF03" }}>
             <div className="card" style={{ borderRadius: "1rem" }}>
               <div className="row g-0">
-                <div className="col-md-6 col-lg-5 d-none d-md-block">
+                <div
+                  className="col-md-6 col-lg-5 d-none d-md-block"
+                  style={{ background: "#57311e" }}
+                >
                   <img
-                    src="../assets/images/feed-more.jpg"
+                    src="../assets/images/logo-color.png"
                     alt="login form"
-                    className="img-fluid"
-                    style={{ borderRadius: "1rem 0 0 1rem" }}
+                    className="img-fluid "
+                    style={{
+                      borderRadius: "1rem 0 0 1rem",
+                      paddingTop: "20px",
+                    }}
                   />
                 </div>
                 <div className="col-md-6 col-lg-7 d-flex align-items-center">

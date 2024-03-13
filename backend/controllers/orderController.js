@@ -1,4 +1,5 @@
 const Order = require("../models/order");
+const User = require("../models/user");
 const Cart = require("../models/cart");
 const Product = require("../models/product");
 const APIFeatures = require("../utils/apiFeatures");
@@ -11,6 +12,148 @@ exports.getAdminOrder = async (req, res, next) => {
     success: true,
     orders,
   });
+};
+exports.getSellerSingleOrder = async (req, res, next) => {
+  const id = req.params.id
+  const orders = await Order.findById(id);
+
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+};
+exports.getUserSingleOrder = async (req, res, next) => {
+  const id = req.params.id
+  const orders = await Order.findById(id);
+
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+};
+
+exports.getSellerOrder = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    console.log('seller', userId)
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    const products = await Product.find({ seller: user.name });
+
+    const productIds = products.map(product => product._id);
+
+    const orders = await Order.find({
+      'orderItems.product': { $in: productIds },
+      orderStatus: 'Completed'
+    }).populate({
+      path: 'orderItems',
+      populate: {
+        path: 'product',
+        select: 'name seller',
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+};
+
+exports.getSellerAllOrder = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    console.log('seller', userId)
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    const products = await Product.find({ seller: user.name });
+
+    const productIds = products.map(product => product._id);
+
+    const orders = await Order.find({
+      'orderItems.product': { $in: productIds }
+    }).populate({
+      path: 'orderItems',
+      populate: {
+        path: 'product',
+        select: 'name seller',
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+};
+
+exports.getSellerOrdersList = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    console.log('seller', userId)
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    const products = await Product.find({ seller: user.name });
+
+    const productIds = products.map(product => product._id);
+
+    const orders = await Order.find({
+      'orderItems.product': { $in: productIds },
+    }).populate({
+      path: 'orderItems',
+      populate: {
+        path: 'product',
+        select: 'name seller',
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
 };
 
 exports.orderCreate = async (req, res, next) => {
@@ -64,7 +207,7 @@ exports.orderCreate = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      message:'Success Create of Order',
+      message: 'Success Create of Order',
       data: order
     });
   } catch (error) {
@@ -75,7 +218,6 @@ exports.orderCreate = async (req, res, next) => {
     });
   }
 };
-
 
 exports.getUserOrders = async (req, res, next) => {
   try {
@@ -98,31 +240,21 @@ exports.getUserOrders = async (req, res, next) => {
   }
 };
 
-// exports.getUserFillUpForm = async (req, res) => {
-//   try {
-//     const { id } = req.params;
+exports.orderStatusComplete = async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-//     const orders = await Order.find({ user: id });
+    const OrderStatus = {
+      orderStatus: 'Completed',
+    };
 
-//     if (orders.length > 0) {
-//       const latestOrder = orders[orders.length - 1];
-//       const { shippingInfo } = latestOrder;
+    const order = await Order.findByIdAndUpdate(id, OrderStatus, {
+      new: true,
+    });
+    // console.log(order)
 
-//       res.status(200).json({
-//         success: true,
-//         shippingInfo,
-//       });
-//     } else {
-//       res.status(200).json({
-//         success: true,
-//         shippingInfo: {},
-//       });
-//     }
-//   } catch (error) {
-//     console.error('Error:', error);
-//     res.status(500).json({
-//       success: false,
-//       error: 'Server Error',
-//     });
-//   }
-// };
+    res.status(200).json({ success: true, message: 'Order is now Completed', order });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

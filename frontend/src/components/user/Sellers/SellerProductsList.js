@@ -168,26 +168,6 @@ const SellerProductsList = () => {
             )}
           </Fragment>
         ),
-        // actions: (
-        //   <Fragment>
-        //     <div className="button-container">
-        //       <Link
-        //         to={`/admin/updateproduct/${product._id}`}
-        //         className="btn btn-primary py-1 px-2"
-        //         title="Edit Product"
-        //       >
-        //         <i className="fa fa-pencil"></i>
-        //       </Link>
-        //       <button
-        //         className="btn btn-danger py-1 px-2 ml-2"
-        //         title="Delete Product"
-        //         onClick={() => deleteProductHandler(product._id)}
-        //       >
-        //         <i className="fa fa-trash"></i>
-        //       </button>
-        //     </div>
-        //   </Fragment>
-        // ),
       });
     });
 
@@ -208,7 +188,7 @@ const SellerProductsList = () => {
       </Fragment>
       <MetaData title={"All Products"} />
       <div className="row">
-        <div className="col-12 col-md-2">
+        <div className="col-12 col-md-2 mt-4">
           <SellerSidebar />
         </div>
 
@@ -239,7 +219,9 @@ const SellerProductsList = () => {
             )}
           </Fragment>
         </div>
-        <AdminFooter />
+        <footer>
+          <AdminFooter />
+        </footer>
       </div>
     </Fragment>
   );

@@ -35,7 +35,7 @@ const SellerSidebar = () => {
             </Nav.Item>
             <hr className="hr hr-blurry" />
             <Nav.Item icon={<OrdersIcon />}>
-              <Link to="/admin/orderslist" className="nav-link">
+              <Link to="/seller/orderslist" className="nav-link">
                 Orders
               </Link>
             </Nav.Item>

@@ -29,6 +29,9 @@ import ProcessCart from "./components/User/UserProfile/ProcessCart";
 
 import NoAuth from "./components/Layout/NoAuth";
 import UsersOrders from "./components/User/UserProfile/UsersOrders";
+import UserSingleOrder from "./components/User/UserProfile/UserSingleOrder";
+import SellerOrdersList from "./components/User/Sellers/SellerOrdersList";
+import SellerSingleOrder from "./components/User/Sellers/SellersSingleOrder";
 
 function App() {
   return (
@@ -120,6 +123,9 @@ function App() {
           <Route path="/sellerdashboard" element={<SellerDashboard />} />
           <Route path="/sellerproductslist" element={<SellerProductsList />} />
           <Route path="/sellernewprod" element={<SellerNewProduct />} />
+          <Route path="/seller/orderslist" element={<SellerOrdersList />} />
+          <Route path="/seller/order/:id" element={<SellerSingleOrder />} />
+          <Route path="/user/order/:id" element={<UserSingleOrder />} />
         </Routes>
       </Router>
     </>

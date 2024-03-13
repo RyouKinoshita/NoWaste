@@ -65,6 +65,7 @@ exports.outCartStatus = async (req, res) => {
         res.status(500).json({ success: false, message: error.message });
     }
 }
+
 exports.onCartStatus = async (req, res) => {
     try {
         const { id } = req.params;

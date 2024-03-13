@@ -71,36 +71,45 @@ const UsersOrders = () => {
             field: "price",
             sort: "asc",
           },
-          // {
-          //     field: "actions",
-          // },
+          {
+              field: "actions",
+          },
         ],
         rows: userOrders.data.map((order) => ({
           id: order._id,
           user: order.user,
           status: order.orderStatus,
-          price: order.totalPrice, // Assuming totalPrice is the correct property
-          // actions: (
-          //     <>
-          //         <Link
-          //             className="btn btn-primary py-1 px-2"
-          //             title="Edit Order"
-          //             style={{ marginRight: "15px" }}
-          //         >
-          //             <i className="fa fa-pencil"></i>
-          //         </Link>
-          //         <Link
-          //             className="btn btn-danger py-1 px-2"
-          //             title="Soft Delete Order"
-          //         >
-          //             <i class="fa-solid fa-trash"></i>
-          //         </Link>
-          //     </>
-          // ),
+          price: order.totalPrice,
+          actions: (
+            <>
+              {order.orderStatus === "Completed" ? (
+                <Link
+                  to={`/user/order/${order._id}`}
+                  className="btn btn-danger py-1 px-2"
+                  title="Print Order"
+                  style={{ marginRight: "15px" }}
+                >
+                  <i class="fa-regular fa-eye"></i>
+                </Link>
+              ) : (
+                // <Link
+                //   // to={`/admin/article/update/${article._id}`}
+                //   onClick={() =>
+                //     completeOrder(order._id)
+                //   }
+                //   className="btn btn-primary py-1 px-2"
+                //   title="Edit Status to Complete"
+                //   style={{ marginRight: "15px" }}
+                // >
+                //   <i className="fa-solid fa-truck"></i>
+                // </Link>
+                <p></p>
+              )}
+            </>
+          ),
         })),
       };
     } else {
-      // Return an empty object if userOrders is not properly initialized yet
       return {};
     }
   };

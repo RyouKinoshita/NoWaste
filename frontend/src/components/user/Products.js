@@ -226,7 +226,15 @@ const Products = () => {
                       <CardBody>
                         <CardTitle>{product.name}</CardTitle>
                         <CardText>Price: ₱{product.price}</CardText>
-                        <CardText>Sack: {product.sack}</CardText>
+                        {product.sack === 0 ? (
+                          <CardText
+                            style={{ fontWeight: "bold", color: "red" }}
+                          >
+                            Out of stock
+                          </CardText>
+                        ) : (
+                          <CardText>Sack: {product.sack}</CardText>
+                        )}
                         <CardText>Quality: {product.quality}</CardText>
                         <CardText>Description: {product.description}</CardText>
                         <CardText>Seller: {product.seller}</CardText>
@@ -263,6 +271,20 @@ const Products = () => {
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="d-flex justify-content-center mt-5">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={itemsPerPage}
+                totalItemsCount={product.length}
+                onChange={paginate}
+                nextPageText={"Next"}
+                prevPageText={"Prev"}
+                firstPageText={"First"}
+                lastPageText={"Last"}
+                itemClass="page-item"
+                linkClass="page-link"
+              />
             </div>
           </div>
         </main>
