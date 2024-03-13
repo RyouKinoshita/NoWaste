@@ -46,3 +46,40 @@ exports.getAllCartItem = async (req, res) => {
         });
     }
 };
+
+exports.outCartStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const outCartUpdate = {
+            status: 'outCart',
+        };
+
+        const cart = await Cart.findByIdAndUpdate(id, outCartUpdate, {
+            new: true,
+        });
+        // console.log(cart)
+
+        res.status(200).json({ success: true, message:'Cart is Deleted', user: cart });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}
+exports.onCartStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const outCartUpdate = {
+            status: 'onCart',
+        };
+
+        const cart = await Cart.findByIdAndUpdate(id, outCartUpdate, {
+            new: true,
+        });
+        // console.log(cart)
+
+        res.status(200).json({ success: true, message:'Cart is Restored', user: cart });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+}

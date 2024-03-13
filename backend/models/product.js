@@ -33,15 +33,7 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please select category for this product"],
     enum: {
-      values: [
-        "Mixed Vegetables",
-        "Mixed Fruits",
-        "Vegetable",
-        "Grains",
-        "Fruits",
-        "Nuts",
-        "Root Crops",
-      ],
+      values: ["Mix Vegetable", "Grains", "Fruits", "Nuts", "Root Crops"],
       message: "Please select correct category for product",
     },
   },
