@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
 import UpdateProfile from "../User/UpdateProfile";
+import UsersOrders from "./UserProfile/UsersOrders";
 
 const Profile = () => {
   const [user, setUser] = useState("");
@@ -50,6 +51,7 @@ const Profile = () => {
                   <MDBCard className="mb-4 mb-md-0">
                     <MDBCardBody>
                       <MDBCardText className="mb-4">My Orders</MDBCardText>
+                      <UsersOrders />
                     </MDBCardBody>
                   </MDBCard>
                 </MDBCol>

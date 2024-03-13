@@ -152,17 +152,6 @@ const Navbar = () => {
                         {cartItems.length}
                       </MDBBadge>
                     </Link>
-                    <Link
-                      to={`/user/orders/${userId}`}
-                      style={{
-                        color: "white",
-                        marginLeft: "15px",
-                        fontSize: "15px",
-                      }}
-                    >
-                      
-                      <MDBBadge>Orders<i class="fa-solid fa-briefcase" style={{color:'white'}}></i></MDBBadge>
-                    </Link>
                   </MDBNavbarItem>
                 )}
                 {user && user.role === "admin" && (

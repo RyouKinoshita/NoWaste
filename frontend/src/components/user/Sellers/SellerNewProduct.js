@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
-const NewProduct = () => {
+const SellerNewProduct = () => {
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
   const [error, setError] = useState("");
@@ -389,4 +389,4 @@ const NewProduct = () => {
     </>
   );
 };
-export default NewProduct;
+export default SellerNewProduct;

@@ -35,7 +35,9 @@ const UpdateProduct = () => {
   const [isUpdated, setIsUpdated] = useState(false);
 
   const categories = [
-    "Mix Vegetable",
+    "Mixed Vegetables",
+    "Mixed Fruits",
+    "Vegetable",
     "Grains",
     "Fruits",
     "Nuts",
