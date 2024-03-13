@@ -5,6 +5,7 @@ const {
   getAdminOrder,
   orderCreate,
   getUserOrders,
+  updateOrderStatus,
   // getUserFillUpForm
 } = require("../controllers/orderController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
@@ -17,6 +18,7 @@ router.get(
 );
 router.post("/order-create", isAuthenticatedUser, orderCreate);
 router.get("/user/orders/:id", getUserOrders);
+router.put("/order/:id/status", isAuthenticatedUser, updateOrderStatus);
 // router.get(
 //   "/user/fill-up-form/:id",
 //   getUserFillUpForm
