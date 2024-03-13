@@ -101,7 +101,7 @@ const OrdersList = () => {
       </Fragment>
       <MetaData title={"All Orders"} />
       <div className="row">
-        <div className="col-12 col-md-2">
+        <div className="col-12 col-md-2 mt-4">
           <Sidebar />
         </div>
         <div className="col-12 col-md-10 mb-8">

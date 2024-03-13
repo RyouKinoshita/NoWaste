@@ -86,10 +86,8 @@ const SellerDashboard = () => {
       </div>
       <Fragment>
         <div className="row">
-          <div className="col-10 col-md-2 ">
-            <Card>
-              <SellerSidebar />
-            </Card>
+          <div className="col-10 col-md-2 mt-4">
+            <SellerSidebar />
           </div>
 
           <div className="col-12 col-md-10">

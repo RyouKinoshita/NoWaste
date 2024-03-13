@@ -135,10 +135,8 @@ const Dashboard = () => {
       </div>
       <Fragment>
         <div className="row">
-          <div className="col-10 col-md-2 ">
-            <Card style={{ marginTop: "2px" }}>
-              <Sidebar />
-            </Card>
+          <div className="col-10 col-md-2 mt-4">
+            <Sidebar />
           </div>
 
           <div className="col-12 col-md-10">
@@ -252,7 +250,7 @@ const Dashboard = () => {
 
                             <Link
                               className="card-footer text-white clearfix small z-1"
-                              to="/admin/userslist"
+                              to="/admin/orderslist"
                               style={{ backgroundColor: "#Ee5757" }}
                             >
                               <span className="float-left">View Details</span>
@@ -268,7 +266,7 @@ const Dashboard = () => {
                         >
                           <div
                             className="card text-white o-hidden h-100"
-                            style={{ backgroundColor: "#195218" }}
+                            style={{ backgroundColor: "#2587be" }}
                           >
                             <div className="card-body">
                               <div className="text-center card-font-size">
@@ -280,7 +278,7 @@ const Dashboard = () => {
                             <Link
                               className="card-footer text-white clearfix small z-1"
                               to="/admin/articleslist"
-                              style={{ backgroundColor: "#278726" }}
+                              style={{ backgroundColor: "#25a5be" }}
                             >
                               <span className="float-left">View Details</span>
                               <span className="float-right">
