@@ -1,4 +1,5 @@
 const Order = require("../models/order");
+const User = require("../models/user");
 const Cart = require("../models/cart");
 const Product = require("../models/product");
 const APIFeatures = require("../utils/apiFeatures");
@@ -11,6 +12,148 @@ exports.getAdminOrder = async (req, res, next) => {
     success: true,
     orders,
   });
+};
+exports.getSellerSingleOrder = async (req, res, next) => {
+  const id = req.params.id
+  const orders = await Order.findById(id);
+
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+};
+exports.getUserSingleOrder = async (req, res, next) => {
+  const id = req.params.id
+  const orders = await Order.findById(id);
+
+  res.status(200).json({
+    success: true,
+    orders,
+  });
+};
+
+exports.getSellerOrder = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    console.log('seller', userId)
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    const products = await Product.find({ seller: user.name });
+
+    const productIds = products.map(product => product._id);
+
+    const orders = await Order.find({
+      'orderItems.product': { $in: productIds },
+      orderStatus: 'Completed'
+    }).populate({
+      path: 'orderItems',
+      populate: {
+        path: 'product',
+        select: 'name seller',
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+};
+
+exports.getSellerAllOrder = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    console.log('seller', userId)
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    const products = await Product.find({ seller: user.name });
+
+    const productIds = products.map(product => product._id);
+
+    const orders = await Order.find({
+      'orderItems.product': { $in: productIds }
+    }).populate({
+      path: 'orderItems',
+      populate: {
+        path: 'product',
+        select: 'name seller',
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+};
+
+exports.getSellerOrdersList = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    console.log('seller', userId)
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    const products = await Product.find({ seller: user.name });
+
+    const productIds = products.map(product => product._id);
+
+    const orders = await Order.find({
+      'orderItems.product': { $in: productIds },
+    }).populate({
+      path: 'orderItems',
+      populate: {
+        path: 'product',
+        select: 'name seller',
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
 };
 
 exports.orderCreate = async (req, res, next) => {
@@ -39,41 +182,39 @@ exports.orderCreate = async (req, res, next) => {
         city,
         phoneNo,
         postalCode,
-        country,
+        country
       },
       paymentInfo: {
-        id: "pt944ndh3213mczx",
-        method,
+        id: 'pt944ndh3213mczx',
+        method
       },
       user: req.user.id,
       orderItems,
       itemsPrice: itemsPrice,
       taxPrice: taxPrice,
-      totalPrice: totalPrice,
+      totalPrice: totalPrice
     });
 
-    await Promise.all(
-      orderItems.map(async (item) => {
-        const product = await Product.findById(item.product);
-        if (product) {
-          product.sack -= item.quantity;
-          await product.save();
-        }
-      })
-    );
+    await Promise.all(orderItems.map(async (item) => {
+      const product = await Product.findById(item.product);
+      if (product) {
+        product.sack -= item.quantity;
+        await product.save();
+      }
+    }));
 
     await Cart.deleteMany({ userID: req.user.id });
 
     res.status(201).json({
       success: true,
-      message: "Success Create of Order",
-      data: order,
+      message: 'Success Create of Order',
+      data: order
     });
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     res.status(400).json({
       success: false,
-      error: error.message,
+      error: error.message
     });
   }
 };
@@ -84,79 +225,36 @@ exports.getUserOrders = async (req, res, next) => {
 
     // Find orders by user ID
     const orders = await Order.find({ user: id });
-    console.log(orders);
+    console.log(orders)
 
     res.status(200).json({
       success: true,
       data: orders,
     });
   } catch (error) {
-    console.error("Error:", error);
+    console.error('Error:', error);
     res.status(500).json({
       success: false,
-      error: "Server Error",
+      error: 'Server Error',
     });
   }
 };
 
-exports.updateOrderStatus = async (req, res, next) => {
+exports.orderStatusComplete = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { status } = req.body;
 
-    const order = await Order.findById(id);
+    const OrderStatus = {
+      orderStatus: 'Completed',
+    };
 
-    if (!order) {
-      return res.status(404).json({
-        success: false,
-        error: "Order not found",
-      });
-    }
-
-    order.orderStatus = status;
-    order.deliveredAt = status === "Received" ? Date.now() : null;
-
-    await order.save();
-
-    res.status(200).json({
-      success: true,
-      message: "Order status updated successfully",
-      data: order,
+    const order = await Order.findByIdAndUpdate(id, OrderStatus, {
+      new: true,
     });
+    // console.log(order)
+
+    res.status(200).json({ success: true, message: 'Order is now Completed', order });
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({
-      success: false,
-      error: "Server Error",
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
-
-// exports.getUserFillUpForm = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-
-//     const orders = await Order.find({ user: id });
-
-//     if (orders.length > 0) {
-//       const latestOrder = orders[orders.length - 1];
-//       const { shippingInfo } = latestOrder;
-
-//       res.status(200).json({
-//         success: true,
-//         shippingInfo,
-//       });
-//     } else {
-//       res.status(200).json({
-//         success: true,
-//         shippingInfo: {},
-//       });
-//     }
-//   } catch (error) {
-//     console.error('Error:', error);
-//     res.status(500).json({
-//       success: false,
-//       error: 'Server Error',
-//     });
-//   }
-// };

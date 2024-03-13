@@ -19,7 +19,6 @@ import SellerDashboard from "./components/User/Sellers/SellerDashboard";
 import SellerProductsList from "./components/User/Sellers/SellerProductsList";
 import SellerNewProduct from "./components/User/Sellers/SellerNewProduct";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
-import OrdersList from "./components/Admin/Orders/OrdersList";
 import ArticlesList from "./components/Admin/Articles/ArticlesList";
 import CreateArticle from "./components/Admin/Articles/CreateArticle";
 import UpdateArticle from "./components/Admin/Articles/UpdateArticle";
@@ -30,6 +29,9 @@ import ProcessCart from "./components/User/UserProfile/ProcessCart";
 
 import NoAuth from "./components/Layout/NoAuth";
 import UsersOrders from "./components/User/UserProfile/UsersOrders";
+import UserSingleOrder from "./components/User/UserProfile/UserSingleOrder";
+import SellerOrdersList from "./components/User/Sellers/SellerOrdersList";
+import SellerSingleOrder from "./components/User/Sellers/SellersSingleOrder";
 
 function App() {
   return (
@@ -94,14 +96,6 @@ function App() {
           <Route path="/admin/newproduct" element={<NewProduct />} />
           <Route path="/admin/updateproduct/:id" element={<UpdateProduct />} />
           <Route
-            path="/admin/orderslist"
-            element={
-              <ProtectedRoute isAdmin={true}>
-                <OrdersList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/admin/articleslist"
             element={
               <ProtectedRoute isAdmin={true}>
@@ -129,6 +123,9 @@ function App() {
           <Route path="/sellerdashboard" element={<SellerDashboard />} />
           <Route path="/sellerproductslist" element={<SellerProductsList />} />
           <Route path="/sellernewprod" element={<SellerNewProduct />} />
+          <Route path="/seller/orderslist" element={<SellerOrdersList />} />
+          <Route path="/seller/order/:id" element={<SellerSingleOrder />} />
+          <Route path="/user/order/:id" element={<UserSingleOrder />} />
         </Routes>
       </Router>
     </>

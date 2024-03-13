@@ -9,7 +9,6 @@ import { getToken } from "../../utils/helpers";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import OrderPerMonth from "../../Admin/Charts/OrderPerMonth";
 import {
   MDBContainer as Container,
   MDBRow as Row,
@@ -18,6 +17,8 @@ import {
   MDBCardBody as CardBody,
   MDBCardTitle as CardTitle,
 } from "mdb-react-ui-kit";
+import SellersOrderPerMonth from "./SellersOrderPerMonth";
+import SellersOrderEveryMonth from "./SellersOrderEveryMonth";
 
 const SellerDashboard = () => {
   const [products, setProducts] = useState([]);
@@ -25,8 +26,12 @@ const SellerDashboard = () => {
   const [users, setUsers] = useState([]);
 
   const [orders, setOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
   const [loading, setLoading] = useState(false);
+  const getUserID = JSON.parse(localStorage.getItem("user"));
+  const userId = getUserID.user._id;
 
+  console.log(userId)
   const getSellerProducts = async () => {
     try {
       const config = {
@@ -37,7 +42,7 @@ const SellerDashboard = () => {
       };
 
       const { data } = await axios.get(
-        ` ${process.env.REACT_APP_API}/seller/products`,
+        ` ${process.env.REACT_APP_API}seller/products`,
         config
       );
       setProducts(data.products);
@@ -49,7 +54,7 @@ const SellerDashboard = () => {
     }
   };
 
-  const getSellerOrders = async () => {
+  const getSellerOrdersCompleted = async (userId) => {
     try {
       const config = {
         headers: {
@@ -57,13 +62,35 @@ const SellerDashboard = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       };
-
+      console.log('userID', userId)
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/admin/order`,
+        `${process.env.REACT_APP_API}seller/got-order/${userId}`,
         config
       );
-      // console.log('There will be a data', data);
+      // console.log('There will be a data', data.orders);
       setOrders(data.orders);
+      const timeoutId = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
+  const getSellerOrdersAll = async (userId) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      };
+      console.log('userID', userId)
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}seller/got-all-order/${userId}`,
+        config
+      );
+      console.log('There will be a data', data.orders);
+      setAllOrders(data.orders);
       const timeoutId = setTimeout(() => {
         setLoading(false);
       }, 1000);
@@ -74,8 +101,11 @@ const SellerDashboard = () => {
 
   useEffect(() => {
     getSellerProducts();
-    getSellerOrders();
-  }, []);
+    if (userId) {
+      getSellerOrdersCompleted(userId);
+      getSellerOrdersAll(userId)
+    }
+  }, [userId]);
 
   return (
     <div
@@ -86,8 +116,10 @@ const SellerDashboard = () => {
       </div>
       <Fragment>
         <div className="row">
-          <div className="col-10 col-md-2 mt-4">
-            <SellerSidebar />
+          <div className="col-10 col-md-2 ">
+            <Card>
+              <SellerSidebar />
+            </Card>
           </div>
 
           <div className="col-12 col-md-10">
@@ -106,11 +138,21 @@ const SellerDashboard = () => {
                   <MetaData title={"Seller Dashboard"} />
                   <Col className="custom-card-column">
                     <Card>
-                      <CardBody style={{ height: "460px", width: "700px" }}>
+                      <CardBody style={{ height: "460px", width: "80%" }}>
                         <CardTitle className="custom-card-title">
-                          Order Per Month
+                          Accumulated Sales
                         </CardTitle>
-                        <OrderPerMonth orders={orders} />
+                        <Row>
+                          <Col>
+                            <SellersOrderPerMonth orders={orders} />
+                          </Col>
+                          <Col>
+                            <CardTitle className="custom-card-title">
+                              Orders Per Month
+                            </CardTitle>
+                            <SellersOrderEveryMonth allOrders={allOrders} />
+                          </Col>
+                        </Row>
                       </CardBody>
                     </Card>
                   </Col>
