@@ -10,7 +10,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OrderPerMonth from "./Charts/OrderPerMonth";
-import PredictiveChart from "./Charts/PredictiveChart";
 import {
   MDBContainer as Container,
   MDBRow as Row,
@@ -19,16 +18,14 @@ import {
   MDBCardBody as CardBody,
   MDBCardTitle as CardTitle,
 } from "mdb-react-ui-kit";
-import UserRoleBuyer from "./Charts/UserRoleBuyer";
-import UserRoleSellers from "./Charts/UserRoleSellers";
-import UserRoleAdmin from "./Charts/UserRoleAdmin";
+import UserRoleChart from "./Charts/UserRoleChart";
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [users, setUsers] = useState([]);
-
   const [orders, setOrders] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const getAdminProducts = async () => {
@@ -44,7 +41,7 @@ const Dashboard = () => {
         ` ${process.env.REACT_APP_API}/admin/products`,
         config
       );
-      console.log("There will be a data", data);
+
       setProducts(data.products);
       const timeoutId = setTimeout(() => {
         setLoading(false);
@@ -67,7 +64,7 @@ const Dashboard = () => {
         `${process.env.REACT_APP_API}/admin/users`,
         config
       );
-      // console.log(data);
+
       setUsers(data.users);
       const timeoutId = setTimeout(() => {
         setLoading(false);
@@ -90,8 +87,30 @@ const Dashboard = () => {
         `${process.env.REACT_APP_API}/admin/order`,
         config
       );
-      // console.log('There will be a data', data);
+
       setOrders(data.orders);
+      const timeoutId = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
+
+  const getAllArticles = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `http://localhost:4001/api/v1/article/articles`,
+        config
+      );
+      setArticles(data.data);
       const timeoutId = setTimeout(() => {
         setLoading(false);
       }, 1000);
@@ -104,6 +123,7 @@ const Dashboard = () => {
     getAdminProducts();
     allUsers();
     getAdminOrders();
+    getAllArticles();
   }, []);
 
   return (
@@ -146,42 +166,11 @@ const Dashboard = () => {
                     </Card>
                   </Col>
                   <Col className="custom-card-column">
-                    <Col className="custom-card-column">
-                      <Card>
-                        <CardBody style={{ height: "460px", width: "700px" }}>
-                          <CardTitle className="custom-card-title">
-                            Predictive Chart for Vegetable Sales
-                          </CardTitle>
-                          <PredictiveChart />
-                        </CardBody>
-                      </Card>
-                    </Col>
-                    <Col className="custom-card-column"></Col>
-                    <Row>
-                      <Col style={{ height: "250px", width: "200px" }}>
-                        <div>
-                          <div style={{ height: "250px", width: "250px" }}>
-                            <center>
-                              <UserRoleBuyer users={users} />
-                            </center>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col>
-                        <div>
-                          <div style={{ height: "250px", width: "250px" }}>
-                            <center>
-                              <UserRoleSellers users={users} />
-                            </center>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
                     <Col className="col-xl-2 col-sm-6 mb-3">
                       <div style={{ height: "250px", width: "600px" }}>
                         <div style={{ height: "250px", width: "600px" }}>
                           <center>
-                            <UserRoleAdmin users={users} />
+                            <UserRoleChart users={users} />
                           </center>
                         </div>
                       </div>
@@ -189,14 +178,17 @@ const Dashboard = () => {
                   </Col>
 
                   {/* THIS IS NO. OF DATA */}
-                  <div className="row pr-4">
+                  <div className="row pr-4 pt-4">
                     <div className="col-xl-10 col-sm-6 mb-3">
                       <Row>
                         <div
                           className="col-xl-3 col-sm-6 mb-3"
                           style={{ height: "125px" }}
                         >
-                          <div className="card text-white bg-success o-hidden h-100">
+                          <div
+                            className="card text-white o-hidden h-100"
+                            style={{ backgroundColor: "#195218" }}
+                          >
                             <div className="card-body">
                               <div className="text-center card-font-size">
                                 Products
@@ -207,6 +199,7 @@ const Dashboard = () => {
                             <Link
                               className="card-footer text-white clearfix small z-1"
                               to="/admin/productslist"
+                              style={{ backgroundColor: "#278726" }}
                             >
                               <span className="float-left">View Details</span>
                               <span className="float-right">
@@ -223,10 +216,7 @@ const Dashboard = () => {
                             className="card text-white  o-hidden h-100"
                             style={{ backgroundColor: "#76448A" }}
                           >
-                            <div
-                              className="card-body"
-                              style={{ backgroundColor: "#76448A" }}
-                            >
+                            <div className="card-body">
                               <div className="text-center card-font-size">
                                 Users
                                 <br /> <b>{users && users.length}</b>
@@ -251,12 +241,9 @@ const Dashboard = () => {
                         >
                           <div
                             className="card text-white  o-hidden h-100"
-                            style={{ backgroundColor: "#1F618D" }}
+                            style={{ backgroundColor: "#F51c20" }}
                           >
-                            <div
-                              className="card-body"
-                              style={{ backgroundColor: "red" }}
-                            >
+                            <div className="card-body">
                               <div className="text-center card-font-size">
                                 Orders
                                 <br /> <b>{orders && orders.length}</b>
@@ -266,7 +253,34 @@ const Dashboard = () => {
                             <Link
                               className="card-footer text-white clearfix small z-1"
                               to="/admin/userslist"
-                              style={{ backgroundColor: "red" }}
+                              style={{ backgroundColor: "#Ee5757" }}
+                            >
+                              <span className="float-left">View Details</span>
+                              <span className="float-right">
+                                <i className="fa fa-angle-right"></i>
+                              </span>
+                            </Link>
+                          </div>
+                        </div>
+                        <div
+                          className="col-xl-3 col-sm-6 mb-3"
+                          style={{ height: "125px" }}
+                        >
+                          <div
+                            className="card text-white o-hidden h-100"
+                            style={{ backgroundColor: "#195218" }}
+                          >
+                            <div className="card-body">
+                              <div className="text-center card-font-size">
+                                Articles
+                                <br /> <b>{articles && articles.length}</b>
+                              </div>
+                            </div>
+
+                            <Link
+                              className="card-footer text-white clearfix small z-1"
+                              to="/admin/articleslist"
+                              style={{ backgroundColor: "#278726" }}
                             >
                               <span className="float-left">View Details</span>
                               <span className="float-right">
