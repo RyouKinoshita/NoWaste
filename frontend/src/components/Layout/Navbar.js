@@ -94,12 +94,17 @@ const Navbar = () => {
         expand="lg"
         light
         bgColor="dark"
-        style={{ padding: "20px" }}
+        style={{ padding: "10px" }}
       >
         <MDBContainer fluid>
           <Link to="/" style={{ color: "white" }}>
             <MDBNavbarBrand style={{ color: "white", fontSize: "20px" }}>
-              No Waste
+              <img
+                src="../../../assets/images/logo-no-background.png"
+                height="60"
+                alt=""
+                loading="lazy"
+              />
             </MDBNavbarBrand>
             <MDBNavbarToggler
               type="button"

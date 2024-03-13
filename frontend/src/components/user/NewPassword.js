@@ -84,20 +84,23 @@ const NewPassword = () => {
             <div className="col col-xl-10" style={{ color: "#76FF03" }}>
               <div className="card" style={{ borderRadius: "1rem" }}>
                 <div className="row g-0">
-                  <div className="col-md-6 col-lg-5 d-none d-md-block">
+                  <div
+                    className="col-md-6 col-lg-5 d-none d-md-block"
+                    style={{ background: "#57311e" }}
+                  >
                     <img
-                      src="../assets/images/feed-more.jpg"
-                      alt="new password form"
-                      className="img-fluid"
-                      style={{ borderRadius: "1rem 0 0 1rem" }}
+                      src="../assets/images/logo-color.png"
+                      alt="login form"
+                      className="img-fluid "
+                      style={{
+                        borderRadius: "1rem 0 0 1rem",
+                        paddingTop: "20px",
+                      }}
                     />
                   </div>
                   <div className="col-md-6 col-lg-7 d-flex align-items-center">
                     <div className="card-body p-4 p-lg-5 text-black">
-                      <form
-                        className="shadow-lg"
-                        onSubmit={handleSubmit(onSubmit)}
-                      >
+                      <form className="" onSubmit={handleSubmit(onSubmit)}>
                         <h1 className="m-3">New Password</h1>
 
                         <div className="form-group m-4 ">
@@ -134,8 +137,8 @@ const NewPassword = () => {
 
                         <button
                           id="new_password_button"
+                          className="btn btn-dark btn-lg btn-block"
                           type="submit"
-                          className="btn btn-block py-3"
                         >
                           Set Password
                         </button>
