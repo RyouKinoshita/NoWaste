@@ -50,7 +50,7 @@ exports.newProduct = async (req, res, next) => {
 };
 
 exports.getProducts = async (req, res, next) => {
-  const resPerPage = 7;
+  const resPerPage = "";
   const productsCount = await Product.countDocuments({ isDeleted: false });
   const apiFeatures = new APIFeatures(
     Product.find({ isDeleted: false }),

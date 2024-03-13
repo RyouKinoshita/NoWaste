@@ -18,6 +18,7 @@ import {
   MDBContainer as Container,
 } from "mdb-react-ui-kit";
 import "../../index.css";
+import Pagination from "react-js-pagination";
 
 const Products = () => {
   const [user, setUser] = useState("");
@@ -26,10 +27,10 @@ const Products = () => {
   const [product, setProduct] = useState([]);
   const [filteredProduct, setFilteredProduct] = useState([]);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(8); // Change this value based on your preference
   const users = JSON.parse(localStorage.getItem("user"));
   const userId = users && users.user ? users.user._id : null;
-
-  // console.log(userId)
 
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const Products = () => {
     localStorage.clear();
     navigate("/");
   };
+
   useEffect(() => {
     const getAllProducts = async () => {
       try {
@@ -70,7 +72,6 @@ const Products = () => {
 
         setProduct(data.products);
         setFilteredProduct(data.products);
-        //console.log(data);
       } catch (error) {
         setError(error.response.data.message);
       }
@@ -78,6 +79,16 @@ const Products = () => {
     getAllProducts();
     setUser(getUser());
   }, []);
+
+  useEffect(() => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentProducts = product.slice(indexOfFirstItem, indexOfLastItem);
+
+    setFilteredProduct(currentProducts);
+  }, [currentPage, product, itemsPerPage]);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const filterProducts = (quality) => {
     if (quality === "All") {
@@ -88,9 +99,9 @@ const Products = () => {
       );
       setFilteredProduct(filtered);
     }
+    setCurrentPage(1); // Reset to the first page when filtering
   };
 
-  //CART DISPATCH IN THE DATABASE
   const addToCartItem = async (addItems) => {
     try {
       const config = {
@@ -116,8 +127,6 @@ const Products = () => {
     formData.append("userID", userId);
     formData.append("prodID", prodId);
     formData.append("status", "onCart");
-
-    // console.log(userId, prodId)
 
     addToCartItem(formData);
   };
@@ -171,6 +180,20 @@ const Products = () => {
               >
                 Overripe
               </MDBBtn>
+            </div>
+            <div className="d-flex justify-content-center mt-5">
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={itemsPerPage}
+                totalItemsCount={product.length}
+                onChange={paginate}
+                nextPageText={"Next"}
+                prevPageText={"Prev"}
+                firstPageText={"First"}
+                lastPageText={"Last"}
+                itemClass="page-item"
+                linkClass="page-link"
+              />
             </div>
             <div className="container">
               <div className="row my-5">
@@ -235,7 +258,6 @@ const Products = () => {
                             Log in first to access this
                           </MDBBtn>
                         )}
-                        {/* Modal code here */}
                       </CardBody>
                     </Card>
                   </div>
