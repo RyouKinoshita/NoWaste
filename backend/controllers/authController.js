@@ -30,6 +30,7 @@ exports.registerUser = async (req, res, next) => {
       public_id: result.public_id,
       url: result.url,
     },
+    isDeleted: false,
   });
 
   if (!user) {

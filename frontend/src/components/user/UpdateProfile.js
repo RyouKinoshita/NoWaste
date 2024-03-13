@@ -10,6 +10,7 @@ import {
   MDBBtn,
   MDBValidationItem,
   MDBInput,
+  MDBValidation,
 } from "mdb-react-ui-kit";
 
 import "../../index.css";
@@ -151,16 +152,23 @@ const UpdateProfile = () => {
                       <MDBCardText>Name</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="9">
-                      <MDBValidationItem className="col-md-6">
-                        <MDBInput
-                          value={formValues.name}
-                          name="name"
-                          onChange={onChange}
-                          id="validationCustom01"
-                          required
-                          disabled={!updateMode}
-                        />
-                      </MDBValidationItem>
+                      <MDBValidation isValidated>
+                        <MDBValidationItem
+                          className="col-md-6"
+                          tooltip
+                          feedback="Please choose a username."
+                          invalid
+                        >
+                          <MDBInput
+                            value={formValues.name}
+                            name="name"
+                            onChange={onChange}
+                            id="validationCustom01"
+                            required
+                            disabled={!updateMode}
+                          />
+                        </MDBValidationItem>
+                      </MDBValidation>
                     </MDBCol>
                   </MDBRow>
                   <hr />
@@ -169,16 +177,23 @@ const UpdateProfile = () => {
                       <MDBCardText>Email</MDBCardText>
                     </MDBCol>
                     <MDBCol sm="9">
-                      <MDBValidationItem className="col-md-6">
-                        <MDBInput
-                          value={formValues.email}
-                          name="email"
-                          onChange={onChange}
-                          id="validationCustom02"
-                          required
-                          disabled={!updateMode}
-                        />
-                      </MDBValidationItem>
+                      <MDBValidation isValidated>
+                        <MDBValidationItem
+                          className="col-md-6"
+                          tooltip
+                          feedback="Please choose a proper email."
+                          invalid
+                        >
+                          <MDBInput
+                            value={formValues.email}
+                            name="email"
+                            onChange={onChange}
+                            id="validationCustom02"
+                            required
+                            disabled={!updateMode}
+                          />
+                        </MDBValidationItem>
+                      </MDBValidation>
                     </MDBCol>
                   </MDBRow>
                   <hr />

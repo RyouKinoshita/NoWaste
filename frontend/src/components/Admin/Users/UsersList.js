@@ -34,7 +34,9 @@ const UsersList = () => {
         config
       );
       setUsers(data.users);
-      setLoading(false);
+      const timeoutId = setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -97,6 +99,11 @@ const UsersList = () => {
           sort: "asc",
         },
         {
+          label: "Avatar",
+          field: "avatar",
+          sort: "asc",
+        },
+        {
           label: "Actions",
           field: "actions",
         },
@@ -110,16 +117,34 @@ const UsersList = () => {
         name: user.name,
         email: user.email,
         role: user.role,
+        avatar: (
+          <Fragment>
+            {user.avatar && user.avatar.url && (
+              <img
+                src={user.avatar.url}
+                alt={user.name}
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: "50%",
+                }}
+              />
+            )}
+          </Fragment>
+        ),
         actions: (
           <Fragment>
             <Link
               to={`/admin/user/${user._id}`}
               className="btn btn-primary py-1 px-2"
+              title="Edit User"
+              style={{ marginRight: "15px" }}
             >
               <i className="fa fa-pencil"></i>
             </Link>
             <button
               className="btn btn-danger py-1 px-2 ml-2"
+              title="Soft Delete User"
               onClick={() => deleteUserHandler(user._id)}
             >
               <i className="fa fa-trash"></i>

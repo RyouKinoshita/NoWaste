@@ -34,16 +34,12 @@ router.get("/product/:id", getSingleProduct);
 router.get(
   "/admin/products",
   isAuthenticatedUser,
-  authorizeRoles("admin", "seller"),
+  authorizeRoles("admin"),
   getAdminProducts
 );
 
 router
-  .route(
-    "/admin/product/:id",
-    isAuthenticatedUser,
-    authorizeRoles("admin", "seller")
-  )
+  .route("/admin/product/:id", isAuthenticatedUser, authorizeRoles("admin"))
   .put(upload.array("images", 10), updateProduct)
   .delete(deleteProduct);
 

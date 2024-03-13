@@ -67,27 +67,27 @@ const SellerProductsList = () => {
     }
   }, [error, deleteError, isDeleted]);
 
-  const deleteProduct = async (id) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${getToken()}`,
-        },
-      };
-      const { data } = await axios.delete(
-        `${process.env.REACT_APP_API}/admin/product/${id}`,
-        config
-      );
+  // const deleteProduct = async (id) => {
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //         Authorization: `Bearer ${getToken()}`,
+  //       },
+  //     };
+  //     const { data } = await axios.delete(
+  //       `${process.env.REACT_APP_API}/admin/product/${id}`,
+  //       config
+  //     );
 
-      setIsDeleted(data.success);
-      const timeoutId = setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    } catch (error) {
-      setDeleteError(error.response.data.message);
-    }
-  };
+  //     setIsDeleted(data.success);
+  //     const timeoutId = setTimeout(() => {
+  //       setLoading(false);
+  //     }, 1000);
+  //   } catch (error) {
+  //     setDeleteError(error.response.data.message);
+  //   }
+  // };
 
   const productsList = () => {
     const data = {
@@ -103,13 +103,8 @@ const SellerProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Price",
+          label: "Price Per Sack",
           field: "price",
-          sort: "asc",
-        },
-        {
-          label: "Description",
-          field: "description",
           sort: "asc",
         },
         {
@@ -118,8 +113,13 @@ const SellerProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Stock",
-          field: "stock",
+          label: "Quality",
+          field: "quality",
+          sort: "asc",
+        },
+        {
+          label: "Sack",
+          field: "sack",
           sort: "asc",
         },
         {
@@ -128,13 +128,14 @@ const SellerProductsList = () => {
           sort: "asc",
         },
         {
-          label: "Seller",
-          field: "seller",
+          label: "Image",
+          field: "image",
           sort: "asc",
         },
         {
-          label: "Actions",
-          field: "actions",
+          label: "Seller",
+          field: "seller",
+          sort: "asc",
         },
       ],
       rows: [],
@@ -144,32 +145,49 @@ const SellerProductsList = () => {
       data.rows.push({
         id: product._id,
         name: product.name,
-        price: `$${product.price}`,
-        description: product.description,
+        price: `₱${product.price}`,
         category: product.category,
-        stock: product.stock,
+        quality: product.quality,
+        sack: product.sack,
         location: product.location,
         seller: product.seller,
-        actions: (
+        image: (
           <Fragment>
-            <div className="button-container">
-              <Link
-                to={`/admin/updateproduct/${product._id}`}
-                className="btn btn-primary py-1 px-2"
-                title="Edit Product"
-              >
-                <i className="fa fa-pencil"></i>
-              </Link>
-              <button
-                className="btn btn-danger py-1 px-2 ml-2"
-                title="Delete Product"
-                onClick={() => deleteProductHandler(product._id)}
-              >
-                <i className="fa fa-trash"></i>
-              </button>
-            </div>
+            {product.images && product.images.length > 0 && (
+              <p>
+                <img
+                  src={product.images[0].url}
+                  alt={product.title}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                  }}
+                />
+              </p>
+            )}
           </Fragment>
         ),
+        // actions: (
+        //   <Fragment>
+        //     <div className="button-container">
+        //       <Link
+        //         to={`/admin/updateproduct/${product._id}`}
+        //         className="btn btn-primary py-1 px-2"
+        //         title="Edit Product"
+        //       >
+        //         <i className="fa fa-pencil"></i>
+        //       </Link>
+        //       <button
+        //         className="btn btn-danger py-1 px-2 ml-2"
+        //         title="Delete Product"
+        //         onClick={() => deleteProductHandler(product._id)}
+        //       >
+        //         <i className="fa fa-trash"></i>
+        //       </button>
+        //     </div>
+        //   </Fragment>
+        // ),
       });
     });
 
@@ -204,7 +222,7 @@ const SellerProductsList = () => {
             </h1>
             <hr className="hr hr-blurry" />
             <div className="d-flex justify-content-end mb-3">
-              <Link to="/admin/newproduct  " className="btn btn-primary mr-5">
+              <Link to="/sellernewprod  " className="btn btn-primary mr-5">
                 Add New Products
               </Link>
             </div>

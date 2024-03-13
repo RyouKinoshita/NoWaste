@@ -17,7 +17,7 @@ const cartSchema = new mongoose.Schema({
     status: {
         type:String,
         default: 'onCart',
-        enum: ['onCart','Checkout']
+        enum: ['onCart','outCart']
     }
 });
 

@@ -15,9 +15,11 @@ import { Link } from "react-router-dom";
 import Navbar from "../Layout/Navbar";
 import Footer from "../Layout/Footer";
 import UpdateProfile from "../User/UpdateProfile";
+import UsersOrders from "./UserProfile/UsersOrders";
 
 const Profile = () => {
   const [user, setUser] = useState("");
+  const userId = user._id;
 
   useEffect(() => {
     setUser(getUser());
@@ -45,15 +47,6 @@ const Profile = () => {
           <MDBRow>
             <MDBCol lg="12">
               <UpdateProfile />
-              <MDBRow>
-                <MDBCol md="12">
-                  <MDBCard className="mb-4 mb-md-0">
-                    <MDBCardBody>
-                      <MDBCardText className="mb-4">My Orders</MDBCardText>
-                    </MDBCardBody>
-                  </MDBCard>
-                </MDBCol>
-              </MDBRow>
             </MDBCol>
           </MDBRow>
         </MDBContainer>

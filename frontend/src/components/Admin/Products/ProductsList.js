@@ -1,4 +1,3 @@
-
 import React, { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MDBDataTable } from "mdbreact";
@@ -41,7 +40,7 @@ const ProductsList = () => {
       setProducts(data.products);
       const timeoutId = setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 1500);
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -135,6 +134,11 @@ const ProductsList = () => {
           sort: "asc",
         },
         {
+          label: "Image",
+          field: "image",
+          sort: "asc",
+        },
+        {
           label: "Actions",
           field: "actions",
         },
@@ -152,6 +156,23 @@ const ProductsList = () => {
         sack: product.sack,
         location: product.location,
         seller: product.seller,
+        image: (
+          <Fragment>
+            {product.images && product.images.length > 0 && (
+              <p>
+                <img
+                  src={product.images[0].url}
+                  alt={product.title}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                  }}
+                />
+              </p>
+            )}
+          </Fragment>
+        ),
         actions: (
           <Fragment>
             <div className="button-container">
@@ -159,12 +180,13 @@ const ProductsList = () => {
                 to={`/admin/updateproduct/${product._id}`}
                 className="btn btn-primary py-1 px-2"
                 title="Edit Product"
+                style={{ marginRight: "15px" }}
               >
                 <i className="fa fa-pencil"></i>
               </Link>
               <button
                 className="btn btn-danger py-1 px-2 ml-2"
-                title="Delete Product"
+                title="Soft Delete Product"
                 onClick={() => deleteProductHandler(product._id)}
               >
                 <i className="fa fa-trash"></i>
@@ -230,4 +252,3 @@ const ProductsList = () => {
 };
 
 export default ProductsList;
-

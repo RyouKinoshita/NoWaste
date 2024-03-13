@@ -1,127 +1,169 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { MDBDataTable } from "mdbreact";
-import {
-    MDBInputGroup,
-    MDBInput,
-    MDBBtn
-} from 'mdb-react-ui-kit';
-
-import Loader from "../../Layout/Loader";
+import { MDBInputGroup, MDBInput } from "mdb-react-ui-kit";
+import axios from "axios";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import Sidebar from "../Sidebar";
 import Navbar from "../../Layout/Navbar";
 import AdminFooter from "../../Layout/Admin/AdminFooter";
 import { getToken } from "../../utils/helpers";
-import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getUser } from "../../utils/helpers";
 import MetaData from "../../Layout/Metadata";
 
 const CreateArticle = () => {
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [description, setDescription] = useState('');
-    const [image, setImage] = useState([]);
-    const [success, setSuccess] = useState('');
-    const [error, setError] = useState('');
+  const schema = yup.object().shape({
+    title: yup.string().required("Title is required"),
+    author: yup.string().required("Author is required"),
+    description: yup.string().required("Description is required"),
+    image: yup.mixed().required("Image is required"),
+  });
 
-    const navigate = useNavigate();
+  const { register, handleSubmit, formState, setValue } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-    const onChange = (e) => {
-        setImage(e.target.files);
-    };
+  const { errors } = formState;
 
-    const addArticle = async (articleData) => {
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${getToken()}`
-                }
-            };
+  const navigate = useNavigate();
 
-            const { data } = await axios.post(`${process.env.REACT_APP_API}/article/create`, articleData, config);
-            setSuccess(data.success);
-            navigate('/admin/articleslist')
-        } catch (error) {
-            setError(error.response.data.message);
-        }
-    };
+  const createArticle = async (formData) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      };
 
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API}/article/create`,
+        formData,
+        config
+      );
 
-    const createArticle = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('author', author);
-        formData.append('description', description);
-        formData.append('image', image[0]);
+      if (data.success) {
+        // Provide a fallback message if 'success' is not present in the response
+        toast.success("Article created successfully");
+        navigate("/admin/articleslist");
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || "An error occurred";
+      toast.error(errorMessage);
+    }
+  };
 
-        addArticle(formData);
-    };
+  const onSubmit = (data) => {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("author", data.author);
+    formData.append("description", data.description);
+    formData.append("image", data.image[0]);
 
+    createArticle(formData);
+  };
 
-
-    return (
-        <Fragment>
-            <Fragment>
-                <div style={{ paddingBottom: "20px" }}>
-                    <Navbar />
+  return (
+    <Fragment>
+      <div style={{ paddingBottom: "20px" }}>
+        <Navbar />
+      </div>
+      <MetaData title={"Create Article"} />
+      <div className="row">
+        <div className="col-12 col-md-2">
+          <Sidebar />
+        </div>
+        <div className="col-12 col-md-10" style={{ justifyContent: "center" }}>
+          <div className="wrapper my-5" style={{ maxWidth: "1200px" }}>
+            <form
+              className="shadow-lg rounded p-4"
+              encType="multipart/form-data"
+              style={{ border: "solid 4px white" }}
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <h1
+                className="my-3"
+                style={{ color: "black", fontWeight: "bold" }}
+              >
+                Create Article
+              </h1>
+              <div className="row">
+                <div className="col-md-6">
+                  <MDBInputGroup textBefore="Article Title" className="mb-3">
+                    <MDBInput
+                      label="Title"
+                      id="form1"
+                      type="text"
+                      {...register("title")}
+                    />
+                    {errors.title && (
+                      <div className="text-danger">{errors.title.message}</div>
+                    )}
+                  </MDBInputGroup>
                 </div>
-            </Fragment>
-            <MetaData title={'Article List'} />
-            <div className="row">
-                <div className="col-12 col-md-2">
-                    <Sidebar />
+                <div className="col-md-4">
+                  <MDBInputGroup textBefore="Article Author" className="mb-3">
+                    <MDBInput
+                      label="Author"
+                      id="form1"
+                      type="text"
+                      {...register("author")}
+                    />
+                    {errors.author && (
+                      <div className="text-danger">{errors.author.message}</div>
+                    )}
+                  </MDBInputGroup>
                 </div>
+              </div>
 
-                <div className="col-12 col-md-10" style={{ justifyContent: "center" }}>
-                    <Fragment>
-                        <h1
-                            className="my-5"
-                            style={{ color: "black", fontWeight: "bold", marginLeft: "15px" }}
-                        >
-                            Create Article
-                        </h1>
-                        <>
-                            <form encType="multipart/form-data">
-                                <MDBInputGroup textBefore='Article Title' className='mb-3'>
-                                    <MDBInput label='Title' id='form1' type='text'
-                                        name={'weight'}
-                                        value={title}
-                                        onChange={(e) => setTitle(e.target.value)}
-                                    />
-                                </MDBInputGroup>
-                                <MDBInputGroup textBefore='Article Authorr' className='mb-3'>
-                                    <MDBInput label='Author' id='form1' type='text'
-                                        name={'weight'}
-                                        value={author}
-                                        onChange={(e) => setAuthor(e.target.value)}
-                                    />
-                                </MDBInputGroup>
-                                <MDBInputGroup textBefore='Description'>
-                                    <textarea className='form-control'
-                                        name={'weight'}
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}
-                                    />
-                                </MDBInputGroup>
-                                <MDBInputGroup className='mb-3 my-3'>
-                                    <input className='form-control' type='file'
-                                        name='avatar'
-                                        onChange={onChange} />
-                                </MDBInputGroup>
-
-                            </form>
-                            <button type="submit" className="btn btn-primary" onClick={createArticle}>Submit</button>
-                        </>
-                    </Fragment>
+              <div className="row">
+                <div className="col-md-4">
+                  <MDBInputGroup textBefore="Description">
+                    <textarea
+                      className="form-control"
+                      {...register("description")}
+                      style={{ resize: "both", height: "200px" }}
+                    />
+                    {errors.description && (
+                      <div className="text-danger">
+                        {errors.description.message}
+                      </div>
+                    )}
+                  </MDBInputGroup>
                 </div>
-                <AdminFooter />
-            </div>
-        </Fragment>
-    )
-}
+              </div>
 
-export default CreateArticle
+              <div className="row">
+                <div className="col-md-2">
+                  <MDBInputGroup className="mb-3 my-3">
+                    <input
+                      className="form-control"
+                      type="file"
+                      {...register("image")}
+                    />
+                    {errors.image && (
+                      <div className="text-danger">{errors.image.message}</div>
+                    )}
+                  </MDBInputGroup>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-12">
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <AdminFooter />
+      </div>
+    </Fragment>
+  );
+};
+
+export default CreateArticle;

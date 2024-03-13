@@ -49,21 +49,20 @@ exports.newProduct = async (req, res, next) => {
   });
 };
 
-
 exports.getProducts = async (req, res, next) => {
   const resPerPage = 7;
-  const productsCount = await Product.countDocuments();
-  const apiFeatures = new APIFeatures(Product.find(), req.query)
+  const productsCount = await Product.countDocuments({ isDeleted: false });
+  const apiFeatures = new APIFeatures(
+    Product.find({ isDeleted: false }),
+    req.query
+  )
     .search()
     .filter();
-
-
-    const productss = await Product.find();
-    console.log(productss);
 
   apiFeatures.pagination(resPerPage);
   const products = await apiFeatures.query;
   let filteredProductsCount = products.length;
+
   res.status(200).json({
     success: true,
     filteredProductsCount,
@@ -87,22 +86,40 @@ exports.getSingleProduct = async (req, res, next) => {
 };
 
 exports.deleteProduct = async (req, res, next) => {
-  const product = await Product.findByIdAndDelete(req.params.id);
-  if (!product) {
-    return res.status(404).json({
+  try {
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      {
+        isDeleted: true,
+        updatedAt: new Date(),
+      },
+      {
+        new: true,
+      }
+    );
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Product soft-deleted",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
       success: false,
-      message: "Product not found",
+      message: "Internal Server Error",
     });
   }
-  // await product.remove();
-  res.status(200).json({
-    success: true,
-    message: "Product deleted",
-  });
 };
 
 exports.getAdminProducts = async (req, res, next) => {
-  const products = await Product.find();
+  const products = await Product.find({ isDeleted: false });
 
   res.status(200).json({
     success: true,
@@ -159,56 +176,53 @@ exports.getAdminProducts = async (req, res, next) => {
 exports.updateProduct = async (req, res, next) => {
   try {
     let product = await Product.findById(req.params.id);
-    console.log(req.body)
+    console.log(req.body);
     if (!product) {
       return res.status(404).json({
         success: false,
-        message: 'Product not found'
-      })
+        message: "Product not found",
+      });
     }
-    let images = []
+    let images = [];
 
-    if (typeof req.body.images === 'string') {
-      images.push(req.body.images)
+    if (typeof req.body.images === "string") {
+      images.push(req.body.images);
     } else {
-      images = req.body.images
+      images = req.body.images;
     }
     if (images !== undefined) {
       // Deleting images associated with the product
       for (let i = 0; i < product.images.length; i++) {
-        const result = await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+        const result = await cloudinary.v2.uploader.destroy(
+          product.images[i].public_id
+        );
       }
     }
     let imagesLinks = [];
     for (let i = 0; i < images.length; i++) {
       const result = await cloudinary.v2.uploader.upload(images[i], {
-        folder: 'products'
+        folder: "products",
       });
       imagesLinks.push({
         public_id: result.public_id,
-        url: result.secure_url
-      })
-
+        url: result.secure_url,
+      });
     }
-    req.body.images = imagesLinks
+    req.body.images = imagesLinks;
     product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
-      useFindandModify: false
-    })
+      useFindandModify: false,
+    });
     // console.log(product)
     return res.status(200).json({
       success: true,
-      product
-    })
-
+      product,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
-
   }
-
 };
-
 
 exports.getSellerProducts = async (req, res, next) => {
   try {

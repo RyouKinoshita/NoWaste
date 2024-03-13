@@ -6,29 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Avatar from "@mui/material/Avatar";
 import {
-  MDBContainer,
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarToggler,
-  MDBModalDialog,
-  MDBNavbarNav,
-  MDBNavbarItem,
-  MDBNavbarLink,
-  MDBCollapse,
-  MDBModal,
-  MDBIcon,
-  MDBInputGroup,
   MDBBtn,
-  MDBDropdown,
-  MDBDropdownToggle,
-  MDBModalContent,
-  MDBModalHeader,
-  MDBModalTitle,
-  MDBModalBody,
-  MDBModalFooter,
-  MDBDropdownMenu,
-  MDBDropdownItem,
-  MDBBadge,
   MDBRipple,
   MDBCard as Card,
   MDBCardTitle as CardTitle,
@@ -40,9 +18,6 @@ import {
   MDBContainer as Container,
 } from "mdb-react-ui-kit";
 import "../../index.css";
-import Header from "../Layout/Header";
-import Footer from "../Layout/Footer";
-import Navbar from "../Layout/Navbar";
 
 const Products = () => {
   const [user, setUser] = useState("");
@@ -91,6 +66,8 @@ const Products = () => {
           `http://localhost:4001/api/v1/products`,
           config
         );
+        console.log("Total products:", data.products);
+
         setProduct(data.products);
         setFilteredProduct(data.products);
         //console.log(data);
@@ -152,6 +129,13 @@ const Products = () => {
           <div className="container">
             <br />
             <div>
+              <MDBBtn
+                color="light"
+                rippleColor="dark"
+                onClick={() => filterProducts("All")}
+              >
+                All
+              </MDBBtn>
               <MDBBtn
                 color="light"
                 rippleColor="dark"
