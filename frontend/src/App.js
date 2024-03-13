@@ -24,6 +24,7 @@ import CreateArticle from "./components/Admin/Articles/CreateArticle";
 import UpdateArticle from "./components/Admin/Articles/UpdateArticle";
 import UpdateProfile from "./components/User/UserProfile/UpdateProfile";
 import Products from "./components/User/Products";
+import Articles from "./components/User/Articles";
 import ProcessCart from "./components/User/UserProfile/ProcessCart";
 
 import NoAuth from "./components/Layout/NoAuth";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<Homepage />} caseSensitive={true} />
           <Route path="/noauth" element={<NoAuth />} exact="true" />
           <Route path="/products" element={<Products />} exact="true" />
+          <Route path="/articles" element={<Articles />} exact="true" />
           <Route
             path="/user/added-cart/:id"
             element={<ProcessCart />}
