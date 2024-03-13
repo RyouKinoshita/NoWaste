@@ -226,7 +226,15 @@ const Products = () => {
                       <CardBody>
                         <CardTitle>{product.name}</CardTitle>
                         <CardText>Price: ₱{product.price}</CardText>
-                        <CardText>Sack: {product.sack}</CardText>
+                        {product.sack === 0 ? (
+                          <CardText
+                            style={{ fontWeight: "bold", color: "red" }}
+                          >
+                            Out of stock
+                          </CardText>
+                        ) : (
+                          <CardText>Sack: {product.sack}</CardText>
+                        )}
                         <CardText>Quality: {product.quality}</CardText>
                         <CardText>Description: {product.description}</CardText>
                         <CardText>Seller: {product.seller}</CardText>

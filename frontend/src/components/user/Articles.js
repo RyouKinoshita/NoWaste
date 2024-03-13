@@ -57,6 +57,7 @@ const Articles = () => {
             />
             <MDBCardBody>
               <MDBCardTitle>{article.title}</MDBCardTitle>
+              <MDBCardText>{article.author}</MDBCardText>
               <MDBCardText>{article.description}</MDBCardText>
             </MDBCardBody>
           </MDBCard>
