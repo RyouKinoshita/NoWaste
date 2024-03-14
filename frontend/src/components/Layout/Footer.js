@@ -17,7 +17,7 @@ const Footer = () => {
         color="white"
         bgColor="dark"
         position="relative"
-        style={{ top: "0px" }}
+        style={{ top: "0px", width: "100vw" }}
       >
         <MDBContainer className="p-4">
           <section className="">

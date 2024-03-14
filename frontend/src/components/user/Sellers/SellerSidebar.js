@@ -19,7 +19,7 @@ const SellerSidebar = () => {
         paddingTop: "20px",
       }}
     >
-      <Sidenav defaultOpenKeys={[]}>
+      <Sidenav defaultOpenKeys={[]} appearance="subtle">
         <Sidenav.Body>
           <Nav activeKey={activeKey} onSelect={setActiveKey}>
             <Nav.Item icon={<DashboardIcon />}>
