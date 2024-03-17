@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import {
   MDBIcon,
   MDBBtn,
@@ -8,8 +9,26 @@ import {
   MDBCol,
   MDBRow,
 } from "mdb-react-ui-kit";
+import { getUser } from "../utils/helpers";
 
 const Footer = () => {
+  const [feedback, setFeedback] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setFeedback("");
+    
+
+    try {
+      await axios.post("http://localhost:4001/api/v1/send-feedback", { message: feedback, email: getUser().email });
+      alert("Feedback sent successfully!");
+      setFeedback("");
+    } catch (error) {
+      console.log(error);
+      alert("Failed to send feedback. Please try again later.");
+    }
+  };
+
   return (
     <div>
       <MDBFooter
@@ -21,7 +40,7 @@ const Footer = () => {
       >
         <MDBContainer className="p-4">
           <section className="">
-            <form action="">
+            <form onSubmit={handleSubmit}>
               <MDBRow className="d-flex justify-content-center">
                 <MDBCol size="auto">
                   <p className="pt-2">
@@ -35,6 +54,8 @@ const Footer = () => {
                     type="feedback"
                     label="What can we improve on?"
                     className="mb-4"
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
                   />
                 </MDBCol>
 

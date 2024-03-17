@@ -16,6 +16,7 @@ const {
   deleteUser,
   updateUser,
   getUsersByRole,
+  sendFeedback,
 } = require("../controllers/authController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 
@@ -43,6 +44,8 @@ router.get(
   authorizeRoles("admin"),
   allUsers
 );
+
+router.post('/send-feedback', sendFeedback)
 
 router
   .route("/admin/user/:id")

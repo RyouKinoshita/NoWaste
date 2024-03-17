@@ -121,6 +121,33 @@ exports.forgotPassword = async (req, res, next) => {
   }
 };
 
+exports.sendFeedback = async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+  console.log(req.body.email);
+  if (!user) {
+    return res.status(404).json({ error: "User not found with this email" });
+  }
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: "User Feedback",
+      message: req.body.message
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `Email sent to: ${user.email}`,
+    });
+  } catch (error) {
+    console.log(error)
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save({ validateBeforeSave: false });
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 exports.resetPassword = async (req, res, next) => {
   // Hash URL token
   const resetPasswordToken = crypto
