@@ -26,7 +26,7 @@ import UpdateProfile from "./components/User/UserProfile/UpdateProfile";
 import Products from "./components/User/Products";
 import Articles from "./components/User/Articles";
 import ProcessCart from "./components/User/UserProfile/ProcessCart";
-
+import OrdersList from "./components/Admin/Orders/OrdersList";
 import NoAuth from "./components/Layout/NoAuth";
 import UsersOrders from "./components/User/UserProfile/UsersOrders";
 import UserSingleOrder from "./components/User/UserProfile/UserSingleOrder";
@@ -116,6 +116,14 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <UpdateArticle />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/orderslist"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <OrdersList />
               </ProtectedRoute>
             }
           />

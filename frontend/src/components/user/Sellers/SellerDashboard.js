@@ -31,7 +31,7 @@ const SellerDashboard = () => {
   const getUserID = JSON.parse(localStorage.getItem("user"));
   const userId = getUserID.user._id;
 
-  console.log(userId)
+  console.log(userId);
   const getSellerProducts = async () => {
     try {
       const config = {
@@ -62,7 +62,7 @@ const SellerDashboard = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       };
-      console.log('userID', userId)
+      console.log("userID", userId);
       const { data } = await axios.get(
         `${process.env.REACT_APP_API}seller/got-order/${userId}`,
         config
@@ -84,12 +84,12 @@ const SellerDashboard = () => {
           Authorization: `Bearer ${getToken()}`,
         },
       };
-      console.log('userID', userId)
+      console.log("userID", userId);
       const { data } = await axios.get(
         `${process.env.REACT_APP_API}seller/got-all-order/${userId}`,
         config
       );
-      console.log('There will be a data', data.orders);
+      console.log("There will be a data", data.orders);
       setAllOrders(data.orders);
       const timeoutId = setTimeout(() => {
         setLoading(false);
@@ -103,7 +103,7 @@ const SellerDashboard = () => {
     getSellerProducts();
     if (userId) {
       getSellerOrdersCompleted(userId);
-      getSellerOrdersAll(userId)
+      getSellerOrdersAll(userId);
     }
   }, [userId]);
 
@@ -117,9 +117,7 @@ const SellerDashboard = () => {
       <Fragment>
         <div className="row">
           <div className="col-10 col-md-2 ">
-            <Card>
-              <SellerSidebar />
-            </Card>
+            <SellerSidebar />
           </div>
 
           <div className="col-12 col-md-10">
