@@ -80,7 +80,7 @@ const ProcessCart = () => {
           },
         };
         const { data } = await axios.get(
-          `http://localhost:4001/api/v1/products`,
+          `${process.env.REACT_APP_API}/products`,
           config
         );
         setProduct(data.products);

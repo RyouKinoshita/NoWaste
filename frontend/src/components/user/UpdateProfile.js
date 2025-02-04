@@ -43,7 +43,7 @@ const UpdateProfile = () => {
     };
     try {
       const { data } = await axios.get(
-        `http://localhost:4001/api/v1/me`,
+        `${process.env.REACT_APP_API}/me`,
         config
       );
       setName(data.user.name);

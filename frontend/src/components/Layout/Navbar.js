@@ -38,7 +38,7 @@ const Navbar = () => {
 
   const logoutUser = async () => {
     try {
-      await axios.get(`http://localhost:4001/api/v1/logout`);
+      await axios.get(`${process.env.REACT_APP_API}/logout`);
 
       setUser("");
 

@@ -107,7 +107,7 @@ const Dashboard = () => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:4001/api/v1/article/articles`,
+        `${process.env.REACT_APP_API}/article/articles`,
         config
       );
       setArticles(data.data);

@@ -36,7 +36,7 @@ const Products = () => {
   const navigate = useNavigate();
   const logoutUser = async () => {
     try {
-      await axios.get(`http://localhost:4001/api/v1/logout`);
+      await axios.get(`${process.env.REACT_APP_API}/logout`);
 
       setUser("");
 
@@ -65,7 +65,7 @@ const Products = () => {
           },
         };
         const { data } = await axios.get(
-          `http://localhost:4001/api/v1/products`,
+          `${process.env.REACT_APP_API}/products`,
           config
         );
         console.log("Total products:", data.products);

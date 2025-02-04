@@ -49,7 +49,8 @@ const Header = () => {
           <div className="row">
             <div className="col-lg-6 col-md-7 d-flex justify-content-center flex-column my-5">
               <h1 className="text-white mb-6" style={{ fontSize: "4rem" }}>
-                Bridging waste from Taguig Palengke to Pig Farms
+                Bridging Waste from New Taytay Public Market(Rizal) Vegetable
+                Vendors to Pig Farm
               </h1>
               <p className="text-white opacity-8 lead pe-5 me-5">
                 Strengthening and sustaining the Philippines' agricultural

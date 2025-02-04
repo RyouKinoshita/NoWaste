@@ -83,7 +83,7 @@ const Aboutus = () => {
                   <p className="fw-bold">
                     <em>
                       Bridging Waste from New Taytay Public Market(Rizal)
-                      Vegetable Vendors to Pig Farm”
+                      Vegetable Vendors to Pig Farm
                     </em>
                   </p>
 
