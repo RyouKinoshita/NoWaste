@@ -69,7 +69,7 @@ const UpdateProfile = () => {
     };
     try {
       const { data } = await axios.put(
-        `http://localhost:4001/api/v1/me/update`,
+        `${process.env.REACT_APP_API}me/update`,
         userData,
         config
       );

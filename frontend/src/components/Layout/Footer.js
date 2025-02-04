@@ -17,10 +17,12 @@ const Footer = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setFeedback("");
-    
 
     try {
-      await axios.post("http://localhost:4001/api/v1/send-feedback", { message: feedback, email: getUser().email });
+      await axios.post(`${process.env.REACT_APP_API}send-feedback`, {
+        message: feedback,
+        email: getUser().email,
+      });
       alert("Feedback sent successfully!");
       setFeedback("");
     } catch (error) {
