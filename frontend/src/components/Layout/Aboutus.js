@@ -81,7 +81,10 @@ const Aboutus = () => {
                     <span className="text-primary">No Waste System</span>
                   </h2>
                   <p className="fw-bold">
-                    <em>“Bridging waste from Taguig Palengke to Pig farm. ”</em>
+                    <em>
+                      Bridging Waste from New Taytay Public Market(Rizal)
+                      Vegetable Vendors to Pig Farm”
+                    </em>
                   </p>
 
                   <p className="text-muted mb-4">
@@ -200,8 +203,8 @@ const Aboutus = () => {
             </div>
             <div className="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative">
               <i className="fas fa-map-location fa-3x text-primary mb-4 zoom-in" />
-              <h5 className="text-primary fw-bold mb-3">Geomapping</h5>
-              <h6 className="fw-normal mb-0">Store Locations</h6>
+              <h5 className="text-primary fw-bold mb-3">Live Map</h5>
+              <h6 className="fw-normal mb-0">Order Tracking</h6>
               <div className="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0" />
             </div>
             <div className="col-lg-3 col-md-6 mb-5 mb-md-0 position-relative">
